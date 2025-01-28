@@ -1,0 +1,48 @@
+% This file makes a printable version of the blueprint
+% It should include all the \usepackage needed for the pdf version.
+% The template version assume you want to use a modern TeX compiler
+% such as xeLaTeX or luaLaTeX including support for unicode
+% and Latin Modern Math font with standard bugfixes applied.
+% It also uses expl3 in order to support macros related to the dependency graph.
+% It also includes standard AMS packages (and their improved version
+% mathtools) as well as support for links with a sober decoration
+% (no ugly rectangles around links).
+% It is otherwise a very minimal preamble (you should probably at least
+% add cleveref and tikz-cd).
+
+\documentclass{amsbook}
+
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=0.5in,rmargin=0.5in}
+\usepackage[mathlines]{lineno}
+\usepackage{tikz}
+\usepackage{comment}
+\usetikzlibrary{arrows.meta}
+\usepackage[mathlines]{lineno}
+\usepackage{expl3}
+
+\usepackage{amsmath, amssymb, amsthm, mathtools, nicefrac}
+
+\usepackage[unicode,colorlinks=true,linkcolor=blue,urlcolor=magenta, citecolor=blue]{hyperref}
+
+\usepackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}
+
+\input{macros/common}
+\input{macros/print}
+
+\title{\texorpdfstring Composition Lemma for Lean}
+\author{Edinah Gnang}
+\author{Parikshit Chalise}
+
+
+\begin{document}
+\linenumbers
+\maketitle
+\tableofcontents
+
+\input{content}
+
+\bibliographystyle{plain}
+\bibliography{biblio}
+
+\end{document}
