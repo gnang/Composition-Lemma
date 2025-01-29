@@ -666,7 +666,7 @@ thus establishing the desired claim.
   %\lean{}
   %\leanok
   %\uses{defn:graceful-functional-graphs, defn:graceful-functional-graphs-set, prop:multivariate-quotient-remainder, defn:polynomial-grace-definition, defn:polynomial-congruence, prop:polynomial-grace-certificate}
-Consider an arbitrary contraction $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ i.e. subject to the fixed point condition
+Consider an arbitrary $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ subject to the fixed point condition
 $\left|f^{\left(n-1\right)}\left(\mathbb{Z}_{n}\right)\right|=1$. The following statements are equivalent:
 \begin{enumerate}
     \item 
@@ -689,16 +689,13 @@ then $G_{f}$ is graceful. We see this from the fact that the functional
 digraphs of the identically zero function is gracefully labeled and the fact that
 functional digraph of identically constant functions are all isomorphic. It follows
 that all functional directed graphs having diameter less than $3$ are graceful. Consequently,
-the claim holds for all functional digraph of diameter less than $3$. We now turn our attention
-to functional trees of diameter greater or equal to $3$. We now proceed to show that
-\[
-\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f^{(2)}\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|\le\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|\Longleftrightarrow P_{f^{(2)}}({\bf x})\not\equiv0\implies P_{f}({\bf x})\not\equiv0.
-\]
-By construction
+all claima hold for all functional digraph of diameter less than $3$. We now turn our attention
+to functional trees of diameter greater or equal to $3$. 
+It follows by definition 
 \begin{equation}
-n=\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|\Longleftrightarrow P_{f}({\bf x})\not\equiv0.
+n=\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right| \iff P_{f}({\bf x})\not\equiv0 \iff \text{GrL}(G_f) \neq \varnothing.
 \end{equation}
-The backward claim is the simplest of the two claims. We see
+We now proceed to show (i) $\iff$ (iii). The backward claim is the simplest of the two claims. We see
 that if $f$ is contractive, so too is $f^{(2)}$. Then the
 assertions
 \begin{equation}
@@ -731,7 +728,11 @@ be some integer $0\le\kappa<\text{lg}(n-1)$ such that
 \max_{\sigma\in\text{S}_{n}}\left|\left\{ |\sigma f^{(\left\lceil 2^{\kappa}\right\rceil )}\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\right\} \right|>\max_{\sigma\in\text{S}_{n}}\left|\left\{ |\sigma f^{(\left\lceil 2^{\kappa-1}\right\rceil )}\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\right\} \right|.
 \end{equation}
 This contradicts the assertion of the composition lemma, thereby
-establishing the backward claim.
+establishing the backward claim. 
+The exact same reasoning establishes (ii) $\iff$ (iii), for we have
+\begin{equation}
+        P_{f^{\left(\left\lceil 2^{\text{lg}(n-1)}\right\rceil \right)}} ({\bf x}) \not\equiv 0. 
+\end{equation}
 \end{proof}
 
 Having assembled together the pieces required to prove our main result, we proceed to fit the pieces together to state and prove the \textit{Composition Lemma}.
@@ -743,11 +744,13 @@ Having assembled together the pieces required to prove our main result, we proce
 $\left|f^{\left(n-1\right)}\left(\mathbb{Z}_{n}\right)\right|=1$,
 we have
 \begin{equation}
-P_{f^{(2)}} ({\bf x}) \not\equiv 0  \implies  P_{f} ({\bf x}) \not\equiv 0.
-\end{equation}
+\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f^{(2)}\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|\le\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|.\end{equation}
 \end{lemma}
 \begin{proof}
-  %\leanok
+Owing to Proposition \ref{prop:composition-lemma-ineq}, we prove the statement by establishing 
+\[
+    P_{f^{(2)}} ({\bf x}) \not\equiv 0  \implies  P_{f} ({\bf x}) \not\equiv 0.
+\]
 For simplicity, we prove a generalization of the desired claim. Given
 that the diameter of $G_{f}$ is greater than $2$, we may assume
 without loss of generality that $f^{-1}\left(\{n-1\}\right)=\varnothing$
@@ -762,7 +765,7 @@ f\left(i\right) & \text{otherwise}
 \end{array},\ \forall\,i\in\mathbb{Z}_{n}.\end{cases}
 \end{equation}
 We show that
-\begin{equation} \label{eq:composition-lemma-general}
+\begin{equation} \label{eq:composition-lemma-generalized}
 P_{g} ({\bf x}) \not\equiv 0  \implies  P_{f} ({\bf x}) \not\equiv 0.
 \end{equation}
 Note that the assertion immediately above generalizes the composition
@@ -780,7 +783,7 @@ f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)=\left\{ n-1,\,n-2,\,...,\,
 \begin{equation}
 f\left(n-\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|\right)=n-\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|-1.
 \end{equation}
-For if was the condition above was not met, we relabel the vertices of $G_f$ to ensure that this was the case. Note that such a relabeling does not affect the property we seek to prove. We prove by contradiction the contrapositive claim
+For if the condition above was not met, we relabel the vertices of $G_f$ to ensure that this was the case. Note that such a relabeling does not affect the property we seek to prove. We prove by contradiction the contrapositive claim
 \[
 P_{f}({\bf x})\equiv0\implies P_{g}({\bf x})\equiv0.
 \]
@@ -1097,7 +1100,7 @@ The said summand is thus given by
  c\,\underset{0\le i<j<n}{\prod}\left(x_{j}-x_{i}\right)\prod_{0\le u<v\le f\left(n-1\right)}\left((x_{f\left(v\right)}-x_{v})^{2}-(x_{f\left(u\right)}-x_{u})^{2}\right)\bigg(\prod_{\substack{v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\\
 f\left(n-1\right)<u<v
 }
-}\left(x_{u}-x_{v}\right)\bigg){\color{blue}(}x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)})}^{m}.   
+}\left(x_{u}-x_{v}\right)\bigg){\color{blue}(}x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)})}^{m}.  
 \end{equation}
 It follows from the premise $0\not\equiv P_{g}$
 that the remainder of the chosen summand is non\textendash vanishing.
@@ -1173,7 +1176,8 @@ P_g(h)=R_{f,g}\left(h\right)=v_{h}\cdot R1_{f,g}\left(h\right),\:\forall\:h\in\m
 By Lemma \ref{lem:transposition-invariance}, the same premise
 implies that any transposition $\tau\in\text{S}_{n}$ which exchanges
 $x_{f(n-1)}$ with $x_{v}$ where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$
-fixes the remainder of $R_{f,g}$ given by
+fixes the remainder of $R_{f,g}$ is congruent to
+given by
 \begin{equation}
 \sum_{\substack{\sigma\in\text{S}_{n}\\
 G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
@@ -1183,7 +1187,23 @@ j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
 }
 }\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg),
 \end{equation}
-which in turn by averaging implies that such a transposition $\tau$
+which is congruent to
+\[
+\left(\sum_{\substack{\sigma\in\text{S}_{n}\\
+G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
+}
+}v_{\sigma}\prod_{\substack{i\in\mathbb{Z}_{n}\\
+j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
+}
+}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg)\right)\left(\sum_{\substack{\sigma\in\text{S}_{n}\\
+G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
+}
+}R1_{f,g}(\sigma)\prod_{\substack{i\in\mathbb{Z}_{n}\\
+j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
+}
+}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg)\right)
+\]
+and in turn by averaging implies that such a transposition $\tau$
 also fixes
 \begin{equation}\label{eq:averaging}
 \bigg(\sum_{\substack{\sigma\in\text{S}_{n}\\
@@ -1209,38 +1229,31 @@ f\left(n-1\right)<u<v
 }
 }\left({\color{red}b_{v}}-{\color{red}b_{u}}\right)\bigg)\left({\color{blue}a_{f\left(n-1\right)}}\right)^{m},
 \]
-which is also described by equation \eqref{eq:chosen-summand}. In fact the summand of $R_{f,g}$ described in equation \eqref{eq:chosen-summand} is congruent to
+which is also described by equation \eqref{eq:chosen-summand}. In fact, by Lemma \ref{lem:variable-dependency}, the summand of $R_{f,g}$ described in equation \eqref{eq:chosen-summand} is congruent to
 \[
-c\sum_{\substack{\sigma\in\text{S}_{n}\\
+c\left(\sum_{\substack{\sigma\in\text{S}_{n}\\
 G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
 }
-}v_{\sigma}\cdot {\color{blue}\big(}\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)\big)}^{m}\prod_{\substack{i\in\mathbb{Z}_{n}\\
+}v_{\sigma}\prod_{\substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
 }
-}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg).
+}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg)\right)\sum_{\substack{\sigma\in\text{S}_{n}\\
+G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
+}
+}{\color{blue}\big(}\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)\big)}^{m}\times
+\]
+\[
+\prod_{j_{f^{(2)}\left(n-1\right)}\in\mathbb{Z}_{n}\backslash\left\{ \sigma f^{(2)}\left(n-1\right)\right\} }\left(\frac{x_{f^{(2)}\left(n-1\right)}-j_{f^{(2)}\left(n-1\right)}}{\sigma f^{(2)}\left(n-1\right)-j_{f^{(2)}\left(n-1\right)}}\right)\prod_{j_{f\left(n-1\right)}\in\mathbb{Z}_{n}\backslash\left\{ \sigma f\left(n-1\right)\right\} }\left(\frac{{\color{blue}x_{f\left(n-1\right)}}-j_{f\left(n-1\right)}}{\sigma f\left(n-1\right)-j_{f\left(n-1\right)}}\right)
 \]
 As prescribed by equation \eqref{eq:averaging}, we apply the averaging argument to each bichromatic summand of $R_{f,g}$. In particular, applying the averaging argument to the chosen summand yields the polynomial
 \[
 c\,\bigg(\sum_{\substack{\sigma\in\text{S}_{n}\\
 G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
 }
-}v_{\sigma}\cdot{\color{blue}\big(}\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)\big)}^{m}\bigg)\sum_{\substack{\sigma\in\text{S}_{n}\\
+}v_{\sigma}\bigg)\sum_{\substack{\sigma\in\text{S}_{n}\\
 G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
 }
-}\prod_{\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
-}
-}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg).
-\]
-By Lemma \ref{lem:variable-dependency}, the remainder of the polynomial immediately above is equal to
-\[
-c\,\bigg(\sum_{\substack{\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-}
-}v_{\sigma}\cdot{\color{blue}\big(}\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)\big)}^{m}\bigg)\sum_{\begin{array}{c}
-\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-\end{array}}{\color{blue}\big(}\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)\big)}^{m}\times
+}{\color{blue}\big(}\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)\big)}^{m}\times
 \]
 \[
 \prod_{j_{f^{(2)}\left(n-1\right)}\in\mathbb{Z}_{n}\backslash\left\{ \sigma f^{(2)}\left(n-1\right)\right\} }\left(\frac{x_{f^{(2)}\left(n-1\right)}-j_{f^{(2)}\left(n-1\right)}}{\sigma f^{(2)}\left(n-1\right)-j_{f^{(2)}\left(n-1\right)}}\right)\prod_{j_{f\left(n-1\right)}\in\mathbb{Z}_{n}\backslash\left\{ \sigma f\left(n-1\right)\right\} }\left(\frac{{\color{blue}x_{f\left(n-1\right)}}-j_{f\left(n-1\right)}}{\sigma f\left(n-1\right)-j_{f\left(n-1\right)}}\right).
