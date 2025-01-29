@@ -239,7 +239,7 @@ For polynomials $P,Q \in \mathbb{C}[x_0, \ldots, x_{n-1}]$, if
 \begin{equation}
 P({\bf x}) \equiv \; Q({\bf x}) \; \mod\bigg\{\prod_{j\in\mathbb{Z}_{n}}(x_{i}-j):i\in\mathbb{Z}_{n}\bigg\},
 \end{equation}
-we simply say $P \equiv Q$. All congruence relations in this paper are modulo the set immediately above.
+we simply say $P \equiv Q$. All congruence relations in this paper are modulo the set prescribed above.
 \end{defn}
 
 \begin{proposition}[Certificate of Grace]\label{prop:polynomial-grace-certificate}
@@ -247,7 +247,7 @@ we simply say $P \equiv Q$. All congruence relations in this paper are modulo th
   %\leanok
   %\uses{defn:polynomial-grace-definition, defn:polynomial-congruence, prop:multivariate-quotient-remainder}
 Let $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$. The functional
-directed graph $G_f$ prescribed by $f$ is graceful if and only if $0\not\equiv \; P_f(\mathbf{x})$.
+directed graph $G_f$ prescribed by $f$ is graceful if and only if $P_f(\mathbf{x}) \; \not\equiv \; 0$.
 \end{proposition}
 \begin{proof}
 Observe that the vertex Vandermonde factor $V_f(\mathbf{x})$ is of degree exactly $n-1$ in each variable and therefore equal
@@ -616,10 +616,10 @@ where $P_f$ is the polynomial of grace as defined in \ref{defn:polynomial-grace-
 $P_{f}$ is fixed by a transposition of any pair of variables associated
 with sibling leaf vertices. By construction of $P_{f}\left({\bf x}\right)$,
 the changes in its Vandermonde factors induced by the action of $\tau$
-are as follows
-\[
-P_{f}(x_{\tau(0)},\ldots,x_{\tau(i)},\ldots,x_{\tau(n-1)})=\prod_{0\le i<j<n}(x_{\tau(j)}-x_{\tau(i)})\prod_{0\le i<j<n}\big((x_{\tau f(j)}-x_{\tau(j)})^{2}-(x_{\tau f(i)}-x_{\tau(i)})^{2}\big)
-\]
+are as follows:
+\begin{equation}
+    P_{f}(x_{\tau(0)},\ldots,x_{\tau(i)},\ldots,x_{\tau(n-1)})=\prod_{0\le i<j<n}(x_{\tau(j)}-x_{\tau(i)})\prod_{0\le i<j<n}\big((x_{\tau f(j)}-x_{\tau(j)})^{2}-(x_{\tau f(i)}-x_{\tau(i)})^{2}\big).
+\end{equation}
 Note that there is a bijection
 \begin{equation}
 x_{i}\mapsto(x_{f(i)}-x_{i})^{2},\quad\forall\:i\in\mathbb{Z}_{n}.
@@ -662,7 +662,7 @@ thus establishing the desired claim.
 
 \end{proof}
 
-\begin{prop}[Composition Inequality]\label{prop:composition-lemma-ineq}
+\begin{prop}[Composition inequality]\label{prop:composition-lemma-ineq}
   %\lean{}
   %\leanok
   %\uses{defn:graceful-functional-graphs, defn:graceful-functional-graphs-set, prop:multivariate-quotient-remainder, defn:polynomial-grace-definition, defn:polynomial-congruence, prop:polynomial-grace-certificate}
@@ -689,7 +689,7 @@ then $G_{f}$ is graceful. We see this from the fact that the functional
 digraphs of the identically zero function is gracefully labeled and the fact that
 functional digraph of identically constant functions are all isomorphic. It follows
 that all functional directed graphs having diameter less than $3$ are graceful. Consequently,
-all claima hold for all functional digraph of diameter less than $3$. We now turn our attention
+all claims hold for all functional digraphs of diameter less than $3$. We now turn our attention
 to functional trees of diameter greater or equal to $3$. 
 It follows by definition 
 \begin{equation}
@@ -729,7 +729,7 @@ be some integer $0\le\kappa<\text{lg}(n-1)$ such that
 \end{equation}
 This contradicts the assertion of the composition lemma, thereby
 establishing the backward claim. 
-The exact same reasoning establishes (ii) $\iff$ (iii), for we have
+The exact same reasoning as above establishes (ii) $\iff$ (iii), for we have
 \begin{equation}
         P_{f^{\left(\left\lceil 2^{\text{lg}(n-1)}\right\rceil \right)}} ({\bf x}) \not\equiv 0. 
 \end{equation}
@@ -743,7 +743,7 @@ Having assembled together the pieces required to prove our main result, we proce
  For all $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ subject to the contraction
 $\left|f^{\left(n-1\right)}\left(\mathbb{Z}_{n}\right)\right|=1$,
 we have
-\begin{equation}
+\begin{equation}\label{eq:composition-lemma}
 \max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f^{(2)}\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|\le\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|.\end{equation}
 \end{lemma}
 \begin{proof}
@@ -773,9 +773,7 @@ lemma since, the function $f$ is only partially
 iterated. More precisely, $f$ is iterated only on the restriction
 $f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\subset\mathbb{Z}_{n}$.
 Iterating this slight generalization of the composition lemma yields
-that all functional trees are graceful, which in turn implies that the \textit{Composition Lemma} as stated in Lemma \ref{lem:composition-lemma}  holds. Just as in the previous case, the assertion 
- \ref{eq:composition-lemma-general}.
-For notational convenience,
+that all functional trees are graceful, which in turn implies that the \textit{Composition Lemma} as stated in Lemma \ref{eq:composition-lemma}  holds. For notational convenience,
 we assume without loss of generality that 
 \[
 f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)=\left\{ n-1,\,n-2,\,...,\,n-\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|\right\} \;\text{ and}
@@ -783,10 +781,10 @@ f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)=\left\{ n-1,\,n-2,\,...,\,
 \begin{equation}
 f\left(n-\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|\right)=n-\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|-1.
 \end{equation}
-For if the condition above was not met, we relabel the vertices of $G_f$ to ensure that this was the case. Note that such a relabeling does not affect the property we seek to prove. We prove by contradiction the contrapositive claim
-\[
-P_{f}({\bf x})\equiv0\implies P_{g}({\bf x})\equiv0.
-\]
+If the conditions stated above are not met, we relabel the vertices of $G_f$ to ensure that such is indeed the case. Note that such a relabeling does not affect the property we seek to prove. We prove the contrapositive claim
+\begin{equation}\label{eq:contrapositive}
+    P_{f}({\bf x})\equiv0\implies P_{g}({\bf x})\equiv0.
+\end{equation}
 By construction, the polynomial
 \begin{equation}\label{eq:Pf_broken}
 \begin{array}{cc}
@@ -911,11 +909,7 @@ t\in\{0,1\}
  & \prod_{\substack{v\in f^{-1}\left(\{f(n-1)\}\right)\\
 f\left(n-1\right)<u<v
 }
-}\left({\color{red}b_{v}}+{\color{red}b_{u}}+2\,{\color{blue}a_{f(n-1)}}\right)\times\\[10pt]
- & \prod_{\substack{v\in f^{-1}\left(\{f(n-1)\}\right)\\
-f\left(n-1\right)<u<v
-}
-}\left({\color{red}b_{v}}-{\color{red}b_{u}}+0\,{\color{blue}a_{f(n-1)}}\right),
+}\left({\color{red}b_{v}}-{\color{red}b_{u}}+0\,{\color{blue}a_{f(n-1)}}\right)\left({\color{red}b_{v}}+{\color{red}b_{u}}+2\,{\color{blue}a_{f(n-1)}}\right)\\[10pt]
 \end{aligned}
 \label{eq:Pg_telescoping}
 \end{equation}
@@ -1050,12 +1044,12 @@ R_{f,g} &= \prod_{0 \leq i < j < n} \left( x_j - x_i \right)
 The color scheme introduced here is meant to help track the location
 of telescoping variables. We now proceed with the main {contradiction
 argument}. Assume for the sake of establishing a contradiction that
-the contrapositive of claim \eqref{eq:composition-lemma-generalized} is false, i.e., for some $f$ subject to conditions
+the claim \eqref{eq:contrapositive} we seek to prove is false, i.e., for some $f$ subject to conditions
 described in our premise, we have
 \begin{equation}
 0\equiv{\color{red}{\color{red}P_{f}}}\;\text{ and }\;0\not\equiv P_{g}.
 \end{equation}
-Owing to equation \eqref{eq:Pg-equals-Pf-plus-Rfg}, we obtain
+Then by equation \eqref{eq:Pg-equals-Pf-plus-Rfg}, we obtain
 \begin{equation}\label{eq:premise}
 P_{g}\equiv R_{f,g}\not\equiv0.
 \end{equation}
@@ -1121,7 +1115,7 @@ f\left(n-1\right)<u<v
 \]
 where
 \[
-\begin{aligned}R1_{f,g} & =\quad\Bigg(\prod_{\substack{v\in f^{-1}(\{f(n-1)\})\\
+\begin{aligned}R1_{f,g} & =\Bigg(\prod_{\substack{v\in f^{-1}(\{f(n-1)\})\\
 f(n-1)<u<v
 }
 }\left({\color{red}b_{v}}+{\color{red}b_{u}}\right)\Bigg)\Bigg(\sum_{\substack{s_{u,v,t}\in\{0,1\}\\
@@ -1176,7 +1170,7 @@ P_g(h)=R_{f,g}\left(h\right)=v_{h}\cdot R1_{f,g}\left(h\right),\:\forall\:h\in\m
 By Lemma \ref{lem:transposition-invariance}, the same premise
 implies that any transposition $\tau\in\text{S}_{n}$ which exchanges
 $x_{f(n-1)}$ with $x_{v}$ where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$
-fixes the remainder of $R_{f,g}$ is congruent to
+fixes the remainder of $R_{f,g}$
 given by
 \begin{equation}
 \sum_{\substack{\sigma\in\text{S}_{n}\\
@@ -1201,9 +1195,9 @@ G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
 }R1_{f,g}(\sigma)\prod_{\substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
 }
-}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg)\right)
+}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg)\right).
 \]
-and in turn by averaging implies that such a transposition $\tau$
+By averaging, we obtain such a transposition $\tau$
 also fixes
 \begin{equation}\label{eq:averaging}
 \bigg(\sum_{\substack{\sigma\in\text{S}_{n}\\
@@ -1229,7 +1223,7 @@ f\left(n-1\right)<u<v
 }
 }\left({\color{red}b_{v}}-{\color{red}b_{u}}\right)\bigg)\left({\color{blue}a_{f\left(n-1\right)}}\right)^{m},
 \]
-which is also described by equation \eqref{eq:chosen-summand}. In fact, by Lemma \ref{lem:variable-dependency}, the summand of $R_{f,g}$ described in equation \eqref{eq:chosen-summand} is congruent to
+as described in equation \eqref{eq:chosen-summand}. In fact, by Lemma \ref{lem:variable-dependency}, the summand of $R_{f,g}$ described in equation \eqref{eq:chosen-summand} is congruent to
 \[
 c\left(\sum_{\substack{\sigma\in\text{S}_{n}\\
 G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
