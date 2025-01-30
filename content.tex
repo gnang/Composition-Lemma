@@ -224,7 +224,39 @@ Applying the induction hypothesis to coefficients
 \left\{ H\left(x_{0},\ldots,x_{m-1},g\left(m\right)\right):g\left(m\right)\in\mathbb{Z}_{n}\right\} \subset\mathbb{C}[x_{0},\ldots,x_{m-1}]
 \]
 yields the desired claim.
-
+\end{proof}
+ \begin{proposition}[Ring Homomorphism]\label{prop:ring-homomorphism}
+  %\lean{Algebra.Polynomial.FieldDivision}
+  %\leanok
+  %\uses{}
+For an arbitrary $H\in\mathbb{C}\left[x_{0},\ldots,x_{n-1}\right]$, let $\overline{H}$ denote
+the {remainder} of the congruence class 
+\[
+\left( H\mod\left\{ d(x_{i}):i\in\mathbb{Z}_{n}\right\} \right),
+\]
+where
+\[
+d(x)=\prod_{u\in\mathbb{Z}_{n}}(x-\alpha_{u})\;\text{ and }\:1=\text{GCD}\big(d(x),\,\frac{d}{dx}d(x)\big),
+\]
+Then the following hold:
+\begin{enumerate}
+    \item Evaluations over the integer lattice $\{\alpha_{u}:u\in\mathbb{Z}_{n}\}^{n}$ of $\overline{H}$ match evaluations of $H$ over the same lattice. 
+    \item If $H = H_1 + H_2,$ where $H_1, H_2 \in \mathbb{C}\left[x_{0},\ldots,x_{n-1}\right]$, then $\overline{H_1} + \overline{H_2} = \overline{H}$.
+\end{enumerate}
+ \end{proposition}
+\begin{proof}
+  %\leanok
+  The first claim follows from Proposition \ref{prop:multivariate-quotient-remainder} for we see that the quotient divisor part vanishes over the lattice. To prove the second claim we recall that
+  \[
+\overline{H}=\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}H(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right),
+  \]
+  \[
+  \implies\overline{H}=\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}\big(H_{1}(\alpha_{g})+H_{2}(\alpha_{g})\big)\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right),
+  \]
+  \[
+  \implies\overline{H}=\sum_{k\in\{1,2\}}\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}H_{k}(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right).
+  \]
+  Thus $\overline{H_1} + \overline{H_2} = \overline{H}$ as claimed.
 \end{proof}
 \begin{defn}[Polynomial of Grace]\label{defn:polynomial-grace-definition} We define $P_f \in \mathbb{C}[x_0, \ldots, x_{n-1}]$ for all $f \in \mathbb{Z}_n^{\mathbb{Z}_n}$ as follows:
 \begin{equation}
@@ -369,7 +401,7 @@ The complementary labeling map $x_{i}\mapsto x_{n-1-i},$ for all $i\in \mathbb{Z
 fixes $\overline{P}_f$ up to sign.
 \end{proposition}
 \begin{proof}
-For notational convenience let $\mathbf{x}_{\varphi}:=x_{\varphi(0)},\ldots,x_{\varphi(i)},\ldots,x_{\varphi(n-1)}$. Observe that for any permutation $\varphi\in \text{S}_n$, the action of $\varphi$ on $P_f$ yields equalities
+For notational convenience, let $\mathbf{x}_{\varphi}:=x_{\varphi(0)},\ldots,x_{\varphi(i)},\ldots,x_{\varphi(n-1)}$. Observe that for any permutation $\varphi\in \text{S}_n$, the action of $\varphi$ on $P_f$ yields equalities
  \[
  \begin{array}{ccc}
 P_{f}({\bf x}_{\varphi}) & = & \underset{0\le u<v<n}{\prod}(x_{\varphi(v)}-x_{\varphi(u)})\big((x_{\varphi f(v)}-x_{\varphi(v)})^{2}-(x_{\varphi f(u)}-x_{\varphi(u)})^{2}\big),\\
@@ -727,7 +759,7 @@ be some integer $0\le\kappa<\text{lg}(n-1)$ such that
 \begin{equation}
 \max_{\sigma\in\text{S}_{n}}\left|\left\{ |\sigma f^{(\left\lceil 2^{\kappa}\right\rceil )}\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\right\} \right|>\max_{\sigma\in\text{S}_{n}}\left|\left\{ |\sigma f^{(\left\lceil 2^{\kappa-1}\right\rceil )}\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\right\} \right|.
 \end{equation}
-This contradicts the assertion of the composition lemma, thereby
+This contradicts the assertion of statement (i), thereby
 establishing the backward claim. 
 The exact same reasoning as above establishes (ii) $\iff$ (iii), for we have
 \begin{equation}
@@ -832,10 +864,16 @@ for all $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$
 \begin{array}{c}
 \underbrace{{\color{blue}(}x_{f^{\left(2\right)}\left(v\right)}-x_{v}{\color{red})}}\\
 x_{v}\longrightarrow x_{f^{\left(2\right)}\left(v\right)}
-\end{array}=\begin{array}{c}
+\end{array}\begin{array}{c}
+=\\
+\\
+\end{array}\begin{array}{c}
 \underbrace{{\color{red}(x_{f\left(v\right)}}-x_{v}{\color{red})}}\\
 x_{v}\longrightarrow{\color{red}x_{f\left(v\right)}}
-\end{array}+\begin{array}{c}
+\end{array}\begin{array}{c}
++\\
+\\
+\end{array}\begin{array}{c}
 \underbrace{{\color{blue}(}x_{f^{\left(2\right)}\left(v\right)}{\color{blue}-x_{f\left(v\right)}}{\color{blue})}}\\
 {\color{blue}x_{f\left(v\right)}}\longrightarrow x_{f^{\left(2\right)}\left(v\right)}
 \end{array},
@@ -1094,7 +1132,7 @@ The said summand is thus given by
  c\,\underset{0\le i<j<n}{\prod}\left(x_{j}-x_{i}\right)\prod_{0\le u<v\le f\left(n-1\right)}\left((x_{f\left(v\right)}-x_{v})^{2}-(x_{f\left(u\right)}-x_{u})^{2}\right)\bigg(\prod_{\substack{v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\\
 f\left(n-1\right)<u<v
 }
-}\left(x_{u}-x_{v}\right)\bigg){\color{blue}(}x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)})}^{m}.  
+}{\color{red}(}x_{u}-x_{v}{\color{red})}\bigg){\color{blue}(}x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)})}^{m}.  
 \end{equation}
 It follows from the premise $0\not\equiv P_{g}$
 that the remainder of the chosen summand is non\textendash vanishing.
@@ -1111,11 +1149,11 @@ factor, we write
 R_{f,g}\left(\mathbf{x}\right)=\left(\underset{0\le i<j<n}{\prod}\left(x_{j}-x_{i}\right)\prod_{0\le u<v\le f\left(n-1\right)}\left((x_{f\left(v\right)}-x_{v})^{2}-(x_{f\left(u\right)}-x_{u})^{2}\right)\prod_{\substack{v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\\
 f\left(n-1\right)<u<v
 }
-}\left({\color{red}b_{v}}-{\color{red}b_{u}}\right)\right)\,R1_{f,g}(\mathbf{x}),
+}\left({\color{red}b_{v}}-{\color{red}b_{u}}\right)\right)\,Q_{f,g}(\mathbf{x}),
 \]
 where
 \[
-\begin{aligned}R1_{f,g} & =\Bigg(\prod_{\substack{v\in f^{-1}(\{f(n-1)\})\\
+\begin{aligned}Q_{f,g} & =\Bigg(\prod_{\substack{v\in f^{-1}(\{f(n-1)\})\\
 f(n-1)<u<v
 }
 }\left({\color{red}b_{v}}+{\color{red}b_{u}}\right)\Bigg)\Bigg(\sum_{\substack{s_{u,v,t}\in\{0,1\}\\
@@ -1153,7 +1191,11 @@ f(n-1)<u<v
 }\left({\color{red}b_{v}}+{\color{red}b_{u}}\right)^{r_{u,v}}\left(2{\color{blue}a_{f(n-1)}}\right)^{1-r_{u,v}}\Bigg).
 \end{aligned}
 \]
-Observe that for each $\sigma\in\left\{ \theta\in\text{S}_{n}:G_{\theta g\theta^{-1}}\in\text{GrL}(G_{g})\right\}$,
+Let
+\[
+\Phi(g):=\left\{ \theta\in\text{S}_{n}:G_{\theta g\theta^{-1}}\in\text{GrL}(G_{g})\right\}.
+\]
+Observe that for each $\sigma\in\Phi(g)$,
 there is a non-vanishing integer evaluation
 \begin{align}
 v_{\sigma} = & \prod_{\substack{0 \leq i < j < n}} 
@@ -1161,93 +1203,53 @@ v_{\sigma} = & \prod_{\substack{0 \leq i < j < n}}
 & \prod_{\substack{0 \leq u < v \leq f(n-1)}} 
 \left(\big(\sigma f(v) - \sigma(v)\big)^{2} - \big(\sigma f(u) - \sigma(u)\big)^{2}\right) \times \nonumber \\
 & \prod_{\substack{v \in f^{-1}\left(\{f(n-1)\}\right) \\ f(n-1) < u < v}} 
-\left(\sigma(u) - \sigma(v)\right).
+{\color{red}\big(}\sigma(u)-\sigma(v){\color{red}\big)}.
 \end{align}
 More generally, by Proposition \ref{prop:multivariate-quotient-remainder}, the premise $P_{g}\equiv R_{f,g}$ implies 
 \begin{equation}
-P_g(h)=R_{f,g}\left(h\right)=v_{h}\cdot R1_{f,g}\left(h\right),\:\forall\:h\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}.
+P_{g}(h)=R_{f,g}\left(h\right)=v_{h}\,Q_{f,g}\left(h\right)=\begin{cases}
+\begin{array}{cc}
+\text{sgn}(\left|hgh^{-1}-\text{id}\right|\circ h)\underset{0\le i<j<n}{\prod}(j-i)\big(j^{2}-i^{2}) & \text{ if }h\in\Phi(g)\\
+\\
+0 & \text{otherwise}
+\end{array},\forall\:h\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}.\end{cases}
 \end{equation}
-By Lemma \ref{lem:transposition-invariance}, the same premise
-implies that any transposition $\tau\in\text{S}_{n}$ which exchanges
-$x_{f(n-1)}$ with $x_{v}$ where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$
-fixes the remainder of $R_{f,g}$
-given by
-\begin{equation}
-\sum_{\substack{\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-}
-}v_{\sigma}\cdot R1_{f,g}(\sigma)\prod_{\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
-}
-}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg),
-\end{equation}
-which is congruent to
+Recall $Q_{f,g}$ is the remaining factor of $R_{f,g}$ excluding the common factor described in \eqref{eq:common-factor}. Specifically, $Q_{f,g}$ is a polynomial of sum over chromatic summands resulting from the multibinomial expansions.  Let us view $Q_{f,g}$ as a sum of $|\Sigma|$ summands and denote by $Q_{f, g}^{\left[s\right]}$ the summand $1 \leq s \leq |\Sigma|$ of $Q_{f,g}$. By Proposition \ref{prop:ring-homomorphism}, we can write the remainder of $R_{f,g}$ as follows:
+\begin{align*}
+R_{f,g}=\sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\left({\bf x}\right)\bigg),
+\end{align*}
+where
 \[
-\left(\sum_{\substack{\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-}
-}v_{\sigma}\prod_{\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
-}
-}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg)\right)\left(\sum_{\substack{\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-}
-}R1_{f,g}(\sigma)\prod_{\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
-}
-}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg)\right).
-\]
-By averaging, we obtain such a transposition $\tau$
-also fixes
-\begin{equation}\label{eq:averaging}
-\bigg(\sum_{\substack{\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-}
-}v_{\sigma}\bigg)\sum_{\substack{\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-}
-}R1_{f,g}(\sigma)\prod_{\substack{i\in\mathbb{Z}_{n}\\
+L_{\sigma}({\bf x}):=\prod_{\substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
 }
 }\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg).
-\end{equation}
+\]
+Let us denote by ${L_{{\sigma}}\big({\bf x}_{Q}^{\left[s\right]}\big)}$ the factors of $L_{\sigma}\left({\bf x}\right)$ associated with variables present in $Q_{f,g}^{\left[s\right]}$. Then the evaluations of $R_{f,g}$ over the sublattice  $\Phi(g)$  cannot be distinguished from evaluations of the polynomial
+ \[
+ \sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\big({\bf x}_{Q}^{\left[s\right]}\big)\bigg)
+ \] 
+over the same sublattice. By Lemma \ref{lem:transposition-invariance}, the premise $P_{g}\equiv R_{f,g}$ 
+implies that any transposition $\tau\in\text{S}_{n}$ which exchanges
+$x_{f(n-1)}$ with $x_{v}$ where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$
+fixes the remainder of $R_{f,g}$,
+i.e., for all $v \in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$ the transposition $\tau=\left( f(n-1), v\right)$ applied to the variables in the remainder of $R_{ f, g}$ yield a permutation of the non--vanishing points on the sublattice $\Phi(g)$. By construction, as
+\[
+ \sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\big({\bf x}_{R}^{\left[s\right]}\big)\bigg)
+\]
+is a sum over the same non--vanishing points, it is fixed by the said transposition on the sublattice $\Phi(g)$. That is to say
+\[
+\tau=\left(g(n-1),v\right)\in\text{Aut}\left(\sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\big({\bf x}_{R}^{\left[s\right]}\big)\bigg)\right),
+\]
+for all $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right).$
 As a consequence of the multi-binomial expansion, the sum expressing
-$R1_{f,g}$ features as one of its summand a unique monochromatic blue binomial summand given by
+$Q_{f,g}$ features as one of its summand a unique monochromatic blue binomial summand, say $Q_{f,g}^{\left[1\right]}$, given by
 \[
-\left({\color{blue}a_{f\left(n-1\right)}}\right)^{m}=c\,{\color{blue}(}x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)})}^{m}.
+Q_{f,g}^{\left[1\right]}=c\left({\color{blue}a_{f\left(n-1\right)}}\right)^{m}=c\,{\color{blue}(}x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)})}^{m}.
 \] 
-This monochromatic summand makes up the blue part of the chosen bichromatic summand of $R_{f,g}$ given by
+Thus, by Lemma \ref{lem:variable-dependency},
 \[
-c\,\underset{0\le i<j<n}{\prod}\left(x_{j}-x_{i}\right)\prod_{0\le u<v\le f\left(n-1\right)}\left((x_{f\left(v\right)}-x_{v})^{2}-(x_{f\left(u\right)}-x_{u})^{2}\right)\bigg(\prod_{\substack{v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\\
-f\left(n-1\right)<u<v
-}
-}\left({\color{red}b_{v}}-{\color{red}b_{u}}\right)\bigg)\left({\color{blue}a_{f\left(n-1\right)}}\right)^{m},
-\]
-as described in equation \eqref{eq:chosen-summand}. In fact, by Lemma \ref{lem:variable-dependency}, the summand of $R_{f,g}$ described in equation \eqref{eq:chosen-summand} is congruent to
-\[
-c\left(\sum_{\substack{\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-}
-}v_{\sigma}\prod_{\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\setminus\{\sigma(i)\}
-}
-}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg)\right)\sum_{\substack{\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-}
-}{\color{blue}\big(}\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)\big)}^{m}\times
-\]
-\[
-\prod_{j_{f^{(2)}\left(n-1\right)}\in\mathbb{Z}_{n}\backslash\left\{ \sigma f^{(2)}\left(n-1\right)\right\} }\left(\frac{x_{f^{(2)}\left(n-1\right)}-j_{f^{(2)}\left(n-1\right)}}{\sigma f^{(2)}\left(n-1\right)-j_{f^{(2)}\left(n-1\right)}}\right)\prod_{j_{f\left(n-1\right)}\in\mathbb{Z}_{n}\backslash\left\{ \sigma f\left(n-1\right)\right\} }\left(\frac{{\color{blue}x_{f\left(n-1\right)}}-j_{f\left(n-1\right)}}{\sigma f\left(n-1\right)-j_{f\left(n-1\right)}}\right)
-\]
-As prescribed by equation \eqref{eq:averaging}, we apply the averaging argument to each bichromatic summand of $R_{f,g}$. In particular, applying the averaging argument to the chosen summand yields the polynomial
-\[
-c\,\bigg(\sum_{\substack{\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-}
-}v_{\sigma}\bigg)\sum_{\substack{\sigma\in\text{S}_{n}\\
-G_{\sigma g\sigma^{-1}}\in\text{GrL}(G_{g})
-}
-}{\color{blue}\big(}\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)\big)}^{m}\times
+Q_{f,g}^{\left[1\right]}\equiv c\,\sum_{\sigma\in\Phi(g)}{\color{blue}\big(}\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)\big)}^{m}\times
 \]
 \[
 \prod_{j_{f^{(2)}\left(n-1\right)}\in\mathbb{Z}_{n}\backslash\left\{ \sigma f^{(2)}\left(n-1\right)\right\} }\left(\frac{x_{f^{(2)}\left(n-1\right)}-j_{f^{(2)}\left(n-1\right)}}{\sigma f^{(2)}\left(n-1\right)-j_{f^{(2)}\left(n-1\right)}}\right)\prod_{j_{f\left(n-1\right)}\in\mathbb{Z}_{n}\backslash\left\{ \sigma f\left(n-1\right)\right\} }\left(\frac{{\color{blue}x_{f\left(n-1\right)}}-j_{f\left(n-1\right)}}{\sigma f\left(n-1\right)-j_{f\left(n-1\right)}}\right).
@@ -1257,30 +1259,30 @@ on individual summands of some polynomial resulting from an arbitrary but fixed 
 of its non-vanishing monomial terms. There are exactly three distinct ways that a candidate
 transposition of variables can lie in the automorphism group of a
 given polynomial.  Assume that we reason about
-a particular summand denoted as $P$.
+a particular summand denoted as $S$.
 \begin{enumerate}
 \item Option 1: The candidate transposition of a pair of variables fixes
-the chosen summand $P$. This occurs when $P$ is symmetric in the
+the chosen summand $S$. This occurs when $S$ is symmetric in the
 chosen pair of variables being transposed.
 \item Option 2: The candidate transposition of the chosen pair of variables
-does not fix $P$ (i.e., Option 1 does not apply) but induces in turn
-a transposition which exchanges the chosen summand $P$ with some
-other summand from the partition say $Q$. This occurs, for instance,
-if we consider the sum $P+Q$ where $P=(x_{0})^{2}\,x_{1}$ and $Q=x_{0}\,(x_{1})^{2}$.
+does not fix $S$ (i.e., Option 1 does not apply) but induces in turn
+a transposition which exchanges the chosen summand $S$ with some
+other summand from the partition say, $S'$. This occurs, for instance,
+if we consider the sum $S+S'$ where $S=(x_{0})^{2}\,x_{1}$ and $S'=x_{0}\,(x_{1})^{2}$.
 In this example, we see that transposition which exchanges variables
-$x_{0}$ with $x_{1}$ does not fix $P$, but it induces a transposition
-which exchanges the summand $P$ with the summand $Q$.
+$x_{0}$ with $x_{1}$ does not fix $S$, but it induces a transposition
+which exchanges the summand $S$ with the summand $S'$.
 \item Option 3: The candidate transposition of a pair of variables neither
-fixes $P$ nor does it induce a transposition which exchanges $P$
+fixes $S$ nor does it induce a transposition which exchanges $S$
 with some other summand (i.e., neither Option 1 nor Option 2 applies).
-Instead, $P$ is such that a symmetry broadening cancellation occurs.
+Instead, $S$ is such that a symmetry broadening cancellation occurs.
 Such a cancellation must involve interaction between the non-vanishing
-monomials within the monomial support of $P$ with the non-vanishing monomials
+monomials within the monomial support of $S$ with the non-vanishing monomials
 within the support of other summands. Option 3 occurs, for instance,
-if we take $P=-x_{1}$ and $Q=x_{0}+2x_{1}$. We see that in this
+if we take $S=-x_{1}$ and $S'=x_{0}+2x_{1}$. We see that in this
 example neither Option 1 nor Option 2 applies when the candidate transposition
 is the transposition which exchanges variables $x_{0}$ with $x_{1}$.
-However $P+Q=x_{0}+x_{1}$ is symmetric and thus admits the said transposition
+However $S+S'=x_{0}+x_{1}$ is symmetric and thus admits the said transposition
 in its automorphism group. This fact is due to the symmetry broadening
 cancellation of like terms : $-x_{1}+2x_{1}$.
 \end{enumerate}
@@ -1288,10 +1290,10 @@ By Lemma \ref{lem:monomial-support}, the monomial support of the polynomial imme
 transposition $\tau\in\text{S}_{n}$ which exchanges ${\color{blue}x_{f\left(n-1\right)}}$
 with $x_{v}$ where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$.
 This first observation accounts for Option 1. Also note that the remainder
-of the chosen summand does not exchange with the remainder of any
+of the chosen summand $Q_{f,g}^{\left[1\right]}$ does not exchange with the remainder of any
 other summands when we exchange ${\color{blue}x_{f\left(n-1\right)}}$
 with $x_{v}$ where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$ since the non-vanishing remainders of other
-bi-chromatic summand in $R1_{f,g}$ depends on $3$ or more variables.
+bi-chromatic summand in $Q_{f,g}$ depends on $3$ or more variables.
 This second observation accounts for Option 2. We now account for
 Option 3 and show that there are no symmetry-broadening
 cancellations which adjoin $\tau$ to the automorphism group. Again by Lemma \ref{lem:monomial-support}, such a symmetry broadening cancellation
@@ -1305,7 +1307,7 @@ $1=\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right.$.
 In that setting, non-vanishing monomials occurring in the expanded
 form of said Lagrange bases summands possibly cancel out non-vanishing
 monomials occurring in the expanded form of Lagrange bases expressing
-canonical representative of bi-chromatic summands in $R1_{f,g}$ of
+canonical representative of bi-chromatic summands in $Q_{f,g}$ of
 the form
 \[
 \left({\color{red}b_{f(n-1),n-1,t}}\right)^{r}\left({\color{blue}a_{f\left(n-1\right)}}\right)^{s}=\left({\color{red}(x_{f\left(n-1\right)}}-x_{n-1}{\color{red})}+\left(-1\right)^{t}(x_{f^{(2)}\left(n-1\right)}-x_{f\left(n-1\right)})\right)^{r}\left(x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)}}\right)^{s}.
@@ -1325,7 +1327,7 @@ broadening cancellation which adjoins $\tau$ to the automorphism
 group of the canonical representative of $R_{f,g}$ would break the
 complementary labeling symmetry, thereby resulting in the contradiction
 \[
-\tau\notin\text{Aut}\left(\overline{P}_{g}\right).
+\tau=\left(g(n-1),v\right) \not\in\text{Aut}\left(\sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\big({\bf x}_{R}^{\left[s\right]}\big)\bigg)\right).
 \]
 We conclude that the desired claim $\varnothing \ne \text{GrL}\left(G_{g}\right)\implies\text{GrL}\left(G_{f}\right)\ne \varnothing$
 holds.
