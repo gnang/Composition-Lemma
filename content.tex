@@ -127,12 +127,12 @@ and by Lagrange interpolation we have
 r(x_{0})=\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{1}}}H(\alpha_{g(0)})\prod_{j_{0}\in\mathbb{Z}_{n}\backslash\{g(0)\}}\bigg(\frac{x_{0}-\alpha_{j_{0}}}{\alpha_{g(0)}-\alpha_{j_{0}}}\bigg),
 \end{equation}
 thus establishing the claim in the base case. For the induction step,
-assume as our induction hypothesis that for all $F\in\mathbb{Q}\left[x_{0},\ldots,x_{m-1}\right]$,
+assume as our induction hypothesis that for all $F\in\mathbb{C}\left[x_{0},\ldots,x_{m-1}\right]$,
 we have
 \begin{equation}
 F=\sum_{k\in\mathbb{Z}_{m}}q_{k}(x_{0},\ldots,x_{m-1})\,d(x_{k})+\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}F(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\left\{ g(i)\right\} }\left(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\right)\right).
 \end{equation}
-We proceed to show the hypothesis implies that every polynomial in
+We proceed to show that the hypothesis implies that every polynomial in
 $m+1$ variables also admits a similar expansion, thus establishing
 the desired claim. Consider a polynomial $H \in \mathbb{C}[x_{0},\ldots,x_{m}]$, we view $H$ as a univariate polynomial in the variable $x_{m}$ whose coefficients lie in the polynomial ring $\mathbb{C}[x_{0},\ldots,x_{m-1}]$.
 The univariate quotient-remainder theorem over this ring asserts that
@@ -232,7 +232,7 @@ yields the desired claim.
 For an arbitrary $H\in\mathbb{C}\left[x_{0},\ldots,x_{n-1}\right]$, let $\overline{H}$ denote
 the {remainder} of the congruence class 
 \[
-\left( H\mod\left\{ d(x_{i}):i\in\mathbb{Z}_{n}\right\} \right),
+H\mod\left\{ d(x_{i}):i\in\mathbb{Z}_{n}\right\} ,
 \]
 where
 \[
@@ -240,7 +240,7 @@ d(x)=\prod_{u\in\mathbb{Z}_{n}}(x-\alpha_{u})\;\text{ and }\:1=\text{GCD}\big(d(
 \]
 Then the following hold:
 \begin{enumerate}
-    \item Evaluations over the integer lattice $\{\alpha_{u}:u\in\mathbb{Z}_{n}\}^{n}$ of $\overline{H}$ match evaluations of $H$ over the same lattice. 
+    \item Evaluations over the  lattice $\{\alpha_{u}:u\in\mathbb{Z}_{n}\}^{n}$ of $\overline{H}$ match evaluations of $H$ over the same lattice. 
     \item If $H = H_1 + H_2,$ where $H_1, H_2 \in \mathbb{C}\left[x_{0},\ldots,x_{n-1}\right]$, then $\overline{H_1} + \overline{H_2} = \overline{H}$.
 \end{enumerate}
  \end{proposition}
@@ -503,7 +503,7 @@ thus establishing the desired claim.
 Run the SageMath script \texttt{ex1328.sage} to verify.
 \end{example}
 
-\begin{lemma}[Variable dependency] \label{lem:variable-dependency}
+\begin{lemma}[Variable Dependency] \label{lem:variable-dependency}
   %\lean{}
   %\leanok
   %\uses{prop:multivariate-quotient-remainder}
@@ -636,11 +636,11 @@ u & \text{ if }i=v\\
 i & \text{otherwise}
 \end{array} & \forall\,i\in\mathbb{Z}_{n}.\end{cases}
 \]
-Then we have 
+Then
 \begin{equation}
 \tau\in\text{Aut}\;(P_{f}({\bf x})),
 \end{equation}
-where $P_f$ is the polynomial of grace as defined in \ref{defn:polynomial-grace-definition}.
+where $P_f$ is the polynomial certificate of grace as defined in \ref{defn:polynomial-grace-definition}.
 \end{lemma}
 \begin{proof}
   %\leanok
@@ -694,7 +694,7 @@ thus establishing the desired claim.
 
 \end{proof}
 
-\begin{prop}[Composition inequality]\label{prop:composition-lemma-ineq}
+\begin{prop}[Composition Inequality]\label{prop:composition-lemma-ineq}
   %\lean{}
   %\leanok
   %\uses{defn:graceful-functional-graphs, defn:graceful-functional-graphs-set, prop:multivariate-quotient-remainder, defn:polynomial-grace-definition, defn:polynomial-congruence, prop:polynomial-grace-certificate}
@@ -718,8 +718,8 @@ $\left|f^{\left(n-1\right)}\left(\mathbb{Z}_{n}\right)\right|=1$. The following 
 \begin{proof}
 If $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ is identically constant,
 then $G_{f}$ is graceful. We see this from the fact that the functional
-digraphs of the identically zero function is gracefully labeled and the fact that
-functional digraph of identically constant functions are all isomorphic. It follows
+digraph of the identically zero function is gracefully labeled and the fact that
+functional digraphs of identically constant functions are all isomorphic. It follows
 that all functional directed graphs having diameter less than $3$ are graceful. Consequently,
 all claims hold for all functional digraphs of diameter less than $3$. We now turn our attention
 to functional trees of diameter greater or equal to $3$. 
@@ -1214,7 +1214,7 @@ P_{g}(h)=R_{f,g}\left(h\right)=v_{h}\,Q_{f,g}\left(h\right)=\begin{cases}
 0 & \text{otherwise}
 \end{array},\forall\:h\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}.\end{cases}
 \end{equation}
-Recall $Q_{f,g}$ is the remaining factor of $R_{f,g}$ excluding the common factor described in \eqref{eq:common-factor}. Specifically, $Q_{f,g}$ is a polynomial of sum over chromatic summands resulting from the multibinomial expansions.  Let us view $Q_{f,g}$ as a sum of $|\Sigma|$ summands and denote by $Q_{f, g}^{\left[s\right]}$ the summand $1 \leq s \leq |\Sigma|$ of $Q_{f,g}$. By Proposition \ref{prop:ring-homomorphism}, we can write the remainder of $R_{f,g}$ as follows:
+Recall $Q_{f,g}$ is the remaining factor of $R_{f,g}$ excluding the common factor described in \eqref{eq:common-factor}. Specifically, $Q_{f,g}$ is a polynomial resulting from the sum over chromatic summands resulting from the multibinomial expansions.  Let us view $Q_{f,g}$ as a sum of $|\Sigma|$ summands and denote by $Q_{f, g}^{\left[s\right]}$ the summand $1 \leq s \leq |\Sigma|$ of $Q_{f,g}$. By Proposition \ref{prop:ring-homomorphism}, we can write the remainder of $R_{f,g}$ as follows:
 \begin{align*}
 R_{f,g}=\sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\left({\bf x}\right)\bigg),
 \end{align*}
@@ -1286,13 +1286,13 @@ However $S+S'=x_{0}+x_{1}$ is symmetric and thus admits the said transposition
 in its automorphism group. This fact is due to the symmetry broadening
 cancellation of like terms : $-x_{1}+2x_{1}$.
 \end{enumerate}
-By Lemma \ref{lem:monomial-support}, the monomial support of the polynomial immediately above is not fixed by any
+By Lemma \ref{lem:variable-dependency}, the monomial support of the polynomial immediately above is not fixed by any
 transposition $\tau\in\text{S}_{n}$ which exchanges ${\color{blue}x_{f\left(n-1\right)}}$
 with $x_{v}$ where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$.
 This first observation accounts for Option 1. Also note that the remainder
 of the chosen summand $Q_{f,g}^{\left[1\right]}$ does not exchange with the remainder of any
 other summands when we exchange ${\color{blue}x_{f\left(n-1\right)}}$
-with $x_{v}$ where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$ since the non-vanishing remainders of other
+with $x_{v}$ where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$ since by Lemma \ref{lem:monomial-support}, the non-vanishing remainders of other
 bi-chromatic summand in $Q_{f,g}$ depends on $3$ or more variables.
 This second observation accounts for Option 2. We now account for
 Option 3 and show that there are no symmetry-broadening
@@ -1303,7 +1303,7 @@ can occur only for Lagrange bases
 \]
 where $\sigma\in\left\{ \theta\in\text{S}_{n}:G_{\theta g\theta^{-1}}\in\text{GrL}\left(G_{g}\right)\right\} $
 is subject to $\sigma\left(n-1\right)=0$ and $G_{f}$ is such that
-$1=\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right.$.
+$1=\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|$.
 In that setting, non-vanishing monomials occurring in the expanded
 form of said Lagrange bases summands possibly cancel out non-vanishing
 monomials occurring in the expanded form of Lagrange bases expressing
@@ -1313,14 +1313,13 @@ the form
 \left({\color{red}b_{f(n-1),n-1,t}}\right)^{r}\left({\color{blue}a_{f\left(n-1\right)}}\right)^{s}=\left({\color{red}(x_{f\left(n-1\right)}}-x_{n-1}{\color{red})}+\left(-1\right)^{t}(x_{f^{(2)}\left(n-1\right)}-x_{f\left(n-1\right)})\right)^{r}\left(x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)}}\right)^{s}.
 \]
 However, the restriction imposed by
-$\sigma\in\left\{ \theta\in\text{S}_{n}:G_{\theta g\theta^{-1}}\in\text{GrL}\left(G_{g}\right)\right\}
-$ where $\sigma\left(n-1\right)=0$ breaks the complementary-labeling
+$\sigma\in\Phi(g)$ where $\sigma\left(n-1\right)=0$ breaks the complementary-labeling
 symmetry. Indeed by Proposition \ref{prop:complementary-labeling-Symmetry}, the remainder
 is up to sign invariant to the involution prescribed by the map: $x_{i}\mapsto x_{n-1-i}$
 for all $i\in\mathbb{Z}_{n}$. But the complementary labeling involution
-maps any Lagrange basis associated with $\sigma\in\left\{ \theta\in\text{S}_{n}:G_{\theta g\theta^{-1}}\in\text{GrL}\left(G_{g}\right)\right\} $
+maps any Lagrange basis associated with $\sigma\in\Phi(g) $
 such that $\sigma\left(n-1\right)=0$ to different Lagrange basis
-associated $\sigma^{\prime}\in\left\{ \theta\in\text{S}_{n}:G_{\theta g\theta^{-1}}\in\text{GrL}\left(G_{g}\right)\right\} $
+associated $\sigma^{\prime}\in\Phi(g) $
 such that $\sigma^{\prime}\left(n-1\right)=n-1$ and thus negates
 the symmetry broadening cancellations. We see that a symmetry
 broadening cancellation which adjoins $\tau$ to the automorphism
