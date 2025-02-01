@@ -1215,9 +1215,9 @@ P_{g}(h)=R_{f,g}\left(h\right)=v_{h}\,Q_{f,g}\left(h\right)=\begin{cases}
 \end{array},\forall\:h\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}.\end{cases}
 \end{equation}
 Recall $Q_{f,g}$ is the remaining factor of $R_{f,g}$ excluding the common factor described in \eqref{eq:common-factor}. Specifically, $Q_{f,g}$ is a polynomial resulting from the sum over chromatic summands resulting from the multibinomial expansions.  Let us view $Q_{f,g}$ as a sum of $|\Sigma|$ summands and denote by $Q_{f, g}^{\left[s\right]}$ the summand $1 \leq s \leq |\Sigma|$ of $Q_{f,g}$. By Proposition \ref{prop:ring-homomorphism}, we can write the remainder of $R_{f,g}$ as follows:
-\begin{align*}
+\[
 R_{f,g}=\sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\left({\bf x}\right)\bigg),
-\end{align*}
+\]
 where
 \[
 L_{\sigma}({\bf x}):=\prod_{\substack{i\in\mathbb{Z}_{n}\\
@@ -1241,7 +1241,7 @@ is a sum over the same non--vanishing points, it is fixed by the said transposit
 \[
 \tau=\left(g(n-1),v\right)\in\text{Aut}\left(\sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\big({\bf x}_{Q}^{\left[s\right]}\big)\bigg)\right),
 \]
-for all $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right).$
+for all $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$.
 As a consequence of the multi-binomial expansion, the sum expressing
 $Q_{f,g}$ features as one of its summand a unique monochromatic blue binomial summand, say $Q_{f,g}^{\left[1\right]}$, given by
 \[
@@ -1301,7 +1301,7 @@ can occur only for Lagrange bases
 \[
 \prod_{j_{f^{(2)}\left(n-1\right)}\in\mathbb{Z}_{n}\backslash\left\{ \sigma f^{(2)}\left(n-1\right)\right\} }\left(\frac{x_{f^{(2)}\left(n-1\right)}-j_{f^{(2)}\left(n-1\right)}}{\sigma f^{(2)}\left(n-1\right)-j_{f^{(2)}\left(n-1\right)}}\right)\prod_{j_{f\left(n-1\right)}\in\mathbb{Z}_{n}\backslash\left\{ \sigma f\left(n-1\right)\right\} }\left(\frac{{\color{blue}x_{f\left(n-1\right)}}-j_{f\left(n-1\right)}}{\sigma f\left(n-1\right)-j_{f\left(n-1\right)}}\right).
 \]
-where $\sigma\in\left\{ \theta\in\text{S}_{n}:G_{\theta g\theta^{-1}}\in\text{GrL}\left(G_{g}\right)\right\} $
+where $\sigma\in\Phi(g)$
 is subject to $\sigma\left(n-1\right)=0$ and $G_{f}$ is such that
 $1=\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|$.
 In that setting, non-vanishing monomials occurring in the expanded
