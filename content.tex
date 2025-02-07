@@ -260,7 +260,7 @@ Then the following hold:
 \end{proof}
 \begin{defn}[Polynomial of Grace]\label{defn:polynomial-grace-definition} We define $P_f \in \mathbb{C}[x_0, \ldots, x_{n-1}]$ for all $f \in \mathbb{Z}_n^{\mathbb{Z}_n}$ as follows:
 \begin{equation}
-    P_f \coloneq \underbrace{\prod_{0\le u<v<n}(x_{v}-x_{u})}_{V_f(x_0,\ldots,x_{n-1})}\,\underbrace{\prod_{0\le u<v<n}\big((x_{f(v)}-x_{v})^{2}-(x_{f(u)}-x_{u})^{2}\big)}_{E_f(x_0,\ldots,x_{n-1})}.
+    P_f \coloneq \underbrace{\prod_{0\le u<v<n}(x_{v}-x_{u})}_{V(x_0,\ldots,x_{n-1})}\,\underbrace{\prod_{0\le u<v<n}\big((x_{f(v)}-x_{v})^{2}-(x_{f(u)}-x_{u})^{2}\big)}_{E_f(x_0,\ldots,x_{n-1})}.
 \end{equation}
 \end{defn}
 \begin{defn}[Congruence class]\label{defn:polynomial-congruence}
@@ -271,7 +271,7 @@ For polynomials $P,Q \in \mathbb{C}[x_0, \ldots, x_{n-1}]$, if
 \begin{equation}
 P({\bf x}) \equiv \; Q({\bf x}) \; \mod\bigg\{\prod_{j\in\mathbb{Z}_{n}}(x_{i}-j):i\in\mathbb{Z}_{n}\bigg\},
 \end{equation}
-we simply say $P \equiv Q$. All congruence relations in this paper are modulo the set prescribed above.
+we simply say $P \equiv Q$. All congruence relations in this paper are modulo the ideal generated set of polynomial prescribed above.
 \end{defn}
 
 \begin{proposition}[Certificate of Grace]\label{prop:polynomial-grace-certificate}
@@ -282,10 +282,10 @@ Let $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$. The functional
 directed graph $G_f$ prescribed by $f$ is graceful if and only if $P_f(\mathbf{x}) \; \not\equiv \; 0$.
 \end{proposition}
 \begin{proof}
-Observe that the vertex Vandermonde factor $V_f(\mathbf{x})$ is of degree exactly $n-1$ in each variable and therefore equal
+Observe that the vertex Vandermonde factor $V(\mathbf{x})$ is of degree exactly $n-1$ in each variable and therefore equal
 to its remainder, i.e.,
 \begin{equation}\label{eq:Vf}
-V_{f}(\mathbf{x})=\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{i\in\mathbb{Z}_{n}}(x_{i})^{\theta(i)}=\prod_{v\in\mathbb{Z}_{n}}v!\;\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{\begin{array}{c}
+V(\mathbf{x})=\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{i\in\mathbb{Z}_{n}}(x_{i})^{\theta(i)}=\prod_{v\in\mathbb{Z}_{n}}v!\;\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{\theta(i)\}
 }
@@ -306,7 +306,7 @@ j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}
 \end{equation}
 Observe that by the expansions in \ref{eq:Vf} and \ref{eq:Ef}, 
 \[
-P_f(\mathbf{x})=\sum_{l\in\mathbb{Z}_{m}}q_{l}(\mathbf{x})V_{f}(\mathbf{x})\prod_{k\in\mathbb{Z}_{n}}(x_{l}-k)+
+P_f(\mathbf{x})=\sum_{l\in\mathbb{Z}_{m}}q_{l}(\mathbf{x})V(\mathbf{x})\prod_{k\in\mathbb{Z}_{n}}(x_{l}-k)+
 \]
 \[
 \left(\prod_{v\in\mathbb{Z}_{n}}v!\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{\begin{array}{c}
@@ -1013,23 +1013,6 @@ yields an expression of $P_{g}$ of the form
 \end{equation}
 
 The monochromatic red expressions in the multi-binomial expansion collect to result in ${\color{red}P_{f}}$ as written in equation \eqref{eq:Pf_rewrite}.
-% \[
-% \begin{array}{cc}
-% {\color{red}P_{f}}= & \underset{0\le i<j<n}{\prod}\left(x_{j}-x_{i}\right)\times\\
-%  & \underset{0\le u<v\le f\left(n-1\right)}{\prod}\left((x_{f\left(v\right)}-x_{v})^{2}-(x_{f\left(u\right)}-x_{u})^{2}\right)\underset{\begin{array}{c}
-% v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\\
-% f\left(n-1\right)<u<v
-% \end{array}}{\prod}\left({\color{red}b_{v}}-{\color{red}b_{u}}\right)\times\\
-%  & \bigg(\underset{\begin{array}{c}
-% v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\\
-% f\left(n-1\right)<u<v
-% \end{array}}{\prod}\big({\color{red}b_{v}}+{\color{red}b_{u}}\big)\bigg)\bigg(\underset{\begin{array}{c}
-% t\in\left\{ 0,1\right\} \\
-% v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\\
-% 0\le u\le f\left(n-1\right)
-% \end{array}}{\prod}{\color{red}b_{u,v,t}}\bigg).
-% \end{array}
-% \]
 The second part denoted $R_{f,g}$ simply collects the remaining bichromatic
 summands and is given by
 \[
@@ -1307,8 +1290,7 @@ $1=\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|$.
 In that setting, non-vanishing monomials occurring in the expanded
 form of said Lagrange bases summands possibly cancel out non-vanishing
 monomials occurring in the expanded form of Lagrange bases expressing
-canonical representative of bi-chromatic summands in $Q_{f,g}$ of
-the form
+remainders of bi-chromatic summands in $Q_{f,g}$ of the form
 \[
 \left({\color{red}b_{f(n-1),n-1,t}}\right)^{r}\left({\color{blue}a_{f\left(n-1\right)}}\right)^{s}=\left({\color{red}(x_{f\left(n-1\right)}}-x_{n-1}{\color{red})}+\left(-1\right)^{t}(x_{f^{(2)}\left(n-1\right)}-x_{f\left(n-1\right)})\right)^{r}\left(x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)}}\right)^{s}.
 \]
@@ -1375,5 +1357,5 @@ $G_g: \;$
 }
 \end{center}
 
-Run the contents of \texttt{ex1434.sage} to verify.
+Run the SageMath script \texttt{ex1434.sage} to verify.
 \end{example}
