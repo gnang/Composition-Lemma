@@ -123,7 +123,7 @@ We prove by induction on the number of variables that
 r(x_{0},\ldots,x_{m-1})=\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}P(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right),
 \end{equation}
 where for notational convenience $P(\alpha_{g}):=P(\alpha_{g(0)},\ldots,\alpha_{g(m-1)})$.
-The base case stems from the univariate quotient-remainder theorem over the field $\mathbb{C}$. The univariate-quotient remainder theorem over the field $\mathbb{C}$ asserts that there exit
+The base case stems from the univariate quotient-remainder theorem over the field $\mathbb{C}$. The univariate-quotient remainder theorem over the field $\mathbb{C}$ asserts that there exist
 a unique quotient-remainder pair $\big(q(x_{0}),\,r(x_{0})\big)\in\mathbb{C}[x_{0}]\times\mathbb{C}[x_{0}]$
 subject to
 \begin{equation}
@@ -250,7 +250,7 @@ d(x)=\prod_{u\in\mathbb{Z}_{n}}(x-\alpha_{u})\;\text{ and }\:1=\text{GCD}\big(d(
 Then the following hold:
 \begin{enumerate}
     \item Evaluations over the  lattice $\{\alpha_{u}:u\in\mathbb{Z}_{n}\}^{n}$ of $\overline{H}$ match evaluations of $H$ over the same lattice. 
-    \item If $H = H_1 + H_2,$ where $H_1, H_2 \in \mathbb{C}\left[x_{0},\ldots,x_{n-1}\right]$, then $\overline{H_1} + \overline{H_2} = \overline{H}$.
+    \item If $H = H_0 + H_1,$ where $H_0, H_1 \in \mathbb{C}\left[x_{0},\ldots,x_{n-1}\right]$, then $\overline{H_0} + \overline{H_1} = \overline{H}$.
 \end{enumerate}
  \end{proposition}
 \begin{proof}
@@ -260,12 +260,12 @@ Then the following hold:
 \overline{H}=\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}H(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right),
   \]
   \[
-  \implies\overline{H}=\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}\big(H_{1}(\alpha_{g})+H_{2}(\alpha_{g})\big)\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right),
+  \implies\overline{H}=\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}\big(H_{0}(\alpha_{g})+H_{1}(\alpha_{g})\big)\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right),
   \]
   \[
-  \implies\overline{H}=\sum_{k\in\{1,2\}}\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}H_{k}(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right).
+  \implies\overline{H}=\sum_{k\in\{0,1\}}\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}H_{k}(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right).
   \]
-  Thus $\overline{H_1} + \overline{H_2} = \overline{H}$ as claimed.
+  Thus $\overline{H_0} + \overline{H_1} = \overline{H}$ as claimed.
 \end{proof}
 \begin{defn}[Polynomial of Grace]\label{defn:polynomial-grace-definition} We define $P_f \in \mathbb{C}[x_0, \ldots, x_{n-1}]$ for all $f \in \mathbb{Z}_n^{\mathbb{Z}_n}$ as follows:
 \begin{equation}
