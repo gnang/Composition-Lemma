@@ -1070,10 +1070,9 @@ R_{f,g} &= \prod_{0 \leq i < j < n} \left( x_j - x_i \right)
 \left( {\color{red} b_v} + {\color{red} b_u} \right)^{r_{u,v}} 
 \left( 2 {\color{blue} a_{f(n-1)}} \right)^{1-r_{u,v}} 
 \Bigg)
-\Bigg] 
+\Bigg].
 \end{aligned}
 \]
-
 The color scheme introduced here is meant to help track the location
 of telescoping variables. We now proceed with the main {contradiction
 argument}. Assume for the sake of establishing a contradiction that
@@ -1084,7 +1083,7 @@ described in our premise, we have
 \end{equation}
 Then by equation \eqref{eq:Pg-equals-Pf-plus-Rfg}, we obtain
 \begin{equation}\label{eq:premise}
-P_{g}\equiv R_{f,g}\not\equiv0.
+P_{g}\equiv R_{f,g}\not\equiv0\Longleftrightarrow \overline{P}_{g}=\overline{R}_{f,g}\not\equiv0 .
 \end{equation}
 Observe that every summand in $R_{f,g}$ is a multiple of a positive
 power of ${\color{blue} a_{f(n-1)}} = {\color{blue}(}x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)})}$.
@@ -1138,7 +1137,7 @@ f\left(n-1\right)<u<v
 }
 }\left({\color{red}b_{v}}-{\color{red}b_{u}}\right)
 \end{equation}
-is common to every summand in $R_{f,g}$. Factoring out the common
+is a common factor to every summand in $R_{f,g}$. Factoring out this common
 factor, we write
 \[
 R_{f,g}\left(\mathbf{x}\right)=\left(\underset{0\le i<j<n}{\prod}\left(x_{j}-x_{i}\right)\prod_{0\le u<v\le f\left(n-1\right)}\left((x_{f\left(v\right)}-x_{v})^{2}-(x_{f\left(u\right)}-x_{u})^{2}\right)\prod_{\substack{v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\\
@@ -1148,7 +1147,7 @@ f\left(n-1\right)<u<v
 \]
 where
 \[
-\begin{aligned}Q_{f,g} & =\Bigg(\prod_{\substack{v\in f^{-1}(\{f(n-1)\})\\
+\begin{aligned}Q_{f,g}\left(\mathbf{x}\right) & =\Bigg(\prod_{\substack{v\in f^{-1}(\{f(n-1)\})\\
 f(n-1)<u<v
 }
 }\left({\color{red}b_{v}}+{\color{red}b_{u}}\right)\Bigg)\Bigg(\sum_{\substack{s_{u,v,t}\in\{0,1\}\\
@@ -1200,7 +1199,7 @@ v_{\sigma} = & \prod_{\substack{0 \leq i < j < n}}
 & \prod_{\substack{v \in f^{-1}\left(\{f(n-1)\}\right) \\ f(n-1) < u < v}} 
 {\color{red}\big(}\sigma(u)-\sigma(v){\color{red}\big)}.
 \end{align}
-More generally, by Proposition \ref{prop:multivariate-quotient-remainder}, the premise $P_{g}\equiv R_{f,g}$ implies 
+More generally, by Proposition \ref{prop:multivariate-quotient-remainder}, the premise $\overline{P}_{g}=\overline{R}_{f,g}$ implies 
 \begin{equation}
 P_{g}(h)=R_{f,g}\left(h\right)=v_{h}\,Q_{f,g}\left(h\right)=\begin{cases}
 \begin{array}{cc}
@@ -1209,9 +1208,9 @@ P_{g}(h)=R_{f,g}\left(h\right)=v_{h}\,Q_{f,g}\left(h\right)=\begin{cases}
 0 & \text{otherwise}
 \end{array},\forall\:h\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}.\end{cases}
 \end{equation}
-Recall $Q_{f,g}$ is the remaining factor of $R_{f,g}$ excluding the common factor described in \eqref{eq:common-factor}. Specifically, $Q_{f,g}$ is a polynomial resulting from the sum over chromatic summands resulting from the multibinomial expansions.  Let us view $Q_{f,g}$ as a sum of $|\Sigma|$ summands and denote by $Q_{f, g}^{\left[s\right]}$ the summand $1 \leq s \leq |\Sigma|$ of $Q_{f,g}$. By Proposition \ref{prop:ring-homomorphism}, we can write the remainder of $R_{f,g}$ as follows:
+Recall $Q_{f,g}$ is the remaining factor of $R_{f,g}$ excluding the common factor described in \eqref{eq:common-factor}. Specifically, $Q_{f,g}$ is a polynomial resulting from the sum over chromatic summands resulting from the multibinomial expansions.  Let us view $Q_{f,g}$ as a sum of $|\Sigma|$ summands and denote by $Q_{f, g}^{\left[s\right]}$ the summands $1 \leq s \leq |\Sigma|$ of $Q_{f,g}$. By Proposition \ref{prop:ring-homomorphism}, we can write the remainder of $R_{f,g}$ as follows:
 \[
-R_{f,g}=\sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\left({\bf x}\right)\bigg),
+\overline{R}_{f,g}=\sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\left({\bf x}\right)\bigg),
 \]
 where
 \[
@@ -1224,7 +1223,7 @@ Let us denote by ${L_{{\sigma}}\big({\bf x}_{Q}^{\left[s\right]}\big)}$ the fact
  \[
  \sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\big({\bf x}_{Q}^{\left[s\right]}\big)\bigg)
  \] 
-over the same sublattice. By Lemma \ref{lem:transposition-invariance}, the premise $P_{g}\equiv R_{f,g}$ 
+over the same sublattice. By Lemma \ref{lem:transposition-invariance}, the premise $\overline{P}_{g}=\overline{R}_{f,g}$
 implies that any transposition $\tau\in\text{S}_{n}$ which exchanges
 $x_{f(n-1)}$ with $x_{v}$ where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$
 fixes the remainder of $R_{f,g}$,
@@ -1317,7 +1316,7 @@ associated $\sigma^{\prime}\in\Phi(g) $
 such that $\sigma^{\prime}\left(n-1\right)=n-1$ and thus negates
 the symmetry broadening cancellations. We see that a symmetry
 broadening cancellation which adjoins $\tau$ to the automorphism
-group of the canonical representative of $R_{f,g}$ would break the
+group of the remainder of $R_{f,g}$ would break the
 complementary labeling symmetry, thereby resulting in the contradiction
 \[
 \tau=\left(g(n-1),v\right) \not\in\text{Aut}\left(\sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\big({\bf x}_{Q}^{\left[s\right]}\big)\bigg)\right).
