@@ -255,7 +255,7 @@ Then the following hold:
  \end{proposition}
 \begin{proof}
   %\leanok
-  The first claim follows from Proposition \ref{prop:multivariate-quotient-remainder} for we see that the quotient divisor part vanishes over the lattice. To prove the second claim we recall that
+  The first claim follows from Proposition \ref{prop:multivariate-quotient-remainder} for we see that the divisor vanishes over the lattice. To prove the second claim we recall that
   \[
 \overline{H}=\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}H(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right),
   \]
@@ -310,7 +310,10 @@ where
 The induced edge label Vandermonde factor $E_f(\mathbf{x})$
 is of degree $>n-1$ in some of its variables. Therefore, by Proposition  \ref{prop:multivariate-quotient-remainder}, we have
 \begin{equation}\label{eq:Ef}
-E_{f}(\mathbf{x})=\sum_{l\in\mathbb{Z}_{m}}q_{l}(\mathbf{x})\prod_{k\in\mathbb{Z}_{n}}(x_{l}-k)+\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}}\,\prod_{0\le u<v<n}\left(\big(gf(v)-g(v)\big)^{2}-\big(gf(u)-g(u)\big)^{2}\right)\prod_{\begin{array}{c}
+E_{f}(\mathbf{x})=\sum_{l\in\mathbb{Z}_{m}}q_{l}(\mathbf{x})\prod_{k\in\mathbb{Z}_{n}}(x_{l}-k)+\sum_{\begin{array}{c}
+g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\\
+|gf-g|(\mathbb{Z}_{n})=\mathbb{Z}_{n}
+\end{array}}\,\prod_{0\le u<v<n}\left(\big(gf(v)-g(v)\big)^{2}-\big(gf(u)-g(u)\big)^{2}\right)\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}
 }
@@ -318,14 +321,17 @@ j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}
 \end{equation}
 Observe that by the expansions in \ref{eq:Vf} and \ref{eq:Ef}, 
 \[
-P_f(\mathbf{x})=\sum_{l\in\mathbb{Z}_{m}}q_{l}(\mathbf{x})V(\mathbf{x})\prod_{k\in\mathbb{Z}_{n}}(x_{l}-k)+
-\]
-\[
-\left(\prod_{v\in\mathbb{Z}_{n}}v!\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{\begin{array}{c}
+P_f(\mathbf{x})=\sum_{l\in\mathbb{Z}_{m}}q_{l}(\mathbf{x})V(\mathbf{x})\prod_{k\in\mathbb{Z}_{n}}(x_{l}-k)+\left(\prod_{v\in\mathbb{Z}_{n}}v!\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{\theta(i)\}
 }
-\end{array}}\left(\frac{x_{i}-j_{i}}{\theta(i)-j_{i}}\right)\right)\left(\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}}\prod_{0\le u<v<n}\bigg(\big(gf(v)-g(v)\big)^{2}-\big(gf(u)-g(u)\big)^{2}\bigg)\prod_{\begin{array}{c}
+\end{array}}\left(\frac{x_{i}-j_{i}}{\theta(i)-j_{i}}\right)\right)\times
+\]
+\[
+\left(\sum_{\begin{array}{c}
+g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\\
+|gf-g|(\mathbb{Z}_{n})=\mathbb{Z}_{n}
+\end{array}}\prod_{0\le u<v<n}\bigg(\big(gf(v)-g(v)\big)^{2}-\big(gf(u)-g(u)\big)^{2}\bigg)\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}
 }
