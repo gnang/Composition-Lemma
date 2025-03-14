@@ -143,7 +143,7 @@ F=\sum_{k\in\mathbb{Z}_{m}}q_{k}(x_{0},\ldots,x_{m-1})\,d(x_{k})+\sum_{g\in\math
 \end{equation}
 We proceed to show that the hypothesis implies that every polynomial in
 $m+1$ variables also admits a similar expansion, thus establishing
-the desired claim. Consider a polynomial $H \in \mathbb{C}[x_{0},\ldots,x_{m}]$, we view $H$ as a univariate polynomial in the variable $x_{m}$ whose coefficients lie in the field of fraction $\mathbb{C}(x_{0},\ldots,x_{m-1})$.
+the desired claim. Consider a polynomial $H \in \mathbb{C}[x_{0},\ldots,x_{m}]$. We view $H$ as a univariate polynomial in the variable $x_{m}$ whose coefficients lie in the field of fraction $\mathbb{C}(x_{0},\ldots,x_{m-1})$.
 The univariate quotient-remainder theorem over the field of fractions $\mathbb{C}(x_{0},\ldots,x_{m-1})$ asserts that
 there exit a unique quotient-remainder pair
 \[
@@ -230,7 +230,7 @@ H\big(x_{0},\ldots,x_{m}\big)
 \end{equation}
 Applying the induction hypothesis to coefficients
 \[
-\left\{ H\left(x_{0},\ldots,x_{m-1},g\left(m\right)\right):g\left(m\right)\in\mathbb{Z}_{n}\right\} \subset\mathbb{C}[x_{0},\ldots,x_{m-1}]
+\left\{ H\left(x_{0},\ldots,x_{m-1},\alpha_{g\left(m\right)}\right): \alpha_{g\left(m\right)}\in\mathbb{C}\right\} \subset\mathbb{C}[x_{0},\ldots,x_{m-1}]
 \]
 yields the desired claim.
 \end{proof}
@@ -533,7 +533,7 @@ P(\mathbf{x})=\sum_{g\in\mathbb{Z}_{n}^{S}}c_{g}\,\prod_{i\in S}(x_{i})^{g(i)},
 where $c_g \in\mathbb{C}$ for all $g\in\mathbb{Z}_{n}^{S}$, then for any positive integer $m$, the polynomial $\big(P(\mathbf{x})\big)^{m}$
 admits a quotient-remainder expansion of the form
 \begin{equation}
-\big(P(x_0,\ldots,x_{n-1})\big)^{m}=\sum_{j\in\mathbb{Z}_{m}}q_{j}(x_0,\ldots,x_{n-1})\prod_{k\in\mathbb{Z}_{n}}(x_{j}-\alpha_{k})+\sum_{g\in\mathbb{Z}_{n}^{S}}a_{g}\prod_{i\in S}(x_{i})^{g(i)}
+\big(P(x_0,\ldots,x_{n-1})\big)^{m}=\sum_{j\in S}q_{j}(x_0,\ldots,x_{n-1})\prod_{k\in\mathbb{Z}_{n}}(x_{j}-\alpha_{k})+\sum_{g\in\mathbb{Z}_{n}^{S}}a_{g}\prod_{i\in S}(x_{i})^{g(i)}
 \end{equation}
 where $\alpha_k, a_g\in \mathbb{C}$ for all $k\in \mathbb{Z}_n$ such that $n=\left|\big\{\alpha_{k}:k\in\mathbb{Z}_{n}\big\}\right|$and $g\in\mathbb{Z}_{n}^{S}$.
 \end{lemma}
