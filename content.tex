@@ -105,7 +105,7 @@ In other words, induced edge labels are fixed by the vertex relabeling effected 
 Let $d(x)\in\mathbb{C}[x]$ be a degree $n$ monic polynomial with
 simple roots, i.e.,
 \begin{equation}
-d(x)=\prod_{u\in\mathbb{Z}_{n}}(x-\alpha_{u})\;\text{ and }\:1=\text{GCD}\big(d(x),\,\frac{d}{dx}d(x)\big),
+d(x)=\prod_{u\in\mathbb{Z}_{n}}(x-\alpha_{u})\;\text{ and }\:0\ne\prod_{0\le u<v<n}(\alpha_{v}-\alpha_{u})\Longleftrightarrow1=\text{GCD}\big(d(x),\,\frac{d}{dx}d(x)\big),,
 \end{equation}
 where $\{\alpha_{u}:u\in\mathbb{Z}_{n}\}\subset\mathbb{C}$. 
 For
@@ -297,7 +297,7 @@ directed graph $G_f$ prescribed by $f$ is graceful if and only if $P_f(\mathbf{x
 Observe that the vertex Vandermonde factor $V(\mathbf{x})$ is of degree exactly $n-1$ in each variable and therefore equal
 to its remainder, i.e.,
 \begin{equation}\label{eq:Vf}
-V(\mathbf{x})=\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{i\in\mathbb{Z}_{n}}(x_{i})^{\theta(i)}=\prod_{v\in\mathbb{Z}_{n}}v!\;\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{\begin{array}{c}
+V(\mathbf{x})=\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{i\in\mathbb{Z}_{n}}(x_{i})^{\theta(i)}=\prod_{v\in\mathbb{Z}_{n}}(v!)\;\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{\theta(i)\}
 }
@@ -310,44 +310,45 @@ where
 The induced edge label Vandermonde factor $E_f(\mathbf{x})$
 is of degree $>n-1$ in some of its variables. Therefore, by Proposition  \ref{prop:multivariate-quotient-remainder}, we have
 \begin{equation}\label{eq:Ef}
-E_{f}(\mathbf{x})=\sum_{l\in\mathbb{Z}_{m}}q_{l}(\mathbf{x})\prod_{k\in\mathbb{Z}_{n}}(x_{l}-k)+\sum_{\begin{array}{c}
+E_{f}(\mathbf{x})=\sum_{l\in\mathbb{Z}_{m}}q_{l}(\mathbf{x})\prod_{k\in\mathbb{Z}_{n}}(x_{l}-k)+\prod_{v\in\mathbb{Z}_{n}}(v!)\frac{(n-1+v)!}{(2v)!}\sum_{\begin{array}{c}
 g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\\
-|gf-g|(\mathbb{Z}_{n})=\mathbb{Z}_{n}
-\end{array}}\,\prod_{0\le u<v<n}\left(\big(gf(v)-g(v)\big)^{2}-\big(gf(u)-g(u)\big)^{2}\right)\prod_{\begin{array}{c}
+|gf-g|\in\text{S}_{n}
+\end{array}}\text{sgn}(|gf-g|)\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}
 }
-\end{array}}\left(\frac{x_{i}-j_{i}}{g(i)-j_{i}}\right).
+\end{array}}\big(\frac{x_{i}-j_{i}}{g(i)-j_{i}}\big).
 \end{equation}
 Observe that by the expansions in \ref{eq:Vf} and \ref{eq:Ef}, 
 \[
-P_f(\mathbf{x})=\sum_{l\in\mathbb{Z}_{m}}q_{l}(\mathbf{x})V(\mathbf{x})\prod_{k\in\mathbb{Z}_{n}}(x_{l}-k)+\left(\prod_{v\in\mathbb{Z}_{n}}v!\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{\begin{array}{c}
+P_{f}(\mathbf{x})=\sum_{l\in\mathbb{Z}_{m}}q_{l}(\mathbf{x})V(\mathbf{x})\prod_{k\in\mathbb{Z}_{n}}(x_{l}-k)+
+\]
+\[
+\bigg(\prod_{v\in\mathbb{Z}_{n}}v!\sum_{\theta\in\text{S}_{n}}\text{sgn}(\theta)\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{\theta(i)\}
 }
-\end{array}}\left(\frac{x_{i}-j_{i}}{\theta(i)-j_{i}}\right)\right)\times
-\]
-\[
-\left(\sum_{\begin{array}{c}
+\end{array}}\big(\frac{x_{i}-j_{i}}{\theta(i)-j_{i}}\big)\bigg)\bigg(\prod_{v\in\mathbb{Z}_{n}}(v!)\frac{(n-1+v)!}{(2v)!}\sum_{\begin{array}{c}
 g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\\
-|gf-g|(\mathbb{Z}_{n})=\mathbb{Z}_{n}
-\end{array}}\prod_{0\le u<v<n}\bigg(\big(gf(v)-g(v)\big)^{2}-\big(gf(u)-g(u)\big)^{2}\bigg)\prod_{\begin{array}{c}
+|gf-g|\in\text{S}_{n}
+\end{array}}\text{sgn}(|gf-g|)\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}
 }
-\end{array}}\left(\frac{x_{i}-j_{i}}{g(i)-j_{i}}\right)\right).
+\end{array}}\big(\frac{x_{i}-j_{i}}{g(i)-j_{i}}\big)\bigg).
 \]
 is congruent to
 \begin{equation} \label{eq:graceful-evaluation}
-\prod_{v\in\mathbb{Z}_{n}}\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!}\sum_{\begin{array}{c}
+\prod_{v\in\mathbb{Z}_{n}}(v!)^{2}\frac{(n-1+v)!}{(2v)!}\sum_{\begin{array}{c}
 \substack{\sigma\in\text{S}_{n}\\
-\gamma=\left|\sigma f\sigma^{-1}-\text{id}\right|\in\text{S}_{n}
+\text{s.t.}\\
+\left|\sigma f-\sigma\right|\in\text{S}_{n}
 }
-\end{array}}\text{sgn}(\gamma\sigma)\prod_{\begin{array}{c}
+\end{array}}\text{sgn}(\sigma\left|\sigma f-\sigma\right|)\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}
 }
-\end{array}}\left(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\right), 
+\end{array}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big),
 \end{equation}
 where the permutation $\gamma$ denotes the induced edge label permutation associated with a graceful relabeling $G_{\sigma f\sigma^{-1}}$ of $G_f$.
 The congruence above stems from the congruence identity
@@ -405,15 +406,16 @@ Run the SageMath script \texttt{ex1325.sage} to verify.
   %\uses{defn:graceful-functional-graphs, defn:graceful-functional-graphs-set, prop:multivariate-quotient-remainder, defn:polynomial-grace-definition, defn:polynomial-congruence, prop:polynomial-grace-certificate, prop:complementary-labeling-Symmetry}
 Let $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ and the remainder of $P_f$ be
 \begin{equation}
-\overline{P}_f(\mathbf{x}):=\prod_{v\in\mathbb{Z}_{n}}\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!}\sum_{\begin{array}{c}
+\overline{P}_{f}(\mathbf{x}):=\prod_{v\in\mathbb{Z}_{n}}(v!)^{2}\frac{(n-1+v)!}{(2v)!}\sum_{\begin{array}{c}
 \substack{\sigma\in\text{S}_{n}\\
-\gamma=\left|\sigma f\sigma^{-1}-\text{id}\right|\in\text{S}_{n}
+\text{s.t.}\\
+\left|\sigma f-\sigma\right|\in\text{S}_{n}
 }
-\end{array}}\text{sgn}(\gamma\sigma)\prod_{\begin{array}{c}
+\end{array}}\text{sgn}(\sigma\left|\sigma f-\sigma\right|)\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}
 }
-\end{array}}\left(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\right). 
+\end{array}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big).
 \end{equation}
 The complementary labeling map $x_{i}\mapsto x_{n-1-i},$ for all $i\in \mathbb{Z}_n$,
 fixes $\overline{P}_f$ up to sign.
@@ -433,18 +435,21 @@ on $P_{f}$ yields the congruence identity
 P_{f}(\mathbf{x}_{\varphi})\equiv \overline{P}_f(\mathbf{x}_{\varphi}).
 \]
 Hence,
-\begin{align*}
-    \overline{P}_f({\bf x}_{\varphi})	& =\prod_{v\in\mathbb{Z}_{n}}\bigg(\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!}\bigg)\sum_{\substack{\sigma\in\text{S}_{n}\\
-\gamma=\left|\sigma f\sigma^{-1}-\text{id}\right|\in\text{S}_{n}
+\begin{align*}\overline{P}_{f}({\bf x}_{\varphi}) & =\prod_{v\in\mathbb{Z}_{n}}\big((v!)^{2}\frac{(n-1+v)!}{(2v)!}\big)\sum_{\begin{array}{c}
+\substack{\sigma\in\text{S}_{n}\\
+\text{s.t.}\\
+\left|\sigma f-\sigma\right|\in\text{S}_{n}
 }
-}\text{sgn}(\gamma\sigma)\prod_{\substack{i\in\mathbb{Z}_{n}\\
+\end{array}}\text{sgn}(\sigma\left|\sigma f-\sigma\right|)\prod_{\substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}
 }
 }\bigg(\frac{x_{\varphi(i)}-j_{i}}{\sigma(i)-j_{i}}\bigg),\\
-	&=\text{sgn}(\varphi)\prod_{v\in\mathbb{Z}_{n}}\bigg(\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!}\bigg)\sum_{\substack{\sigma\in\text{S}_{n}\\
-\gamma=\left|\sigma f\sigma^{-1}-\text{id}\right|\in\text{S}_{n}
+ & =\text{sgn}(\varphi)\prod_{v\in\mathbb{Z}_{n}}\bigg(\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!}\bigg)\sum_{\begin{array}{c}
+\substack{\sigma\in\text{S}_{n}\\
+\text{s.t.}\\
+\left|\sigma f-\sigma\right|\in\text{S}_{n}
 }
-}\text{sgn}(\gamma\sigma\varphi^{-1})\prod_{\substack{u\in\mathbb{Z}_{n}\\
+\end{array}}\text{sgn}(\sigma\left|\sigma f-\sigma\right|\varphi^{-1})\prod_{\substack{u\in\mathbb{Z}_{n}\\
 v_{u}\in\mathbb{Z}_{n}\backslash\{\sigma\varphi^{-1}(u)\}
 }
 }\bigg(\frac{x_{u}-v_{u}}{\sigma\varphi^{-1}(u)-v_{u}}\bigg).
@@ -459,36 +464,36 @@ Let $\mathfrak{G}$ denote the subrgoup of $\text{S}_n$ whose members are $\big\{
 \overline{P}_f(\mathbf{x}_\varphi)=
 \]
 \[
-\prod_{v\in\mathbb{Z}_{n}}\bigg(\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!}\bigg)\sum_{\begin{array}{c}
+\prod_{v\in\mathbb{Z}_{n}}\big((v!)^{2}\frac{(n-1+v)!}{(2v)!}\big)\sum_{\begin{array}{c}
 \substack{\sigma\in\nicefrac{\text{S}_{n}}{\mathfrak{G}}\\
-\gamma=\left|\sigma f\sigma^{-1}-\text{id}\right|\in\text{S}_{n}
+\gamma=\left|\sigma f-\sigma\right|\in\text{S}_{n}
 }
-\end{array}}\text{sgn}(\gamma\sigma)\left(\text{sgn}(\varphi^{-1})\prod_{\substack{u\in\mathbb{Z}_{n}\\
+\end{array}}\text{sgn}(\sigma\gamma)\,\bigg(\text{sgn}(\varphi^{-1})\prod_{\substack{u\in\mathbb{Z}_{n}\\
 v_{u}\in\mathbb{Z}_{n}\backslash\{\sigma(u)\}
 }
-}\bigg(\frac{x_{u}-v_{u}}{\sigma(u)-v_{u}}\bigg)+\prod_{\substack{u\in\mathbb{Z}_{n}\\
+}\big(\frac{x_{u}-v_{u}}{\sigma(u)-v_{u}}\big)+\prod_{\substack{u\in\mathbb{Z}_{n}\\
 v_{u}\in\mathbb{Z}_{n}\backslash\{\sigma\varphi^{-1}(u)\}
 }
-}\bigg(\frac{x_{u}-v_{u}}{\sigma\varphi^{-1}(u)-v_{u}}\bigg)\right).
+}\big(\frac{x_{u}-v_{u}}{\sigma\varphi^{-1}(u)-v_{u}}\big)\bigg).
 \]
 Similarly, 
 \[
 \overline{P}_f(\mathbf{x})=
 \]
 \[
-\prod_{v\in\mathbb{Z}_{n}}\bigg(\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!}\bigg)\sum_{\begin{array}{c}
+\prod_{v\in\mathbb{Z}_{n}}\big((v!)^{2}\frac{(n-1+v)!}{(2v)!}\big)\sum_{\begin{array}{c}
 \substack{\sigma\in\nicefrac{\text{S}_{n}}{\mathfrak{G}}\\
-\gamma=\left|\sigma f\sigma^{-1}-\text{id}\right|\in\text{S}_{n}
+\gamma=\left|\sigma f-\sigma\right|\in\text{S}_{n}
 }
-\end{array}}\text{sgn}(\gamma\sigma)\left(\prod_{\begin{array}{c}
+\end{array}}\text{sgn}(\sigma\gamma)\,\bigg(\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}
 }
-\end{array}}\bigg(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\bigg)+\text{sgn}(\varphi^{-1})\prod_{\begin{array}{c}
+\end{array}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big)+\text{sgn}(\varphi^{-1})\prod_{\begin{array}{c}
 \substack{i\in\mathbb{Z}_{n}\\
 j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma\varphi^{-1}(i)\}
 }
-\end{array}}\bigg(\frac{x_{i}-j_{i}}{\sigma\varphi^{-1}(i)-j_{i}}\bigg)\right).
+\end{array}}\big(\frac{x_{i}-j_{i}}{\sigma\varphi^{-1}(i)-j_{i}}\big)\bigg).
 \]
 We conclude that the complementary labeling symmetry yields the equality
 \[
