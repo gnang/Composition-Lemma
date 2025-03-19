@@ -263,9 +263,50 @@ Then the following hold:
   \implies\overline{H}=\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}\big(H_{0}(\alpha_{g})+H_{1}(\alpha_{g})\big)\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right),
   \]
   \[
-  \implies\overline{H}=\sum_{k\in\{0,1\}}\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}H_{k}(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right).
+  \implies\overline{H}=\sum_{k\in\mathbb{Z}_{2}}\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}H_{k}(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right).
   \]
   Thus $\overline{H_0} + \overline{H_1} = \overline{H}$ as claimed.
+\end{proof}
+
+\begin{prop}[Restriction Symmetries]\label{prop:aut-expands}
+  %\lean{Algebra.Polynomial.FieldDivision}
+  %\leanok
+  %\uses{}
+For an arbitrary $H\in\mathbb{C}\left[x_{0},\ldots,x_{n-1}\right]$, consider the
+Lagrange interpolation over points $\{\big(\alpha_{\sigma},H(\alpha_{\sigma})\big):\sigma\in\text{S}_{n}\}$ given by
+\[
+\overline{H}=\sum_{\sigma\in\text{S}_{n}}H(\alpha_{\sigma})\,L_{\sigma}({\bf x})\;=\;\sum_{\sigma\in\text{S}_{n}}H(\alpha_{\sigma})\prod_{i\in\mathbb{Z}_{n}}\bigg(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\left\{ \sigma\left(i\right)\right\} }\big(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{\sigma(i)}-\alpha_{j_{i}}}\big)\bigg).
+\]
+Let us define a polynomial $\overline{H}_{S}$ such that it only contains Lagrange basis polynomials for variables with indices $S \subseteq \mathbb{Z}_n$, i.e.,
+\[
+\overline{H}_{S}=\sum_{\sigma\in\text{S}_{n}}H\left(\alpha_{\sigma}\right)\cdot L_{\sigma}\left({\bf x}\vert_{S}\right)\;=\;\sum_{\sigma\in\text{S}_{n}}H(\alpha_{\sigma})\prod_{i\in S\subseteq\mathbb{Z}_{n}}\bigg(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\left\{ \sigma(i)\right\} }\big(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{\sigma(i)}-\alpha_{j_{i}}}\big)\bigg).
+\]
+If $\overline{H}(\alpha_{\sigma})=\overline{H}_{S}(\alpha_{\sigma})$ for all $\sigma \in \text{S}_n$, then we have
+\[
+\textrm{Aut}(\overline H) \subseteq \textrm{Aut}(\overline H_S).
+\]
+\end{prop} 
+\begin{proof}
+First, we claim that $\text{Aut}\left(L_\sigma ({\bf x})\right) = \{\text{id}\}$. Indeed for all $\sigma, \tau \in \text{S}_n$, we have
+\begin{align*}L_{\sigma}\left(\mathbf{x}_{\tau}\right) & =\prod_{i\in\mathbb{Z}_{n}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\left\{ \sigma\left(i\right)\right\} }\left(\frac{x_{\tau(i)}-\alpha_{j_{i}}}{\alpha_{\sigma(i)}-\alpha_{j_{i}}}\right)\right)\\
+ & =\prod_{k\in\mathbb{Z}_{n}}\left(\prod_{v_{k}\in\mathbb{Z}_{n}\backslash\left\{ \sigma\tau^{-1}\left(k\right)\right\} }\left(\frac{x_{k}-\alpha_{v_{k}}}{\alpha_{\sigma\tau^{-1}(k)}-\alpha_{v_{k}}}\right)\right) & k:=\tau\left(i\right)\\
+ & =L_{\sigma\tau^{-1}}\left(\mathbf{x}\right)\\
+ & \ne L_{\sigma}\left(\mathbf{x}\right).
+\end{align*}
+Hence, the symmetries of $\overline{H}$ are entirely determined by its non--vanishing evaluations in $\text{S}_{n}$. 
+Observe that 
+\begin{align*}\overline{H} & =\sum_{\sigma\in\text{S}_{n}}H(\alpha_{\sigma})\cdot L_{\sigma}({\bf x})\\
+ & =\sum_{\sigma\in\text{S}_{n}}H(\alpha_{\sigma})\cdot L_{\sigma}\left({\bf x}\vert_{S}\right)\cdot L_{\sigma}\left({\bf x}\vert_{\mathbb{Z}_{n}\setminus S}\right).
+\end{align*}
+It suffices to establish the claim for a transposition $\tau = (u,v) \in \text{Aut}(\overline{H})$. If $\{u,v\} \subseteq \Z_n \setminus S$, then it easily follows $\tau \in \text{Aut}(\overline{H}_S)$. If $\{u,v\} \subseteq S$, the transposition $\tau$ does not affect the Lagrange basis factors associated with indices $i\in\mathbb{Z}_{n}\setminus S$. Hence if $\tau$ fixes $\overline{H}$, it must fix $\overline{H}_S$. Now consider the case where $u \in S$ and $v \in \mathbb{Z}_n\setminus S$. As we have $\tau = (u,v) \in \text{Aut}(\overline{H})$ and  $\text{Aut}\left(L_\sigma ({\bf x})\right) = \{\text{id}\}$, there must exist distinct $\gamma, \rho \in \text{S}_n$ such that
+\[
+H(\alpha_{\gamma})=H(\alpha_{\rho})\text{ and }L_{\gamma}\left({\bf x}\vert_{\{u\}}\right)=L_{\rho}\left({\bf x}\vert_{\{v\}}\right).
+\]
+This implies
+\begin{align*}\overline{H}_{S} & =\sum_{\sigma\in\text{S}_{n}\setminus\left\{ \gamma,\rho\right\} }H(\alpha_{\sigma})\cdot L_{\sigma}\left({\bf x}|_{S}\right)+H(\alpha_{\gamma})\cdot L_{\gamma}\left({\bf x}\vert_{\{u\}}\right)\cdot L_{\gamma}\left({\bf x}\vert_{S\setminus\{u\}}\right)+H(\alpha_{\rho})\cdot L_{\rho}\left({\bf x}\vert_{\{u\}}\right)\cdot L_{\rho}\left({\bf x}\vert_{S\setminus\{u\}}\right)\\
+ & =\sum_{\sigma\in\text{S}_{n}\setminus\left\{ \gamma,\rho\right\} }H(\alpha_{\sigma})\cdot L_{\sigma}\left({\bf x}|_{S}\right)+H(\alpha_{\gamma})\cdot L_{\rho}\left({\bf x}\vert_{\{v\}}\right)\cdot L_{\gamma}\left({\bf x}\vert_{S\setminus\{u\}}\right)+H(\alpha_{\rho})\cdot L_{\rho}\left({\bf x}\vert_{\{u\}}\right)\cdot L_{\rho}\left({\bf x}\vert_{S\setminus\{u\}}\right).
+\end{align*}
+That is to say, $\overline{H}_S$ must depend on both variables or not depend on any, which grants us our claim.
 \end{proof}
 \begin{defn}[Polynomial of Grace]\label{defn:polynomial-grace-definition} We define $P_f \in \mathbb{C}[x_0, \ldots, x_{n-1}]$ for all $f \in \mathbb{Z}_n^{\mathbb{Z}_n}$ as follows:
 \begin{equation}
@@ -1242,7 +1283,7 @@ i.e., for all $v \in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$ the 
 \[
  \sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\big({\bf x}_{Q}^{\left[s\right]}\big)\bigg)
 \]
-is a sum over the same non--vanishing points, it is fixed by the said transposition on the sublattice $\Phi(g)$. That is to say
+is a sum over the same non--vanishing points, it is fixed by the said transposition on the sublattice $\Phi(g)$. That is to say by Proposition \ref{prop:aut-expands},
 \[
 \tau=\left(g(n-1),v\right)\in\text{Aut}\left(\sum_{1\leq s\leq\left|\Sigma\right|}\bigg(\sum_{\sigma\in\Phi(g)}v_{\sigma}\cdot Q_{f,g}^{\left[s\right]}\left(\sigma\right)\cdot L_{\sigma}\big({\bf x}_{Q}^{\left[s\right]}\big)\bigg)\right),
 \]
