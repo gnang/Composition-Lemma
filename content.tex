@@ -391,7 +391,7 @@ j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}
 }
 \end{array}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big),
 \end{equation}
-where the permutation $\gamma$ denotes the induced edge label permutation associated with a graceful relabeling $G_{\sigma f\sigma^{-1}}$ of $G_f$.
+where the permutation $|\sigma f-\sigma |$ denotes the induced edge label permutation associated with a graceful relabeling $G_{\sigma f\sigma^{-1}}$ of $G_f$.
 The congruence above stems from the congruence identity
 \[
 \prod_{\begin{array}{c}
@@ -719,7 +719,7 @@ are as follows:
 Note that there is a bijection
 \begin{equation}
 x_{i}\mapsto(x_{f(i)}-x_{i})^{2},\quad\forall\:i\in\mathbb{Z}_{n}.
-\end{equation} Hence, the transposition $\tau$ of the leaf nodes induces a transposition
+\end{equation} Hence, the transposition $\tau \in \text{Aut}\left(G_f\right)$ of the leaf nodes induces a transposition
 $\tau$ of the corresponding leaf edges outgoing from the said leaf
 nodes. 
 More precisely, the maps
@@ -1255,7 +1255,7 @@ More generally, by Proposition \ref{prop:multivariate-quotient-remainder}, the p
 \begin{equation}
 P_{g}(h)=R_{f,g}\left(h\right)=v_{h}\,Q_{f,g}\left(h\right)=\begin{cases}
 \begin{array}{cc}
-\text{sgn}(\left|hgh^{-1}-\text{id}\right|\circ h)\underset{v\in\mathbb{Z}_{n}}{\prod}\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!} & \text{ if }h\in\Phi(g)\\
+\text{sgn}(h\,\left|hg-h\right|)\underset{v\in\mathbb{Z}_{n}}{\prod}\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!} & \text{ if }h\in\Phi(g)\\
 \\
 0 & \text{otherwise}
 \end{array},\forall\:h\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}.\end{cases}
