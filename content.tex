@@ -294,7 +294,7 @@ The polynomial $F(\mathbf{x})$ is up to sign symmetric with respect to the trans
 \[
 \sum_{j\in\mathbb{Z}_{m}}\big(\sum_{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}c_{j,g}\,\prod_{i\in S_{j}}(x_{i})^{g(i)}\big)
 \]
-matches the sign change resulting from the action of $\tau$ on the remainder first factor $F(\mathbf{x})$. Observe that
+matches the sign change resulting from the action of $\tau$ on the remainder of the first factor $F(\mathbf{x})$. Observe that
 \begin{equation}\label{eq:ExpansionP}
 \overline{P}(\mathbf{x})=\sum_{\sigma\in\text{S}_{n}}F(\alpha_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}c_{j,g}\prod_{i\in S_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{S_{j}})L_{\sigma}(\mathbf{x}|_{\overline{S_{j}}}),
 \end{equation}
@@ -302,7 +302,7 @@ where $\overline{S_{j}}:=\mathbb{Z}_n\setminus S_{j}$. The associated symmetrize
 \[
 \sum_{\sigma\in\text{S}_{n}}F(\alpha_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}c_{j,g}\prod_{i\in S_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{S_{j}})\sum_{h\in\mathbb{Z}_{n}^{\overline{S_{j}}}}L_{h}(\mathbf{x}|_{\overline{S_{j}}})
 \]
-In effect for each $\sigma\in\text{S}_{n}$, we have replaced in equation \eqref{eq:ExpansionP} within the $j$-th summand with the Lagrange basis
+In effect for each $\sigma\in\text{S}_{n}$, in equation \eqref{eq:ExpansionP} within the $j$-th summand we have replaced the Lagrange basis
 \[
 L_{\sigma}(\mathbf{x})=L_{\sigma}(\mathbf{x}|_{S_{j}})L_{\sigma}(\mathbf{x}|_{\overline{S_{j}}})
 \]
@@ -310,7 +310,7 @@ with the sum
 \[
 L_{\sigma}(\mathbf{x}|_{S_{j}})\sum_{h\in\mathbb{Z}_{n}^{\overline{S_{j}}}}L_{h}(\mathbf{x}|_{\overline{S_{j}}})
 \]
-This may broadens symmetries among variables indexed by $\overline{S_{j}}$ which don't feature in the $j$-th summand $\underset{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}{\sum}c_{j,g}\,\underset{i\in S_{j}}{\prod}(x_{i})^{g(i)}$.
+This broadens symmetries among variables indexed by $\overline{S_{j}}$ which don't feature in the $j$-th summand $\underset{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}{\sum}c_{j,g}\,\underset{i\in S_{j}}{\prod}(x_{i})^{g(i)}$.
 \[
 \implies \textrm{Aut}\left(L_{\sigma}(\mathbf{x}|_{S_{j}})L_{\sigma}(\mathbf{x}|_{\overline{S_{j}}})\right)\subseteq\textrm{Aut}\left(L_{\sigma}(\mathbf{x}|_{S_{j}})\sum_{h\in\mathbb{Z}_{n}^{\overline{S_{j}}}}L_{h}(\mathbf{x}|_{\overline{S_{j}}})\right).
 \]
@@ -318,7 +318,7 @@ In fact the sum
 \[
 L_{\sigma}(\mathbf{x}|_{S_{j}})\sum_{h\in\mathbb{Z}_{n}^{\overline{S_{j}}}}L_{h}(\mathbf{x}|_{\overline{S_{j}}})
 \]
- features the Lagrange basis  $L_{\sigma}(\mathbf{x}|_{S_{j}})L_{\sigma}(\mathbf{x}|_{\overline{S_{j}}})$ as one of its summand. Thus, if a transposition $\tau \in \textrm{Aut}\big(\overline{P}(\mathbf{x})\big)$  despite the variables indexed by $\overline{S_j}$ being restricted by each permutation $\sigma$ then it follows that $\tau$ will lie in the automorphism group of the symmetrized polynomial where each $j$-th summand is symmetric with respect to variables indexed by $\overline{S_{j}}$  for all $\sigma$.
+ features the Lagrange basis  $L_{\sigma}(\mathbf{x}|_{S_{j}})L_{\sigma}(\mathbf{x}|_{\overline{S_{j}}})$ as one of its summand. Thus, if a transposition $\tau \in \textrm{Aut}\big(\overline{P}(\mathbf{x})\big)$  despite the variables indexed by $\overline{S_j}$ being restricted by each permutation $\sigma$ in the sum then it follows that $\tau$ will lie in the automorphism group of the symmetrized polynomial where each $j$-th summand is symmetric with respect to variables indexed by $\overline{S_{j}}$  for all $\sigma$.
 By properties of Lagrange basis polynomials it follows that the symmetrized polynomial is equal to
 \[
 \sum_{\sigma\in\text{S}_{n}}F(\alpha_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}c_{j,g}\prod_{i\in S_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{S_{j}})
@@ -487,7 +487,7 @@ P_{f}({\bf x}_{\varphi}) & = & \underset{0\le u<v<n}{\prod}(x_{\varphi(v)}-x_{\v
  & = & \underset{0\le\varphi^{-1}(i)<\varphi^{-1}(j)<n}{\prod}(x_{j}-x_{i})\big((x_{\varphi f\varphi^{-1}(j)}-x_{j})^{2}-(x_{\varphi f\varphi^{-1}(i)}-x_{i})^{2}\big).
 \end{array}
  \]
- The last equality above features the indexing change of variable $u=\varphi^{-1}(i)$ and $v=\varphi^{-1}(j)$. Thus, $P_{f}(x_{\varphi(0)},\ldots,x_{\varphi(n-1)})$ is up to sign equal to $P_{\varphi f\varphi^{-1}}$, in accordance with Definition \ref{defn:polynomial-grace-definition}. Furthermore, by the proof of Proposition \ref{prop:polynomial-grace-certificate}, the action of $\varphi$
+ The last equality above features the indexing change of variable $u=\varphi^{-1}(i)$ and $v=\varphi^{-1}(j)$. Thus, if $\varphi \in \text{Aut}\left(G_f\right)$ then $P_{f}(x_{\varphi(0)},\ldots,x_{\varphi(n-1)})$ is up to sign equal to $P_{\varphi f\varphi^{-1}}$, in accordance with Definition \ref{defn:polynomial-grace-definition}. Furthermore, by the proof of Proposition \ref{prop:polynomial-grace-certificate}, the action of $\varphi$
 on $P_{f}$ yields the congruence identity
 \[
 P_{f}(\mathbf{x}_{\varphi})\equiv \overline{P}_f(\mathbf{x}_{\varphi}).
