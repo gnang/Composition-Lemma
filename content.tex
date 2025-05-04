@@ -234,7 +234,7 @@ Applying the induction hypothesis to coefficients
 \]
 yields the desired claim.
 \end{proof}
- \begin{proposition}[Ring Homomorphism]\label{prop:ring-homomorphism}
+\begin{proposition}[Ring Homomorphism]\label{prop:ring-homomorphism}
   %\lean{Algebra.Polynomial.FieldDivision}
   %\leanok
   %\uses{}
@@ -275,53 +275,131 @@ and for any $S\subseteq \mathbb{Z}_n$ we denote  by $L_{g}(\mathbf{x}|_{S})$ the
 \[
 L_{g}(\mathbf{x}|_{S})\coloneq\prod_{i\in S}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right)
 \]
+\begin{proposition}
+ \label{prop:Orthogonality}
+  %\lean{}
+  %\leanok
+  %\uses{prop:multivariate-quotient-remainder}   
+ Let $f,g \in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$. Then for the congruence relation modulo $\{d(x_{i}):i \in \Z_n\}$, we have
+\[
+L_{f}({\bf x})\cdot L_{g}({\bf x})\equiv\begin{cases}
+L_{f}({\bf x}) & \text{if }f=g\\
+0 & \text{otherwise,}
+\end{cases}
+\]
+\end{proposition}
+\begin{proof} Observe that
+\[
+L_{f}(\mathbf{x})\cdot L_{g}(\mathbf{x})\;=\;\prod_{i\in\mathbb{Z}_{n}}\bigg(\big(c_{i,f}\frac{d(x_{i})}{x_{i}-f(i)}\big)\big(c_{i,g}\frac{d(x_{i})}{x_{i}-g(i)}\big)\bigg),
+\]
+where
+\[
+c_{i,f}=\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{f(i)\}}\big(f(i)-j_{i}\big)^{-1}\quad\text{ and }\quad c_{i,g}=\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\big(g(i)-j_{i}\big)^{-1}.
+\]
+If $f \neq g$, then there exists $j \in \Z_n:f(j)\neq g(j)$ and $L_{f}(\mathbf{x})\cdot L_{g}(\mathbf{x})$ is a multiple of $(x_{j})^{\underline{n}}$,
+as a result of which we obtain $L_{f}(\mathbf{x})\cdot L_{g}(\mathbf{x}) \equiv 0$. Now suppose $f = g$. Then we have
+\begin{align*}
+\left(L_{f}(\mathbf{x})\right)^{2}-L_{f}(\mathbf{x})\; & =\;L_{f}(\mathbf{x})\left(L_{f}(\mathbf{x})-1\right)\\
+ & =\;L_{f}(\mathbf{x})\bigg(L_{f}(\mathbf{x})-\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}}L_{g}\left({\bf x}\right)\bigg)\\
+ & =\;-L_{f}(\mathbf{x})\bigg(\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\setminus\{f\}}L_{g}\left({\bf x}\right)\bigg)\\
+ & \equiv\;0,
+\end{align*}
+where the congruence at the end follows from the case discussed earlier.
+\end{proof}
 \begin{lemma}[Symmetrization Lemma] \label{lem:symmetrization Lemma}
   %\lean{}
   %\leanok
   %\uses{prop:multivariate-quotient-remainder}
-Let $P\in\mathbb{Q}\left[x_{0},\ldots,x_{n-1}\right]$
-and $S_{u}\subseteq\mathbb{Z}_{n}$ for all $u\in\mathbb{Z}_{m}$. If for some positive integers $\{D_{u}:u\in\mathbb{Z}_{n}\}$ we have
+Let $P,\,F\in\mathbb{Q}\left[x_{0},\ldots,x_{n-1}\right]$
+and $\mathscr{S}_{u}\subseteq\mathbb{Z}_{n}$ for all $u\in\mathbb{Z}_{m}$. If for some positive integers $\{D_{u}:u\in\mathbb{Z}_{m}\}$ we have
 \begin{equation}
-P(\mathbf{x})=F(\mathbf{x})\sum_{j\in\mathbb{Z}_{m}}\big(\sum_{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}c_{j,g}\,\prod_{i\in S_{j}}(x_{i})^{g(i)}\big),
+P(\mathbf{x})=F(\mathbf{x})\sum_{j\in\mathbb{Z}_{m}}\big(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in \mathscr{S}_{j}}(x_{i})^{g(i)}\big),
 \end{equation}
-is such that the factor $F(\alpha_{h})$ vanishes for all $h\in \mathbb{Z}_{n}^{\mathbb{Z}_{n}}\backslash\text{S}_{n}$ and $F(\mathbf{x})$ is up to sign symmetric with respect to a transposition $\gamma$ of a fixed pair of variables then
+is such that the factor $F(\mathbf{x})$ is up to sign symmetric with respect to a transposition $\tau$ of a fixed pair of variables and $F(\boldsymbol{\alpha}_{h})$ vanishes for all $h\in \mathbb{Z}_{n}^{\mathbb{Z}_{n}}\backslash\text{S}_{n}$, then
 \[
-\gamma\in\textrm{Aut}\bigg(\overline{P}(\mathbf{x})\bigg)\implies\gamma\in\textrm{Aut}\left(\sum_{\sigma\in\text{S}_{n}}F(\alpha_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}c_{j,g}\prod_{i\in S_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{S_{j}})\right)
+\tau\in\textrm{Aut}\big(\,\overline{P}(\mathbf{x})\big)\implies\tau\in\textrm{Aut}\left(\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})\right)
 \]
 \end{lemma}
 \begin{proof}
-The polynomial $F(\mathbf{x})$ is up to sign symmetric with respect to the transposition $\tau$ of its variables. Thus for a permutation $\tau$ to lie in the automorphism group of a non-vanishing $\overline{P}$, it is necessary and sufficient the sign change resulting from the action of $\tau$ on the remainder of the second factor
-\[
-\sum_{j\in\mathbb{Z}_{m}}\big(\sum_{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}c_{j,g}\,\prod_{i\in S_{j}}(x_{i})^{g(i)}\big)
-\]
-matches the sign change resulting from the action of $\tau$ on the remainder of the first factor $F(\mathbf{x})$. Observe that
+The polynomial $F(\mathbf{x})$ is up to sign symmetric with respect to the transposition $\tau$ which exchanges a fixed pair of variables. Observe that
 \begin{equation}\label{eq:ExpansionP}
-\overline{P}(\mathbf{x})=\sum_{\sigma\in\text{S}_{n}}F(\alpha_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}c_{j,g}\prod_{i\in S_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{S_{j}})L_{\sigma}(\mathbf{x}|_{\overline{S_{j}}}),
+\overline{P}(\mathbf{x})=\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}}),
 \end{equation}
-where $\overline{S_{j}}:=\mathbb{Z}_n\setminus S_{j}$. The associated symmetrized polynomial is
+where $\overline{\mathscr{S}_{j}}:=\mathbb{Z}_n\setminus \mathscr{S}_{j}$. The associated symmetrized polynomial is
 \[
-\sum_{\sigma\in\text{S}_{n}}F(\alpha_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}c_{j,g}\prod_{i\in S_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{S_{j}})\sum_{h\in\mathbb{Z}_{n}^{\overline{S_{j}}}}L_{h}(\mathbf{x}|_{\overline{S_{j}}})
+\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})
 \]
-In effect for each $\sigma\in\text{S}_{n}$, in equation \eqref{eq:ExpansionP} within the $j$-th summand we have replaced the Lagrange basis
+In effect for each $\sigma\in\text{S}_{n}$, in equation \eqref{eq:ExpansionP} within the $j$-th summand for each $j\in \Z_m$, we have replaced the Lagrange basis
 \[
-L_{\sigma}(\mathbf{x})=L_{\sigma}(\mathbf{x}|_{S_{j}})L_{\sigma}(\mathbf{x}|_{\overline{S_{j}}})
+L_{\sigma}(\mathbf{x})=L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})
 \]
-with the sum
+with the sum over Lagrange bases polynomials
 \[
-L_{\sigma}(\mathbf{x}|_{S_{j}})\sum_{h\in\mathbb{Z}_{n}^{\overline{S_{j}}}}L_{h}(\mathbf{x}|_{\overline{S_{j}}})
+\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}}).
 \]
-This broadens symmetries among variables indexed by $\overline{S_{j}}$ which don't feature in the $j$-th summand $\underset{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}{\sum}c_{j,g}\,\underset{i\in S_{j}}{\prod}(x_{i})^{g(i)}$.
+Symmetries among variables indexed by $\overline{\mathscr{S}_{j}}$ which are absent from the $j$-th summand $\underset{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}{\sum}c_{j,g}\underset{i\in\mathscr{S}_{j}}{\prod}(x_{i})^{g(i)}$,
+are broaden so that
 \[
-\implies \textrm{Aut}\left(L_{\sigma}(\mathbf{x}|_{S_{j}})L_{\sigma}(\mathbf{x}|_{\overline{S_{j}}})\right)\subseteq\textrm{Aut}\left(L_{\sigma}(\mathbf{x}|_{S_{j}})\sum_{h\in\mathbb{Z}_{n}^{\overline{S_{j}}}}L_{h}(\mathbf{x}|_{\overline{S_{j}}})\right).
+\textrm{Aut}\bigg(L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})\bigg)\subseteq\textrm{Aut}\bigg(\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})\bigg).
 \]
-In fact the sum
+In fact the sum over Lagrange bases polynomials
 \[
-L_{\sigma}(\mathbf{x}|_{S_{j}})\sum_{h\in\mathbb{Z}_{n}^{\overline{S_{j}}}}L_{h}(\mathbf{x}|_{\overline{S_{j}}})
+\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})
 \]
- features the Lagrange basis  $L_{\sigma}(\mathbf{x}|_{S_{j}})L_{\sigma}(\mathbf{x}|_{\overline{S_{j}}})$ as one of its summand. Thus, if a transposition $\tau \in \textrm{Aut}\big(\overline{P}(\mathbf{x})\big)$  despite the variables indexed by $\overline{S_j}$ being restricted by each permutation $\sigma$ in the sum then it follows that $\tau$ will lie in the automorphism group of the symmetrized polynomial where each $j$-th summand is symmetric with respect to variables indexed by $\overline{S_{j}}$  for all $\sigma$.
-By properties of Lagrange basis polynomials it follows that the symmetrized polynomial is equal to
+ features the original Lagrange basis polynomial $L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})$ as one of its summand.
+ Let $P_{j}$ be denotes the $j$-th summand
+ \[
+ P_{j}(\mathbf{x})=F(\mathbf{x})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}(x_{i})^{g(i)}.
+ \]
+ The remainder of $P_{j}$ is obtained by interpolating over
 \[
-\sum_{\sigma\in\text{S}_{n}}F(\alpha_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{S_{j}}}c_{j,g}\prod_{i\in S_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{S_{j}})
+\bigcup_{\sigma\in\text{S}_{n}}\bigg\{\bigg((\alpha_{\sigma(u)}:u\in\mathscr{S}_{j};\,\alpha_{h(v)}:v\in\overline{\mathscr{S}_{j}}),\:F(\boldsymbol{\alpha}_{\sigma})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}(\alpha_{\sigma(i)})^{g(i)}\bigg):h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\bigg\}.
+\]
+Furthermore the symmetrized polynomial as whole is obtained by interpolating over points
+\[
+\bigcup_{\begin{array}{c}
+j\in\mathbb{Z}_{m}\\
+\sigma\in\text{S}_{n}
+\end{array}}\bigg\{\bigg((\alpha_{\sigma(u)}:u\in\mathscr{S}_{j};\,\alpha_{h(v)}:v\in\overline{\mathscr{S}_{j}}),\:F(\boldsymbol{\alpha}_{\sigma})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}(\alpha_{\sigma(i)})^{g(i)}\bigg):h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\bigg\}.
+\]
+By the equality
+\[
+\big\{\big(f,P(f\tau)\big):f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\big\}=\big\{\big(f\tau\tau^{-1},P(f\tau)\big):f\tau\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\big\}=\big\{\big(g\tau^{-1},P(g)\big):g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\big\},
+\]
+it follows that the action of the transposition $\tau$ on interpolating points yields interpolating points 
+\[
+\bigcup_{\begin{array}{c}
+j\in\mathbb{Z}_{m}\\
+\sigma\in\text{S}_{n}
+\end{array}}\bigg\{\bigg((\alpha_{\sigma(u)}:u\in\mathscr{S}_{j};\,\alpha_{h(v)}:v\in\overline{\mathscr{S}_{j}}),\:F(\boldsymbol{\alpha}_{\sigma\tau})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}(\alpha_{\sigma\tau(i)})^{g(i)}\bigg):h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\bigg\}.
+\]
+However, by our premise that $\tau \in \textrm{Aut}\big(\overline{P}(\mathbf{x})\big)$, we know that evaluations of $P$ over the $\Z_{n}^{\Z_{n}}$ lattice are fixed by $\tau$. Thus, the sum over interpolating points:
+\[
+\bigcup_{\begin{array}{c}
+j\in\mathbb{Z}_{m}\\
+\sigma\in\text{S}_{n}
+\end{array}}\bigg\{\bigg((\alpha_{\sigma(u)}:u\in\mathscr{S}_{j};\,\alpha_{h(v)}:v\in\overline{\mathscr{S}_{j}}),\:F(\boldsymbol{\alpha}_{\sigma\tau})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}(\alpha_{\sigma\tau(i)})^{g(i)}\bigg):h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\bigg\}
+\]
+equals the sum over interpolating points:
+\[
+\bigcup_{\begin{array}{c}
+j\in\mathbb{Z}_{m}\\
+\sigma\in\text{S}_{n}
+\end{array}}\bigg\{\bigg((\alpha_{\sigma(u)}:u\in\mathscr{S}_{j};\,\alpha_{h(v)}:v\in\overline{\mathscr{S}_{j}}),\:F(\boldsymbol{\alpha}_{\sigma})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}(\alpha_{\sigma(i)})^{g(i)}\bigg):h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\bigg\}.
+\]
+ In summary,
+ \[
+\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})=
+ \]
+ \[
+\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})+
+ \]
+ \[
+\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\backslash\{\sigma|_{\overline{\mathscr{S}_{j}}}\}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})
+ \]
+$\tau \in \textrm{Aut}\big(\overline{P}(\mathbf{x})\big)$  despite variables indexed by $\overline{\mathscr{S}_{j}}$ for all $j\in \Z_m$ being rigidly restricted by each permutation $\sigma$. If $\tau$ fixes the sum on the first line below the the equal sign above, then $\tau$ also fixes the second sum on the second line below the equal sign above. By properties of Lagrange basis polynomials it follows that the symmetrized polynomial equals
+\[
+\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}}).
 \]
 By which we conclude that the desired claim holds.
 \end{proof}
@@ -409,27 +487,7 @@ j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}
 \end{array}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big),
 \end{equation}
 where the permutation $|\sigma f-\sigma |$ denotes the induced edge label permutation associated with a graceful relabeling $G_{\sigma f\sigma^{-1}}$ of $G_f$.
-The congruence above stems from the congruence identity
-\[
-\prod_{\begin{array}{c}
-\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\backslash\{\theta(i)\}
-}
-\end{array}}\left(\frac{x_{i}-j_{i}}{\theta(i)-j_{i}}\right)\prod_{\begin{array}{c}
-\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}
-}
-\end{array}}\left(\frac{x_{i}-j_{i}}{g(i)-j_{i}}\right)\equiv\begin{cases}
-\begin{array}{cc}
-\underset{\begin{array}{c}
-\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\backslash\{\theta(i)\}
-}
-\end{array}}{\prod}\left(\frac{x_{i}-j_{i}}{\theta(i)-j_{i}}\right) & \text{ if }\theta=g\\
-\\0 & \text{otherwise}
-\end{array} & \forall\,(\theta,g)\in\text{S}_{n}\times\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\end{cases}
-\]
-and a graceful labeling necessitates the integer coefficient
+The congruence above stems from \ref{prop:Orthogonality}. A graceful labeling necessitates the integer coefficient
 \[
 \prod_{0\le i<j<n}(j-i)\big(j^{2}-i^{2})=\prod_{0\le i<j<n}(j-i)^{2}(j+i)=\prod_{v\in\mathbb{Z}_{n}}\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!} \neq 0,
 \]
@@ -479,7 +537,7 @@ The complementary labeling map $x_{i}\mapsto x_{n-1-i},$ for all $i\in \mathbb{Z
 fixes $\overline{P}_f$ up to sign.
 \end{proposition}
 \begin{proof}
-For notational convenience, let $\mathbf{x}_{\varphi}:=x_{\varphi(0)},\ldots,x_{\varphi(i)},\ldots,x_{\varphi(n-1)}$. Observe that for any permutation $\varphi\in \text{S}_n$, the action of $\varphi$ on $P_f$ yields equalities
+For notational convenience, let $\mathbf{x}_{\varphi}:=(x_{\varphi(0)},\ldots,x_{\varphi(i)},\ldots,x_{\varphi(n-1)})$. Observe that for any permutation $\varphi\in \text{S}_n$, the action of $\varphi$ on $P_f$ yields equalities
  \[
  \begin{array}{ccc}
 P_{f}({\bf x}_{\varphi}) & = & \underset{0\le u<v<n}{\prod}(x_{\varphi(v)}-x_{\varphi(u)})\big((x_{\varphi f(v)}-x_{\varphi(v)})^{2}-(x_{\varphi f(u)}-x_{\varphi(u)})^{2}\big),\\
@@ -487,7 +545,7 @@ P_{f}({\bf x}_{\varphi}) & = & \underset{0\le u<v<n}{\prod}(x_{\varphi(v)}-x_{\v
  & = & \underset{0\le\varphi^{-1}(i)<\varphi^{-1}(j)<n}{\prod}(x_{j}-x_{i})\big((x_{\varphi f\varphi^{-1}(j)}-x_{j})^{2}-(x_{\varphi f\varphi^{-1}(i)}-x_{i})^{2}\big).
 \end{array}
  \]
- The last equality above features the indexing change of variable $u=\varphi^{-1}(i)$ and $v=\varphi^{-1}(j)$. Thus, if $\varphi \in \text{Aut}\left(G_f\right)$ then $P_{f}(x_{\varphi(0)},\ldots,x_{\varphi(n-1)})$ is up to sign equal to $P_{\varphi f\varphi^{-1}}$, in accordance with Definition \ref{defn:polynomial-grace-definition}. Furthermore, by the proof of Proposition \ref{prop:polynomial-grace-certificate}, the action of $\varphi$
+ The last equality above features the indexing change of variable $u=\varphi^{-1}(i)$ and $v=\varphi^{-1}(j)$. If $\varphi \in \text{Aut}\left(G_f\right)$ then $P_{f}(x_{\varphi(0)},\ldots,x_{\varphi(n-1)})$ is up to sign equal to $P_{\varphi f\varphi^{-1}}$, in accordance with Definition \ref{defn:polynomial-grace-definition}. Furthermore, by the proof of Proposition \ref{prop:polynomial-grace-certificate}, the action of $\varphi$
 on $P_{f}$ yields the congruence identity
 \[
 P_{f}(\mathbf{x}_{\varphi})\equiv \overline{P}_f(\mathbf{x}_{\varphi}).
@@ -888,11 +946,8 @@ $f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\subset\mathbb{Z}_{n}$.
 Iterating this slight generalization of the composition lemma yields
 that all functional trees are graceful, which in turn implies that the \textit{Composition Lemma} as stated in Lemma \ref{eq:composition-lemma}  holds. For notational convenience,
 we assume without loss of generality that 
-\[
-f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)=\left\{ n-1,\,n-2,\,...,\,n-\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|\right\} \;\text{ and}
-\]
 \begin{equation}
-f\left(n-\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|\right)=n-\left|f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\right|-1.
+f(n-1)=n-\left|f^{-1}\big(\{f(n-1)\}\big)\right|-1 \;\text{ and } f^{-1}\big(\{f(n-1)\}\big)=\mathbb{Z}_{n}\setminus\mathbb{Z}_{1+f(n-1)}.
 \end{equation}
 If the conditions stated above are not met, we relabel the vertices of $G_f$ to ensure that such is indeed the case. Note that such a relabeling does not affect the property we seek to prove. We prove the contrapositive claim
 \begin{equation}\label{eq:contrapositive}
@@ -938,31 +993,32 @@ t\in\left\{ 0,1\right\}
 \end{array}}{\prod} & \bigg(x_{f^{\left(2\right)}\left(v\right)}-x_{v}+\left(-1\right)^{t}(x_{f^{\left(2\right)}\left(u\right)}-x_{u})\bigg).
 \end{array}
 \end{equation}
-We setup a variable {telescoping} within each binomial $(x_{f^{\left(2\right)}\left(v\right)}-x_{v})$
-for all $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$
-(i.e., vertices associated with an iterated edge) as follows:
+We setup a variable \emph{telescoping} within each induced edge label binomial $(x_{f^{\left(2\right)}\left(v\right)}-x_{v})$
+where $v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)$
+(i.e. induced edge binomials of edges outgoing from the subset of vertices where $f$ is iterated) as follows:
 \[
 \begin{array}{c}
-\underbrace{{\color{blue}(}x_{f^{\left(2\right)}\left(v\right)}-x_{v}{\color{red})}}\\
-x_{v}\longrightarrow x_{f^{\left(2\right)}\left(v\right)}
+\underbrace{{\color{blue}(}x_{f^{(2)}(v)}-x_{v}{\color{red})}}\\
+x_{v}\longrightarrow x_{f^{(2)}(v)}
 \end{array}\begin{array}{c}
 =\\
 \\
 \end{array}\begin{array}{c}
-\underbrace{{\color{red}(x_{f\left(v\right)}}-x_{v}{\color{red})}}\\
-x_{v}\longrightarrow{\color{red}x_{f\left(v\right)}}
+\underbrace{{\color{red}(x_{f(v)}}-x_{v}{\color{red})}}\\
+x_{v}\longrightarrow{\color{red}x_{f(v)}}
 \end{array}\begin{array}{c}
 +\\
 \\
 \end{array}\begin{array}{c}
-\underbrace{{\color{blue}(}x_{f^{\left(2\right)}\left(v\right)}{\color{blue}-x_{f\left(v\right)}}{\color{blue})}}\\
-{\color{blue}x_{f\left(v\right)}}\longrightarrow x_{f^{\left(2\right)}\left(v\right)}
-\end{array},
+\underbrace{{\color{blue}(}x_{f^{(2)}(v)}{\color{blue}-x_{f(v)}}{\color{blue})}}\\
+{\color{blue}x_{f(v)}}\longrightarrow x_{f^{(2)}(v)}
+\end{array}.
 \]
+The telescoping enables us to express induced edge binomials of edges outgoing from the subset of vertices where $f$ is iterated in terms of induced edge binomials which feature in $E_f$. Note that
 \[
-{\color{blue}(}x_{f^{\left(2\right)}\left(v\right)}-x_{v}{\color{red})}={\color{blue}(}x_{f^{\left(2\right)}\left(v\right)}{\color{blue}-x_{f\left(v\right)}}{\color{blue})}+{\color{red}(x_{f\left(v\right)}}-x_{v}{\color{red})}={\color{blue}(}x_{f^{\left(2\right)}\left(n-1\right)}{\color{blue}-x_{f\left(n-1\right)}}{\color{blue})}+{\color{red}(x_{f\left(v\right)}}-x_{v}{\color{red})},
+{\color{blue}\big(}x_{f^{\left(2\right)}(v)}-x_{v}{\color{red}\big)}=\bigg({\color{blue}(}x_{f^{\left(2\right)}(v)}{\color{blue}-x_{f(v)}}{\color{blue})}+{\color{red}(x_{f(v)}}-x_{v}{\color{red})}\bigg)={\color{blue}(}x_{f^{(2)}(n-1)}{\color{blue}-x_{f(n-1)}}{\color{blue})}+{\color{red}(x_{f(v)}}-x_{v}{\color{red})},
 \]
-where the last equality immediately above results from the fact that $f\left(v\right)=f\left(n-1\right)$
+given that $f\left(v\right)=f\left(n-1\right)$
 for all $v\in f^{-1}\left(\left\{ f(n-1)\right\} \right)$. Thus
 \[
 \begin{array}{c}
