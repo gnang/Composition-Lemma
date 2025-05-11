@@ -251,6 +251,7 @@ Then the following hold:
 \begin{enumerate}
     \item Evaluations over the  lattice $\{\alpha_{u}:u\in\mathbb{Z}_{n}\}^{n}$ of $\overline{H}$ match evaluations of $H$ over the same lattice. 
     \item If $H = H_0 + H_1,$ where $H_0, H_1 \in \mathbb{C}\left[x_{0},\ldots,x_{n-1}\right]$, then $\overline{H_0} + \overline{H_1} = \overline{H}$.
+    \item If $H = H_0 \cdot H_1,$ where $H_0, H_1 \in \mathbb{C}\left[x_{0},\ldots,x_{n-1}\right]$,  then $ \overline{H} \equiv \overline{H_0} \cdot \overline{H_1}$.
 \end{enumerate}
  \end{proposition}
 \begin{proof}
@@ -265,7 +266,7 @@ Then the following hold:
   \[
   \implies\overline{H}=\sum_{k\in\mathbb{Z}_{2}}\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{m}}}H_{k}(\alpha_{g})\prod_{i\in\mathbb{Z}_{m}}\left(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{g(i)\}}\bigg(\frac{x_{i}-\alpha_{j_{i}}}{\alpha_{g(i)}-\alpha_{j_{i}}}\bigg)\right).
   \]
-  Thus $\overline{H_0} + \overline{H_1} = \overline{H}$ as claimed.
+  Thus $\overline{H_0} + \overline{H_1} = \overline{H}$ as claimed. Finally the fact (iii) is a straightforward consequence of Proposition \ref{prop:Orthogonality}, which is proved next.
 \end{proof}
 For notational convenience, we denote by $L_{g}(\mathbf{x})$ the Lagrange basis polynomial of $g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$  
 \[
@@ -298,108 +299,125 @@ c_{i,f}=\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{f(i)\}}\big(f(i)-j_{i}\big)^{-1
 \]
 If $f \neq g$, then there exists $j \in \Z_n:f(j)\neq g(j)$ and $L_{f}(\mathbf{x})\cdot L_{g}(\mathbf{x})$ is a multiple of $(x_{j})^{\underline{n}}$,
 as a result of which we obtain $L_{f}(\mathbf{x})\cdot L_{g}(\mathbf{x}) \equiv 0$. Now suppose $f = g$. Then we have
+\[
+\big(L_{f}(\mathbf{x})\big)^{2}=L_{f}(\mathbf{x})+\bigg(\big(L_{f}(\mathbf{x})\big)^{2}-L_{f}(\mathbf{x})\bigg).
+\]
+We proceed below to show that $\big(L_{f}(\mathbf{x})\big)^{2}-L_{f}(\mathbf{x})\equiv 0$
 \begin{align*}
-\left(L_{f}(\mathbf{x})\right)^{2}-L_{f}(\mathbf{x})\; & =\;L_{f}(\mathbf{x})\left(L_{f}(\mathbf{x})-1\right)\\
+\big(L_{f}(\mathbf{x})\big)^{2}-L_{f}(\mathbf{x})\; & =\;L_{f}(\mathbf{x})\left(L_{f}(\mathbf{x})-1\right)\\
  & =\;L_{f}(\mathbf{x})\bigg(L_{f}(\mathbf{x})-\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}}L_{g}\left({\bf x}\right)\bigg)\\
  & =\;-L_{f}(\mathbf{x})\bigg(\sum_{g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\setminus\{f\}}L_{g}\left({\bf x}\right)\bigg)\\
  & \equiv\;0,
 \end{align*}
 where the congruence at the end follows from the case discussed earlier.
 \end{proof}
+
 \begin{lemma}[Symmetrization Lemma] \label{lem:symmetrization Lemma}
   %\lean{}
   %\leanok
   %\uses{prop:multivariate-quotient-remainder}
 Let $P,\,F\in\mathbb{Q}\left[x_{0},\ldots,x_{n-1}\right]$
-and $\mathscr{S}_{u}\subseteq\mathbb{Z}_{n}$ for all $u\in\mathbb{Z}_{m}$. If for some positive integers $\{D_{u}:u\in\mathbb{Z}_{m}\}$ we have
+and $\mathscr{S}_{u}\subseteq\mathbb{Z}_{n}$ for all $u\in\mathbb{Z}_{m}$. For positive integers $\{D_{u}:u\in\mathbb{Z}_{m}\}$ let
 \begin{equation}
-P(\mathbf{x})=F(\mathbf{x})\sum_{j\in\mathbb{Z}_{m}}\big(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in \mathscr{S}_{j}}(x_{i})^{g(i)}\big),
+P(\mathbf{x})=F(\mathbf{x})\sum_{j\in\mathbb{Z}_{m}}\big(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in \mathscr{S}_{j}}(x_{i})^{g(i)}\big),
 \end{equation}
-is such that the factor $F(\mathbf{x})$ is up to sign symmetric with respect to a transposition $\tau$ of a fixed pair of variables and $F(\boldsymbol{\alpha}_{h})$ vanishes for all $h\in \mathbb{Z}_{n}^{\mathbb{Z}_{n}}\backslash\text{S}_{n}$, then
+such that  
+ for some integer $\kappa$ we have $F(\boldsymbol{\alpha}_{f\tau^{-1}})=(-1)^{\kappa} F(\boldsymbol{\alpha}_{f})$  
+ for all $f\in \Z_{n}^{\Z_{n}}$,
+ where $\tau$ denotes a transposition  which exchanges a fixed pair of variables. If  $F(\boldsymbol{\alpha}_{f})$ vanishes for all $f\in \mathbb{Z}_{n}^{\mathbb{Z}_{n}}\backslash\text{S}_{n}$, then
 \[
-\tau\in\textrm{Aut}\big(\,\overline{P}(\mathbf{x})\big)\implies\tau\in\textrm{Aut}\left(\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})\right)
+\tau\in\textrm{Aut}\big(\,\overline{P}(\mathbf{x})\big)\implies\tau\in\textrm{Aut}\left(\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})\right)
 \]
 \end{lemma}
 \begin{proof}
-The polynomial $F(\mathbf{x})$ is up to sign symmetric with respect to the transposition $\tau$ which exchanges a fixed pair of variables. Observe that
-\begin{equation}\label{eq:ExpansionP}
-\overline{P}(\mathbf{x})=\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}}),
-\end{equation}
-where $\overline{\mathscr{S}_{j}}:=\mathbb{Z}_n\setminus \mathscr{S}_{j}$. The associated symmetrized polynomial is
+ Observe that
 \[
-\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})
+\sum_{j\in\mathbb{Z}_{m}}\big(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}(x_{i})^{g(i)}\big)\equiv\sum_{j\in\mathbb{Z}_{m}}\sum_{h_{j}\in\mathbb{Z}_{n}^{\mathscr{S}_{j}}}\bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{h_{j}(i)}\big)^{g(i)}\bigg)\,L_{h_{j}}(\mathbf{x}|_{\mathscr{S}_{j}}).
 \]
-In effect for each $\sigma\in\text{S}_{n}$, in equation \eqref{eq:ExpansionP} within the $j$-th summand for each $j\in \Z_m$, we have replaced the Lagrange basis
+By our premise $\overline{F}(\boldsymbol{\alpha}_{f\tau^{-1}})=- \overline{F}(\boldsymbol{\alpha}_{f})$ for all $f\in \Z_{n}^{\Z_{n}}$ or alternatively $\overline{F}(\boldsymbol{\alpha}_{f\tau^{-1}})= \overline{F}(\boldsymbol{\alpha}_{f})$ for all $f\in \Z_{n}^{\Z_{n}}$. Furthermore by the premise that $F(\boldsymbol{\alpha}_{f})$ vanishes for all $f\in \mathbb{Z}_{n}^{\mathbb{Z}_{n}}\backslash\text{S}_{n}$,
+\[
+\overline{P}\equiv\overline{F}\sum_{j\in\mathbb{Z}_{m}}\big(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}(x_{i})^{g(i)}\big)
+\]
+\[
+\implies\overline{P}\equiv\big(\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\,L_{\sigma}(\mathbf{x})\big)\sum_{j\in\mathbb{Z}_{m}}\big(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}(x_{i})^{g(i)}\big)
+\]
+\[
+\equiv\big(\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\,L_{\sigma}(\mathbf{x})\big)\sum_{j\in\mathbb{Z}_{m}}\sum_{h_{j}\in\mathbb{Z}_{n}^{\mathscr{S}_{j}}}\bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{h_{j}(i)}\big)^{g(i)}\bigg)\,L_{h_{j}}(\mathbf{x}|_{\mathscr{S}_{j}})
+\]
+\[
+\implies\big(\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\,L_{\sigma}(\mathbf{x})\big)\sum_{j\in\mathbb{Z}_{m}}\sum_{h_{j}\in\mathbb{Z}_{n}^{\mathscr{S}_{j}}}\bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{h_{j}(i)}\big)^{g(i)}\bigg)\,L_{h_{j}}(\mathbf{x}|_{\mathscr{S}_{j}})=
+\]
+\[
+\sum_{j\in\mathbb{Z}_{m}}\sum_{(\sigma,h_{j})\in\text{S}_{n}\times\mathbb{Z}_{n}^{\mathscr{S}_{j}}}\bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{h_{j}(i)}\big)^{g(i)}\bigg)F(\boldsymbol{\alpha}_{\sigma})\,L_{h_{j}}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}}),
+\]
+where $\overline{\mathscr{S}_{j}}:=\mathbb{Z}_n\setminus \mathscr{S}_{j}$. Recall that $L_{\sigma}(\mathbf{x})$ has a trivial automorphism group for all $\sigma \in \text{S}_n$. Each summamnd in the sum above is either such that
+\[
+\bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)F(\boldsymbol{\alpha}_{\sigma})L_{h_{j}}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})\equiv0
+\]
+in which case the said summand imposes no constraints at all on the membership of any permutation into the automorphism group of $\overline{P}$. Thus such summands play no role in ascertaining Aut$(\overline{P})$.  Alternatively a summand
+\[
+\bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)F(\boldsymbol{\alpha}_{\sigma})L_{h_{j}}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})\not\equiv0
+\]
+is a member of an orbit
+\[
+\left\{ \bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)F(\boldsymbol{\alpha}_{\sigma})\underbrace{L_{h_{j}}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})}_{\equiv L_{\sigma}(\mathbf{x})}\not\equiv0:\begin{array}{c}
+\sigma\in\text{S}_{n}\\
+\text{s.t.}\\
+\sigma|_{\mathscr{S}_{j}}=h_{j}
+\end{array}\right\} 
+\]
+which impose constraints on membership of permutations into  the automorphism group of $\overline{P}$. Therefore the remainder of such summand must be accounted for in order to ascertain Aut$(\overline{P})$. If $\tau$ lies in the automorphism group of $\overline{P}$ then there are two cases to consider for each variable indexing set $\mathscr{S}_{j}$. In the first case both variables interchanged by the transposition $\tau$ either lie in $\mathscr{S}_{j}$ or both lie in its complement  $\overline{\mathscr{S}_{j}}$. In this setting the orbit
+\[
+\left\{ \bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)F(\boldsymbol{\alpha}_{\sigma})\,L_{\sigma}(\mathbf{x}):\begin{array}{c}
+\sigma\in\text{S}_{n}\\
+\text{s.t.}\\
+\sigma|_{\mathscr{S}_{j}}=h_{j}
+\end{array}\right\} 
+\]
+is up to signed fixed by the transposition $\tau$. Otherwise in the setting where only one of the variables exchanged by $\tau$ lies in $\mathscr{S}_{j}$, $\tau$ induces a transposition of the orbit of summands
+\[
+\left\{ \bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)\,F(\boldsymbol{\alpha}_{\sigma})\,L_{\sigma}(\mathbf{x}):\begin{array}{c}
+\sigma\in\text{S}_{n}\\
+\text{s.t.}\\
+\sigma|_{\mathscr{S}_{j}}=h_{j}
+\end{array}\right\} 
+\]
+with some other orbit of summands
+\[
+\left\{ \bigg(\sum_{g\in(1+\mathbb{Z}_{D_{k}})^{\mathscr{S}_{k}}}c_{k,g}\prod_{i\in\mathscr{S}_{k}}\big(\alpha_{\gamma(i)}\big)^{g(i)}\bigg)\,F(\boldsymbol{\alpha}_{\gamma})L_{\gamma}(\mathbf{x}):\begin{array}{c}
+\gamma\in\text{S}_{n}\\
+\text{s.t.}\\
+\gamma|_{\mathscr{S}_{k}}=h_{k}
+\end{array}\right\} 
+\]
+for we see that if that $F(\boldsymbol{\alpha}_{f\tau^{-1}})=- F(\boldsymbol{\alpha}_{f})$ for all $f\in \Z_{n}^{\Z_{n}}$ or alternatively $F(\boldsymbol{\alpha}_{f\tau^{-1}})= F(\boldsymbol{\alpha}_{f})$ for all $f\in \Z_{n}^{\Z_{n}}$, then the orbit summands
+\[
+\left\{ \bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)\,F(\boldsymbol{\alpha}_{\sigma})\,L_{\sigma}(\mathbf{x}):\begin{array}{c}
+\sigma\in\text{S}_{n}\\
+\text{s.t.}\\
+\sigma|_{\mathscr{S}_{j}}=h_{j}
+\end{array}\right\} 
+\]
+is not up to sign fixed by $\tau$. Thus pairing by this interchange $\mathscr{S}_{j}$ with $\mathscr{S}_{k}$ and vice versa.  In other words $\tau(\mathscr{S}_{j})=\mathscr{S}_{k}$.
+Observe that
+\begin{equation}\label{eq:ExpansionP}
+\overline{P}(\mathbf{x})=\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})
+\end{equation}
+and the associated symmetrized polynomial is
+\[
+\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}}).
+\]
+Note that to obtain the symmetrized polynomial, for each $\sigma\in\text{S}_{n}$, in equation \eqref{eq:ExpansionP} within the $j$-th summand for each $j\in \Z_m$, we have replaced the Lagrange basis
 \[
 L_{\sigma}(\mathbf{x})=L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})
 \]
 with the sum over Lagrange bases polynomials
 \[
-\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}}).
+\sum_{f\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{f}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}}).
 \]
-Symmetries among variables indexed by $\overline{\mathscr{S}_{j}}$ which are absent from the $j$-th summand $\underset{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}{\sum}c_{j,g}\underset{i\in\mathscr{S}_{j}}{\prod}(x_{i})^{g(i)}$,
-are broaden so that
+These sums over Lagrange bases are as block subject to the same pairing argument described above. Thus $\tau$ also fixes the symmetrized polynomial. By properties of Lagrange basis polynomials it follows that the symmetrized polynomial equals
 \[
-\textrm{Aut}\bigg(L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})\bigg)\subseteq\textrm{Aut}\bigg(\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})\bigg).
-\]
-In fact the sum over Lagrange bases polynomials
-\[
-\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})
-\]
- features the original Lagrange basis polynomial $L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})$ as one of its summand.
- Let $P_{j}$ be denotes the $j$-th summand
- \[
- P_{j}(\mathbf{x})=F(\mathbf{x})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\,\prod_{i\in\mathscr{S}_{j}}(x_{i})^{g(i)}.
- \]
- The remainder of $P_{j}$ is obtained by interpolating over
-\[
-\bigcup_{\sigma\in\text{S}_{n}}\bigg\{\bigg((\alpha_{\sigma(u)}:u\in\mathscr{S}_{j};\,\alpha_{h(v)}:v\in\overline{\mathscr{S}_{j}}),\:F(\boldsymbol{\alpha}_{\sigma})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}(\alpha_{\sigma(i)})^{g(i)}\bigg):h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\bigg\}.
-\]
-Furthermore the symmetrized polynomial as whole is obtained by interpolating over points
-\[
-\bigcup_{\begin{array}{c}
-j\in\mathbb{Z}_{m}\\
-\sigma\in\text{S}_{n}
-\end{array}}\bigg\{\bigg((\alpha_{\sigma(u)}:u\in\mathscr{S}_{j};\,\alpha_{h(v)}:v\in\overline{\mathscr{S}_{j}}),\:F(\boldsymbol{\alpha}_{\sigma})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}(\alpha_{\sigma(i)})^{g(i)}\bigg):h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\bigg\}.
-\]
-By the equality
-\[
-\big\{\big(f,P(f\tau)\big):f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\big\}=\big\{\big(f\tau\tau^{-1},P(f\tau)\big):f\tau\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\big\}=\big\{\big(g\tau^{-1},P(g)\big):g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}\big\},
-\]
-it follows that the action of the transposition $\tau$ on interpolating points yields interpolating points 
-\[
-\bigcup_{\begin{array}{c}
-j\in\mathbb{Z}_{m}\\
-\sigma\in\text{S}_{n}
-\end{array}}\bigg\{\bigg((\alpha_{\sigma(u)}:u\in\mathscr{S}_{j};\,\alpha_{h(v)}:v\in\overline{\mathscr{S}_{j}}),\:F(\boldsymbol{\alpha}_{\sigma\tau})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}(\alpha_{\sigma\tau(i)})^{g(i)}\bigg):h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\bigg\}.
-\]
-However, by our premise that $\tau \in \textrm{Aut}\big(\overline{P}(\mathbf{x})\big)$, we know that evaluations of $P$ over the $\Z_{n}^{\Z_{n}}$ lattice are fixed by $\tau$. Thus, the sum over interpolating points:
-\[
-\bigcup_{\begin{array}{c}
-j\in\mathbb{Z}_{m}\\
-\sigma\in\text{S}_{n}
-\end{array}}\bigg\{\bigg((\alpha_{\sigma(u)}:u\in\mathscr{S}_{j};\,\alpha_{h(v)}:v\in\overline{\mathscr{S}_{j}}),\:F(\boldsymbol{\alpha}_{\sigma\tau})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}(\alpha_{\sigma\tau(i)})^{g(i)}\bigg):h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\bigg\}
-\]
-equals the sum over interpolating points:
-\[
-\bigcup_{\begin{array}{c}
-j\in\mathbb{Z}_{m}\\
-\sigma\in\text{S}_{n}
-\end{array}}\bigg\{\bigg((\alpha_{\sigma(u)}:u\in\mathscr{S}_{j};\,\alpha_{h(v)}:v\in\overline{\mathscr{S}_{j}}),\:F(\boldsymbol{\alpha}_{\sigma})\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}(\alpha_{\sigma(i)})^{g(i)}\bigg):h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\bigg\}.
-\]
- In summary,
- \[
-\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})=
- \]
- \[
-\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{\sigma}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})+
- \]
- \[
-\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)\sum_{h\in\mathbb{Z}_{n}^{\overline{\mathscr{S}_{j}}}\backslash\{\sigma|_{\overline{\mathscr{S}_{j}}}\}}L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}})L_{h}(\mathbf{x}|_{\overline{\mathscr{S}_{j}}})
- \]
-$\tau \in \textrm{Aut}\big(\overline{P}(\mathbf{x})\big)$  despite variables indexed by $\overline{\mathscr{S}_{j}}$ for all $j\in \Z_m$ being rigidly restricted by each permutation $\sigma$. If $\tau$ fixes the sum on the first line below the the equal sign above, then $\tau$ also fixes the second sum on the second line below the equal sign above. By properties of Lagrange basis polynomials it follows that the symmetrized polynomial equals
-\[
-\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}}).
+\sum_{\sigma\in\text{S}_{n}}F(\boldsymbol{\alpha}_{\sigma})\sum_{j\in\mathbb{Z}_{m}}\bigg(\sum_{g\in(1+\mathbb{Z}_{D_{j}})^{\mathscr{S}_{j}}}c_{j,g}\prod_{i\in\mathscr{S}_{j}}\big(\alpha_{\sigma(i)}\big)^{g(i)}\bigg)L_{\sigma}(\mathbf{x}|_{\mathscr{S}_{j}}).
 \]
 By which we conclude that the desired claim holds.
 \end{proof}
@@ -1394,6 +1412,19 @@ v\in f^{-1}\left(\left\{ f\left(n-1\right)\right\} \right)\\
 0\le u\le f\left(n-1\right)\\
 t\in\left\{ 0,1\right\} 
 \end{array}\right\} \right|+2f(n-1).
+\]
+So that we are interested in
+\[
+\bigg(\prod_{0\leq i<j<n}(x_{j}-x_{i})\prod_{0\leq u<v<f(n-1)}\big((b_{v})^{2}-(b_{u})^{2}\big)\prod_{\substack{v\in f^{-1}(\{f(n-1)\})\backslash\{n-1\}\\
+f(n-1)<u<v
+}
+}({\color{red}b_{v}}-{\color{red}b_{u}})\bigg)\,Q_{f,g}^{\left[1\right]}=
+\]
+\[
+\bigg(\prod_{0\leq i<j<n}(x_{j}-x_{i})\prod_{0\leq u<v<f(n-1)}\big((b_{v})^{2}-(b_{u})^{2}\big)\prod_{\substack{v\in f^{-1}(\{f(n-1)\})\backslash\{n-1\}\\
+f(n-1)<u<v
+}
+}({\color{red}b_{v}}-{\color{red}b_{u}})\bigg)c\,({\color{red}b_{n-1}})^{n-1-f(n-1)-2}({\color{blue}b_{f\left(n-1\right)}})^{\ell}
 \]
 Note that ${\color{red}b_{n-1}}$ is up to sign invariant to transposition $\tau$. By Lemmas \ref{lem:variable-dependency} and \ref{lem:symmetrization Lemma}, the invariance of $Q_{f,g}^{\left[1\right]}$ to the transposition $\tau$ is predicated upon the $\tau$-invariance up to sign of the polynomial
 \[
