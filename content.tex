@@ -12,7 +12,7 @@
 The \textit{Composition Lemma} was developed and refined over 6 years, beginning in 2018, as a novel approach to settle in the affirmative the \textit{Graceful Tree Conjecture}. The first of such papers was posted in \cite{gnang2020gracefullabelingstrees} by Gnang. A further developed series of papers resolving the same conjecture again appeared in \cite{gnang2022compositionlemma} and \cite{gnang2023proofkotzigringelrosaconjecture}. Recently, the same method has been applied to settle other longstanding conjectures in \cite{chalise2024treenedgesdecomposes} and \cite{chalise2024prooftreepackingconjecture}. We comment that the series of papers shared on the open-source platform arXiv reflect the evolving landscape of Gnang's thought process, and the frequent re-uploads were driven by the natural progression and refinement of ideas. However, we recognize that these numerous edits may have unintentionally caused confusion and raised questions regarding the success of the method. In the current work, we aim to address these concerns by presenting a detailed blueprint of the proof, with the goal of formalizing it in Lean4.
 
 \section{Functional Directed Graphs}\label{sec:Functional Directed Graphs}
-For notational convenience, let $\mathbb{Z}_{n}$ denote the set whose members are the first $n$ natural numbers, i.e.,
+For notational convenience, let $\mathbb{Z}_{n}$ denote the set whose members are the smallest $n$ non-negative integers, i.e.,
 \begin{equation}
 \mathbb{Z}_{n}:=\big\{0,\ldots,\,n-1\big\}.
 \end{equation}
@@ -56,9 +56,9 @@ If $\sigma=\text{id}$ (the identity function), then $G_{f}$ --- the functional d
   %\uses{defn:functional-directed-graphs}
 For a functional directed graph $G_f$, its automorphism group, denoted $\text{Aut}\left(G_f\right)$, is defined as follows:
 \[
-\text{Aut}\left(G_f\right) = \large\{\sigma \in \text{S}_n : \{(i, f(i)): i \in \mathbb{Z}_n \} = \{(j, \sigma f \sigma^{-1} (j)) : j \in \mathbb{Z}_n\}\large\}. 
+\text{Aut}(G_{f})=\big\{\sigma\in\text{S}_{n}:\{\big(i,f(i)\big):i\in\mathbb{Z}_{n}\}=\{\big(j,\sigma f\sigma^{-1}(j)\big):j\in\mathbb{Z}_{n}\}\big\}.
 \]
-For a polynomial $P \in \mathbb{C}[x_0, \ldots, x_{n-1}]$, its automorphism group, denoted $\text{Aut($P$)}$, is defined as follows:
+For a polynomial $P \in \mathbb{C}[x_0, \ldots, x_{n-1}]$, its automorphism group, is the stablizer of $P$ and denoted $\text{Aut($P$)}$. Formally defined as follows:
 \[
 \text{Aut}\left(P\right)=\large\{\sigma\in\text{S}_{n}:P\left(x_{0},\ldots,x_{i},\ldots,x_{n-1}\right)=P\left(x_{\sigma(0)},\ldots,x_{\sigma(i)},\ldots,x_{\sigma(n-1)}\right)\large\}.
 \]
@@ -83,10 +83,11 @@ If $\varphi=n-1-\text{id}$, i.e. $\varphi \in \mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ s
 \[
 \varphi(i)=n-1-i,\, \forall \,i\in \mathbb{Z}_{n},
 \]
-then for an arbitrary $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ the complementary labeling involution is defined as the map
+The complementary labeling involution is defined as the map whose domain and codomain is $\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ and is prescribed by
 \[
-f \mapsto \varphi f \varphi^{-1}
+f \mapsto \varphi f \varphi^{-1},
 \]
+for an arbitrary $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$.
 \end{definition}
 Observe that for all $f\in \mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ the complementary labeling involution fixes the induced edge label of each edge as seen from the equality
 \begin{equation}
@@ -576,7 +577,7 @@ are as follows:
 \begin{equation}
     P_{f}(x_{\tau(0)},\ldots,x_{\tau(i)},\ldots,x_{\tau(n-1)})=\prod_{0\le i<j<n}(x_{\tau(j)}-x_{\tau(i)})\prod_{0\le i<j<n}\big((x_{\tau f(j)}-x_{\tau(j)})^{2}-(x_{\tau f(i)}-x_{\tau(i)})^{2}\big).
 \end{equation}
-Note that there is a bijection
+Note that there is a bijection relating vertex variables to the square of induced edges label binomials prescribed by the map
 \begin{equation}
 x_{i}\mapsto(x_{f(i)}-x_{i})^{2},\quad\forall\:i\in\mathbb{Z}_{n}.
 \end{equation} Hence, the transposition $\tau \in \text{Aut}\left(G_f\right)$ of the leaf nodes induces a transposition
@@ -627,7 +628,7 @@ $\left|f^{\left(n-1\right)}\left(\mathbb{Z}_{n}\right)\right|=1$. The following 
 \begin{enumerate}
     \item 
     \[
-    \max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f^{(2)}\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|\le\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|.
+    \max_{\sigma\in\text{S}_{n}}\big|\{|\sigma f^{(2)}\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\}\big|\le\max_{\sigma\in\text{S}_{n}}\big|\{|\sigma f\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\}\big|.
     \]
     \item
     \[
@@ -649,17 +650,17 @@ all claims hold for all functional digraphs of diameter less than $3$. We now tu
 to functional trees of diameter greater or equal to $3$. 
 It follows by definition 
 \begin{equation}
-n=\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right| \iff P_{f}({\bf x})\not\equiv0 \iff \text{GrL}(G_f) \neq \varnothing.
+n=\max_{\sigma\in\text{S}_{n}}\big|\{|\sigma f\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\}\big|\iff P_{f}({\bf x})\not\equiv0\iff\text{GrL}(G_{f})\neq\varnothing.
 \end{equation}
 We now proceed to show (i) $\iff$ (iii). The backward claim is the simplest of the two claims. We see
-that if $f$ is contractive, so too is $f^{(2)}$. Then the
+that if $f$ is contractive, so too is $f^{(2)}$. Then 
 assertions
 \begin{equation}
-n=\max_{\sigma\in\text{S}_{n}}\left|\left\{ |\sigma f^{(2)}\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\right\} \right| \text{ and } n=\max_{\sigma\in\text{S}_{n}}\left|\left\{ |\sigma f\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\right\} \right|
+n=\max_{\sigma\in\text{S}_{n}}\big|\{|\sigma f^{(2)}\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\}\big|\text{  and  }n=\max_{\sigma\in\text{S}_{n}}\big|\{|\sigma f\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\}\big|
 \end{equation}
 indeed implies the inequality
 \begin{equation}
-\max_{\sigma\in\text{S}_{n}}\left|\left\{ |\sigma f^{(2)}\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\right\} \right|\le\max_{\sigma\in\text{S}_{n}}\left|\left\{ |\sigma f\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\right\} \right|.
+\max_{\sigma\in\text{S}_{n}}\big|\{|\sigma f^{(2)}\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\}\big|\le\max_{\sigma\in\text{S}_{n}}\big|\{|\sigma f\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\}\big|.
 \end{equation}
 We now establish the forward claim by contradiction. Assume for the
 sake of establishing a contradiction that for some contractive map
@@ -696,25 +697,29 @@ Having assembled together the pieces required to prove our main result, we proce
     %\lean{}
   %\leanok
   %\uses{defn:graceful-functional-graphs, defn:graceful-functional-graphs-set, prop:multivariate-quotient-remainder, defn:polynomial-grace-definition, defn:polynomial-congruence, prop:polynomial-grace-certificate, prop:composition-lemma-ineq}
- For all contractive  $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$, i.e., subject to 
+ For all contractive  $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$, i.e., functions subject to the fixed point condition
 $\left|f^{\left(n-1\right)}\left(\mathbb{Z}_{n}\right)\right|=1$,
 we have
 \begin{equation}\label{eq:composition-lemma}
-\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f^{(2)}\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|\le\max_{\sigma\in\text{S}_{n}}\left|\left\{ \left|\sigma f\sigma^{-1}(i)-i\right|:i\in\mathbb{Z}_{n}\right\} \right|.\end{equation}
+\max_{\sigma\in\text{S}_{n}}\big|\{|\sigma f^{(2)}\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\}\big|\le\max_{\sigma\in\text{S}_{n}}\big|\{|\sigma f\sigma^{-1}(i)-i|:i\in\mathbb{Z}_{n}\}\big|.
+\end{equation}
 \end{lemma}
 \begin{proof}
 Owing to Proposition \ref{prop:composition-lemma-ineq}, we prove the statement by establishing 
 \[
     P_{f^{(2)}} ({\bf x}) \not\equiv 0  \implies  P_{f} ({\bf x}) \not\equiv 0.
 \]
-For simplicity, we prove a generalization of the desired claim. Assume without loss of generality that the vertex labeled $(n-1)$ is at furthest edge distance from the root in $G_f$ (i.e. the fixed point ). Given that the diameter of $G_{f}$ is greater than $2$, we may also assume without loss of generality that  $f^{-1}\left(\{n-1\}\right)=\varnothing$
-and $f^{(2)}(n-1)\ne f(n-1)$. Let the contractive
-map $g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ be devised from $f$ and an arbitrary nonempty subset $S\subseteq f^{-1}\big(\{f(n-1)\}\big)$ such
-that 
+For simplicity, we prove a generalization of the desired claim. Assume without loss of generality that
+\[
+f(i)>i,\ \forall\:i\in\mathbb{Z}_{n-1}\text{  and  }f(n-1)=n-1.
+\]
+Further assume without loss of generality that the vertex labeled $0$ is at furthest edge distance from the root in $G_f$ (i.e. the vertex labeled $n-1$). Given that the diameter of $G_{f}$ is greater than $2$, we may also assume without loss of generality that  $f^{-1}\left(\{0\}\right)=\varnothing$
+and $f^{(2)}(0)\ne f(0)$. Let the contractive
+map $g\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ be devised from $f$ such that 
 \begin{equation}
 g(i)=\begin{cases}
 \begin{array}{cc}
-f^{(2)}(i) & \text{ if }i\in S\\
+f^{(2)}(i) & \text{ if }i\in f^{-1}\big(\{f(0)\}\big)\\
 f(i) & \text{otherwise}
 \end{array},\ \forall\,i\in\mathbb{Z}_{n}.\end{cases}
 \end{equation}
@@ -724,426 +729,185 @@ P_{g} ({\bf x}) \not\equiv 0  \implies  P_{f} ({\bf x}) \not\equiv 0.
 \end{equation}
 Note that the assertion immediately above generalizes the composition
 lemma since, $f$ is only partially
-iterated. More precisely, we iterate $f$ on a subset $S$ subject to
-$\varnothing\ne S\subseteq f^{-1}\left(\left\{ f(n-1)\right\} \right)\subset\mathbb{Z}_{n}$.
-In turn, iterating (at most ${n \choose 2}$ times) this generalization  of the composition lemma yields
+iterated. More precisely, we iterate $f$ on the subset $f^{-1}\big(\{f(0)\}\big)$.
+In turn, iterating (at most $n-1$ times) this generalization  of the composition lemma yields
 that all functional trees are graceful, which in turn implies that the \textit{Composition Lemma} as stated in Lemma \ref{eq:composition-lemma}  holds. For notational convenience, assume without loss of generality that 
 \begin{equation}
-f(n-1)=n-\left|f^{-1}\big(\{f(n-1)\}\big)\right|-1,\; f^{-1}\big(\{f(n-1)\}\big)=\mathbb{Z}_{n}\setminus\mathbb{Z}_{1+f(n-1)} \text{ and } S=\big\{ n-1,\,\cdots,\,n-|S|\big\}.
+f^{-1}\big(\{f(0)\}\big)=\mathbb{Z}_{\left|f^{-1}\big(\{f(0)\}\big)\right|}\text{  and  }f(0)=\left|f^{-1}\big(\{f(0)\}\big)\right|.
 \end{equation}
-If the conditions stated above are not met, we relabel the vertices of $G_f$ to ensure that such is indeed the case. Note that such a relabeling does not affect the property we seek to prove. It suffices to show that the claim holds when $S=\{n-1\}$. We prove by contradiction the contrapositive claim
-\begin{equation}\label{eq:contrapositive}
-    P_{f}({\bf x})\equiv0\implies P_{g}({\bf x})\equiv0.
+If the conditions stated above are not met, we relabel the vertices of $G_f$ to ensure that such is indeed the case. Recall that the Bertrand–Chebyshev theorem asserts that for every integer $n>1$  there is always at least one prime $p$ such that $n < p < 2n.$ In the remainder of the proof let $p$ be such an arbitrarily chosen prime. We consider the slight variant of the polynomial certificate construction given by
+\[
+\mathcal{P}_{f}(\mathbf{x})\coloneq\underbrace{\prod_{0\le u<v<n}(x_{v}-x_{u})}_{V(x_{0},\ldots,x_{n-1})}\,\underbrace{\prod_{i\in\mathbb{Z}_{n}}\big(\prod_{j\in\mathbb{Z}_{p}\backslash\mathbb{Z}_{n}}(x_{i}-j)\big)}_{\mathcal{S}(x_{0},\ldots,x_{n-1})}\,\underbrace{\prod_{0\le u<v<n}\bigg(\prod_{t\in\mathbb{Z}_{2}}\big((x_{f(v)}-x_{v})+(-1)^{t}(x_{f(u)}-x_{u})\big)\bigg)}_{E_{f}(x_{0},\ldots,x_{n-1})}.
+\]
+In which case the canonical representative of the congruence class of $\mathcal{P}_f$ modulo the polynomials ideal generated by members of the set
+\[
+\bigg\{\prod_{j\in\mathbb{Z}_{p}}(x_{i}-j):i\in\mathbb{Z}_{n}\bigg\}
+\]
+is given by
+\begin{equation} \label{eq:new-graceful-evaluation}
+\overline{\mathcal{P}_{f}}(\mathbf{x})=\prod_{v\in\mathbb{Z}_{n}}(v!)^{2}\frac{(n-1+v)!}{(2v)!}\prod_{i\in\mathbb{Z}_{n}}\big(\prod_{j\in\mathbb{Z}_{p}\backslash\mathbb{Z}_{n}}(i-j)\big)\sum_{\begin{array}{c}
+\substack{\sigma\in\text{S}_{n}\\
+\text{s.t.}\\
+\left|\sigma f-\sigma\right|\in\text{S}_{n}
+}
+\end{array}}\text{sgn}(\sigma\left|\sigma f-\sigma\right|)\prod_{\begin{array}{c}
+\substack{i\in\mathbb{Z}_{n}\\
+j_{i}\in\mathbb{Z}_{p}\backslash\{\sigma(i)\}
+}
+\end{array}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big),
 \end{equation}
+which is a polynomial of degree at most $p-1$ in each variable and
+\[
+\prod_{v\in\mathbb{Z}_{n}}(v!)^{2}\frac{(n-1+v)!}{(2v)!}\prod_{i\in\mathbb{Z}_{n}}\big(\prod_{j\in\mathbb{Z}_{p}\backslash\mathbb{Z}_{n}}(i-j)\big)\not\equiv0\mod p.
+\]
+A similar expansion holds for $g$. Roughly speaking, we show that there exist a in invertible linear transformation which  maps $\mathcal{P}_f$ to $\mathcal{P}_g$ and vice versa. For an arbitrary $h\in \mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ let $A_{h}\in\{0,1\}^{n\times n}$ denote the adjacency matrix of the functional directed graph $G_h$ i.e.
+\[
+A_{h}[u,v]=\begin{cases}
+\begin{array}{cc}
+1 & \text{ if }v=h(u)\\
+0 & \text{otherwise}
+\end{array}, & \forall\,(u,v)\in\mathbb{Z}_{n}\times\mathbb{Z}_{n}\end{cases}.
+\]
+Observe that signed incidence matrices $(A_{\text{id}}-A_{f})$ and $(A_{\text{id}}-A_{f})$ of $G_f$ and $G_g$ respectively are both in Row-Echelon form. Induced edge binomials $x_i-x_{f(i)}$ and $x_i-x_{g(i)}$ correspond to the $i$-th entry of $(A_{\text{id}}-A_{f})\mathbf{x}$ and $(A_{\text{id}}-A_{g})\mathbf{x}$ respectively. Given that $G_f$ is a functional tree, for each one of the ${n \choose 2}$ vertex pair $(i,\,j)$ where $0\le i < j <n$, there exist a unique $\mathbf{v}_{i,j}\in\{-1,0,1\}^{n\times1}$ such that
+\[
+(x_{j}-x_{i})=\mathbf{v}_{i,j}^{\top}\cdot (A_{\text{id}}-A_{f})\cdot\mathbf{x}.
+\]
+By introducing a distinct variable $y_{i,j}$ for each one of the ${n \choose 2}$ vertex pair $(i,\,j)$ where $0\le i < j <n$ we subsequently make use the equality
+\[
+y_{i,j}\,(x_{j}-x_{i})=(y_{i,j}\mathbf{v}_{i,j})^{\top}\cdot(A_{\text{id}}-A_{f})\cdot\mathbf{x}.
+\]
+in expressing the multiple of the vertex Vandermonde factor
+\[
+\prod_{0\le i<j<n}y_{i,j}\,(x_{j}-x_{i})=\prod_{0\le i<j<n}\big((y_{i,j}\mathbf{v}_{i,j})^{\top}\cdot(A_{\text{id}}-A_{f})\cdot\mathbf{x}\big).
+\]
+Similarly the absolute induced edge label Vandermonde factor is expressed by
+\[
+\prod_{0\le u<v<n}\bigg(\prod_{t\in\mathbb{Z}_{2}}\big((x_{f(v)}-x_{v})+(-1)^{t}(x_{f(u)}-x_{u})\big)\bigg)=\prod_{0\le i<j<n}\,\prod_{t\in\mathbb{Z}_{2}}\bigg(\big(A_{\text{id}}[:,j]\cdot(A_{\text{id}}-A_{f})+(-1)^{t}A_{\text{id}}[:,i]\cdot(A_{\text{id}}-A_{f})\big)\cdot\mathbf{x}\bigg).
+\]
+Let
+\[
+\mathcal{P}_{f}(\mathbf{x},Y)\coloneq
+\]
+\[
+\prod_{0\le i<j<n}\big((y_{i,j}\mathbf{v}_{i,j})^{\top}\cdot(A_{\text{id}}-A_{f})\cdot\mathbf{x}\big)\,\mathcal{S}(x_{0},\ldots,x_{n-1})\,\prod_{0\le i<j<n}\,\prod_{t\in\mathbb{Z}_{2}}\bigg(\big(A_{\text{id}}[:,j]\cdot(A_{\text{id}}-A_{f})+(-1)^{t}A_{\text{id}}[:,i]\cdot(A_{\text{id}}-A_{f})\big)\cdot\mathbf{x}\bigg).
+\]
+We bypass ring homomorphisms from $\mathbb{Q}[x_0,\ldots , x_{n-1}]$ to the quotient ring $\nicefrac{\mathbb{Q}[x_{0},\ldots,x_{n-1}]}{\text{Ideal generated by }\big\{\underset{j\in\mathbb{Z}_{p}}{\prod}(x_{i}-j):i\in\mathbb{Z}_{n}\big\}}$ in our analysis by switching the ground field from $\mathbb{Q}$ to the Galois field of order $p$. More precisely we work over the ring $(\nicefrac{\mathbb{Z}}{p\mathbb{Z}})[x_{0},\ldots,x_{n-1}]$ instead of $\mathbb{Q}[x_{0},\ldots,x_{n-1}]$. Over the said ring the polynomial $\mathcal{P}_f(\mathbf{x})$ is indistinguishable from $\overline{\mathcal{P}_{f}}(\mathbf{x})$ in \ref{eq:new-graceful-evaluation}. In order for variables to be consistently treated by our proposed linear transformation, we re-express the polynomial $\mathcal{P}_{f}(\mathbf{x},Y)$ by replacing the factor $\mathcal{S}(x_{0},\ldots,x_{n-1})$
+with an expression featuring instead
+\[
+\mathcal{S}_{r}(x_{0},\ldots,x_{r-1},x_{r},x_{r+1},\ldots,x_{n-1},Y)\coloneq\prod_{i<r}\bigg(\prod_{j\in\mathbb{Z}_{p}\backslash\mathbb{Z}_{n}}\big(-y_{i,r}\,(x_{r}-x_{i})-j\,y_{i,r}\big)\bigg)\prod_{i>r}\bigg(\prod_{j\in\mathbb{Z}_{p}\backslash\mathbb{Z}_{n}}\big(y_{r,i}\,(x_{i}-x_{r})-j\,y_{r,i}\big)\bigg),
+\]
+for all $r\in \mathbb{Z}_n$. In other words
+\[
+\mathcal{S}_{r}(x_{0},\ldots,x_{r-1},x_{r},x_{r+1},\ldots,x_{n-1},Y)=
+\]
+\[
+\prod_{i<r}\bigg(\prod_{j\in\mathbb{Z}_{p}\backslash\mathbb{Z}_{n}}\big(-(y_{i,r}\mathbf{v}_{i,r})^{\top}\cdot(A_{\text{id}}-A_{f})\cdot\left(\begin{array}{c}
+x_{0}\\
+\vdots\\
+x_{r-1}\\
+x_{r}\\
+x_{r+1}\\
+\vdots\\
+x_{n-1}
+\end{array}\right)-j\,y_{i,r}\big)\bigg)\prod_{i>r}\bigg(\prod_{j\in\mathbb{Z}_{p}\backslash\mathbb{Z}_{n}}\big((y_{r,i}\mathbf{v}_{r,i})^{\top}\cdot(A_{\text{id}}-A_{f})\cdot\left(\begin{array}{c}
+x_{0}\\
+\vdots\\
+x_{r-1}\\
+x_{r}\\
+x_{r+1}\\
+\vdots\\
+x_{n-1}
+\end{array}\right)-j\,y_{r,i}\big)\bigg)
+\]
+Over the chosen ring the following equality holds
+\[
+\mathcal{P}_{f}(\mathbf{x},Y)=\sum_{r\in\mathbb{Z}_{n}}\mathcal{P}_{f}(\left(\begin{array}{c}
+x_{0}\\
+\vdots\\
+x_{r-1}\\
+0\\
+x_{r+1}\\
+\vdots\\
+x_{n-1}
+\end{array}\right),Y)
+\]
+\[
+\implies \mathcal{P}_{f}(\mathbf{x},Y)=\sum_{r\in\mathbb{Z}_{n}}\prod_{0\le i<j<n}\big((y_{i,j}\mathbf{v}_{i,j})^{\top}\cdot(A_{\text{id}}-A_{f})\cdot\left(\begin{array}{c}
+x_{0}\\
+\vdots\\
+x_{r-1}\\
+0\\
+x_{r+1}\\
+\vdots\\
+x_{n-1}
+\end{array}\right)\big)\,\mathcal{S}_{r}(x_{0},\ldots,x_{r-1},0,x_{r+1},\ldots,x_{n-1},Y)\,\times
+\]
+\[
+\prod_{0\le i<j<n}\bigg(\prod_{t\in\mathbb{Z}_{2}}\big(A_{\text{id}}[:,j]\cdot(A_{\text{id}}-A_{f})+(-1)^{t}A_{\text{id}}[:,i]\cdot(A_{\text{id}}-A_{f})\big)\cdot\left(\begin{array}{c}
+x_{0}\\
+\vdots\\
+x_{r-1}\\
+0\\
+x_{r+1}\\
+\vdots\\
+x_{n-1}
+\end{array}\right)\bigg).
+\]
+Thus we have expressed $\mathcal{P}_{f}(\mathbf{x},Y)$ as a polynomial in the entries of $Y$ as well as the ${n \choose 2}$ binomials $x_j-x_i$ where $0\le i<j<n$. Albeit the factor $\mathcal{S}_r$ features binomials $x_r-x_i$ when $i<r$ as well as binomials $x_i-x_r$ when $r<i$ where the variable $x_r$ is evaluated to zero. 
 
-By construction, the polynomial
-\begin{equation}\label{eq:Pf_broken}
-\begin{array}{c}
-P_{f}(\mathbf{x})=\underset{0\le i<j<n-1}{\prod}(x_{j}-x_{i})\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\times\\[10pt]
-\underset{u\in\mathbb{Z}_{n-1}}{\prod}(x_{n-1}-x_{u})\big((x_{f(n-1)}-x_{n-1})^{2}-(x_{f(u)}-x_{u})^{2}\big).\\[10pt]
-\end{array}
-\end{equation}
-differs only slightly from
-\begin{equation}\label{eq:Pg_broken}
-\begin{array}{c}
-P_{g}(\mathbf{x})=\underset{0\le i<j<n-1}{\prod}(x_{j}-x_{i})\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\times\\[10pt]
-\underset{u\in\mathbb{Z}_{n-1}}{\prod}(x_{n-1}-x_{u})\big((x_{f^{(2)}(n-1)}-x_{n-1})^{2}-(x_{f(u)}-x_{u})^{2}\big).\\[10pt]
-\end{array}
-\end{equation}
-Assume for the sake of establishing a contradiction that for some choice of function $f$ subject to the premise above $P_{g}\not\equiv0$ and $P_{f}\equiv0$.
-We setup a variable \emph{telescoping} within each induced edge label binomial $(x_{f^{\left(2\right)}\left(v\right)}-x_{v})$
-where $v\in S$
-(i.e. induced edge binomials of edges outgoing from the subset of vertices where $f$ is iterated) as follows:
+Observe that the set of of Row linear combinations
 \[
-\begin{array}{c}
-\underbrace{{\color{blue}(}x_{f^{(2)}(n-1)}-x_{n-1}{\color{red})}}\\
-x_{n-1}\longrightarrow x_{f^{(2)}(n-1)}
-\end{array}\begin{array}{c}
-=\\
-\\
-\end{array}\begin{array}{c}
-\underbrace{{\color{red}(x_{f(n-1)}}-x_{n-1}{\color{red})}}\\
-x_{n-1}\longrightarrow{\color{red}x_{f(n-1)}}
-\end{array}\begin{array}{c}
-+\\
-\\
-\end{array}\begin{array}{c}
-\underbrace{{\color{blue}(}x_{f^{(2)}(v)}{\color{blue}-x_{f(n-1)}}{\color{blue})}}\\
-{\color{blue}x_{f(n-1)}}\longrightarrow x_{f^{(2)}(n-1)}
-\end{array}.
+\text{Row}_{f(0)}+\text{Row}_{i}\longrightarrow\text{Row}_{i},\ \forall\:i\in f^{-1}\big(\{f(0)\}\big).
 \]
-We start by breaking the symmetry among chromatic variables to distinguish more clearly distinct canceling partners and formally define the transpositions which generate the $\Theta$-involution. We rewrite the telescoping setup as follows
+convertes the incidence matrix $A_{\text{id}}-A_{f}$ to the incidence matrix $A_{\text{id}}-A_{g}$.
+These row operations are in turn expressed in terms of left elementary matrix action as follows
 \[
-\begin{array}{c}
-P_{g}(\mathbf{x})=V(\mathbf{x})\underset{0\le i<j<n-1}{\prod}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\times\\[10pt]
-\underset{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}{\prod}\big((x_{f^{(2)}(n-1)}{\color{blue}-x_{u,t,f(n-1)}}{\color{blue})}+{\color{red}(x_{u,t,f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big).\\[10pt]
-\end{array}
+\bigg(\prod_{i\in f^{-1}\big(\{f(0)\}\big)}(A_{\text{id}}+A_{\text{id}}[:,i]\cdot A_{\text{id}}[f(0),:])\bigg)\cdot(A_{\text{id}}-A_{f})=(A_{\text{id}}-A_{g}).
 \]
-The telescoping setup introduces  the $2(n-1)$ pair of canceling blue red variables:
+Consider the invertible linear transformation which effects simultaneous maps
 \[
-\bigg\{({\color{blue}-x_{u,t,f(n-1)}},{\color{red}x_{u,t,f(n-1)}}):\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}\bigg\}
+\mathbf{x}\mapsto\bigg(\prod_{i\in f^{-1}\big(\{f(0)\}\big)}(A_{\text{id}}+A_{\text{id}}[:,i]\cdot A_{\text{id}}[f(0),:])\bigg)\cdot\mathbf{x}\text{ and }y_{i,j}\mathbf{v}_{i,j}^{\top}\mapsto y_{i,j}\mathbf{v}_{i,j}^{\top}\cdot\bigg(\prod_{i\in f^{-1}\big(\{f(0)\}\big)}(A_{\text{id}}-A_{\text{id}}[:,i]\cdot A_{\text{id}}[f(0),:])\bigg)^{\top}.
 \]
-into the expression of $P_g$. Invoking the multibinomial identity in the telescoping setup above yields a multibinomial expansion of $P_{g}$ of the form
+In other words the vector
 \[
-P_{g}(\mathbf{x})=V(\mathbf{x})\underset{0\le i<j<n-1}{\prod}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\left[\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}(x_{u,t,f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)\right.+
+\left(\begin{array}{c}
+\mathbf{x}\\
+y_{0,1}\mathbf{v}_{0,1}\\
+\vdots\\
+y_{i,j}\mathbf{v}_{i,j}\\
+\vdots\\
+y_{n-2,n-1}\mathbf{v}_{n-2,n-1}
+\end{array}\right)
 \]
+is mapped to
 \[
-\left.\sum_{\substack{s_{ut}\in\{0,1\}\\
-0=\prod_{u,t}s_{ut}
-}
-}\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}(x_{u,t,f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)^{s_{ut}}\,(x_{f^{(2)}(n-1)}{\color{blue}-x_{u,t,f(n-1)}}{\color{blue})}^{1-s_{ut}}\right],
+\left(\big(\prod_{i\in f^{-1}\big(\{f(0)\}\big)}(A_{\text{id}}+A_{\text{id}}[:,i]\cdot A_{\text{id}}[f(0),:])\big)\oplus\bigg(I_{{n \choose 2}}\otimes\big(\prod_{i\in f^{-1}\big(\{f(0)\}\big)}(A_{\text{id}}-A_{\text{id}}[:,i]\cdot A_{\text{id}}[f(0),:])\big)^{\top}\bigg)\right)\cdot\left(\begin{array}{c}
+\mathbf{x}\\
+y_{0,1}\mathbf{v}_{0,1}\\
+\vdots\\
+y_{i,j}\mathbf{v}_{i,j}\\
+\vdots\\
+y_{n-2,n-1}\mathbf{v}_{n-2,n-1}
+\end{array}\right)
 \]
-which features $4^{(n-1)}$ chromatic multibinomial summands. Each chromatic multibinomial summand is associated with a choice of $s_{ut}\in\{0,1\}$ for each $(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}$ and is of the form
+maps $\mathcal{P}_{f}(\mathbf{x},Y)$ to $\mathcal{P}_{g}(\mathbf{x},Y)$ by the same token the inverse matrix to the one described in the action above maps  $\mathcal{P}_{g}(\mathbf{x},Y)$ to $\mathcal{P}_{f}(\mathbf{x},Y)$ in the ring $(\nicefrac{\mathbb{Z}}{p\mathbb{Z}})[x_{0},\ldots,x_{n-1},y_{0,1},\ldots ,y_{n-2,\,n-1}]$. Recall such a maps yield ring isomorphisms. Thus such an isomorphism can not map a non vanishing polynomial in the ring to an identically vanishing polynomial in the same ring. By which if $\mathcal{P}_{g}(\mathbf{x},Y)$ admits a non-vanishing point for some assignment of $\mathbf{x} \in (\nicefrac{\mathbb{Z}}{p\mathbb{Z}})^{n\times 1}$ then $\mathcal{P}_{f}(\mathbf{x},Y)$ also admits a non-vanishing point for some assignment of $\mathbf{x} \in (\nicefrac{\mathbb{Z}}{p\mathbb{Z}})^{n\times 1}$ which yields in turn
 \[
-\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}(x_{u,t,f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)^{s_{ut}}\,(x_{f^{(2)}(n-1)}{\color{blue}-x_{u,t,f(n-1)}}{\color{blue})}^{1-s_{ut}}
+\big(P_{g}(\mathbf{x})\not\equiv0\mod\big\{\underset{j\in\mathbb{Z}_{n}}{\prod}(x_{i}-j):i\in\mathbb{Z}_{n}\big\}\big)\implies\big(P_{f}(\mathbf{x})\not\equiv0\mod\big\{\underset{j\in\mathbb{Z}_{n}}{\prod}(x_{i}-j):i\in\mathbb{Z}_{n}\big\}\big)
 \]
-In both expressions of $P_{g}$ above (which feature blue and red variables), chromatic variables cancel each other out by construction. Thus evaluations of chromatic variables play no role in evaluations of $P_{g}$ overall.
-Consider the Abelian permutation group $\mathcal{G}$ of order $4^{(n-1)}$ generated by the $2(n-1)$ disjoint transpositions:
-\[
-\begin{array}{ccccc}
-(x_{f^{(2)}(n-1)}{\color{blue}-x_{u,t,f(n-1)}}{\color{blue})} & \begin{array}{c}
-{\color{red}\rightarrow}\\
-{\color{blue}\leftarrow}
-\end{array} & {\color{red}(x_{u,t,f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u}) &  & \forall\;(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}.\end{array}
-\]
-Each transposition exchanges a distinct occurrence of a “blue” binomial (so named because the binomial features a distinct blue variable ${\color{blue}-x_{u,t,f(n-1)}})$ with its corresponding complementary “red” quatrinomial partner (so named because the quatrinomial features the corresponding distinct canceling partner variable ${\color{red}x_{u,t,f(n-1)}})$ and vice versa. This group acts upon expressions in the algebra $\mathcal{A}$ generated by arbitrary sums and products of blue binomials, red quatrinomials in the set
-\[
-\bigg\{(x_{f^{(2)}(n-1)}{\color{blue}-x_{u,t,f(n-1)}}{\color{blue})},\ {\color{red}(x_{u,t,f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\,:\,(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}\bigg\}.
-\]
-Note that both expressions of $P_{g}$ above which feature blue and red variables lie in $\mathcal{A}$.
- Let $\Theta-involution$ denote the special member of $\mathcal{G}$ induced by enacting all $2(n-1)$ transpositions
- \[
- \begin{array}{ccccc}
-(x_{f^{(2)}(n-1)}{\color{blue}-x_{u,t,f(n-1)}}{\color{blue})} & \begin{array}{c}
-{\color{red}\rightarrow}\\
-{\color{blue}\leftarrow}
-\end{array} & {\color{red}(x_{u,t,f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u}) &  & \forall\;(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}.\end{array}
- \]
-  Observe that $\mathcal{G}$ acts transitively on the $4^{(n-1)}$ chromatic multibinomial summands featured in the multibinomial expansion of $P_{g}$.
-
-  For the purposes of the argument we restrict chromatic variables via assignments prescribed for all $(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}$ by
-  \[
-  {\color{red}x_{u,t,f(n-1)}}={\color{red}x_{f(n-1)}}\;\text{ and }\;{\color{blue}x_{u,t,f(n-1)}}={\color{blue}x_{f(n-1)}}.
-  \]
-  In the present setting the $2(n-1)$ transpositions which induce the $\Theta$-involution become
-  \[
-  \begin{array}{ccccc}
-(x_{f^{(2)}(n-1)}{\color{blue}-x_{f(n-1)}}{\color{blue})} & \begin{array}{c}
-{\color{red}\rightarrow}\\
-{\color{blue}\leftarrow}
-\end{array} & {\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u}) &  & \forall\:(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}\end{array}.
-  \]
-  The ensuing telescoping setup and multibinomial expansion of $P_{g}$ are respectively
-  \[
-  \begin{array}{c}
-P_{g}(\mathbf{x})=V(\mathbf{x})\underset{0\le i<j<n-1}{\prod}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\times\\[10pt]
-\underset{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}{\prod}\big((x_{f^{(2)}(n-1)}{\color{blue}-x_{f(n-1)}}{\color{blue})}+{\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)\\[10pt]
-\end{array}
-  \]
-and
-\[
-P_{g}(\mathbf{x})=V(\mathbf{x})\underset{0\le i<j<n-1}{\prod}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\left[\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)\right.+
-\]
-\[
-\left.\sum_{\substack{s_{ut}\in\{0,1\}\\
-0=\prod_{u,t}s_{ut}
-}
-}\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)^{s_{ut}}\,(x_{f^{(2)}(n-1)}{\color{blue}-x_{f(n-1)}}{\color{blue})}^{1-s_{ut}}\right].
-\]
-We now proceed to describe the \emph{chromatic argument}.
-Let $R_{f,g}$ denote the polynomial expression which results from the removal of the monochromatic red summand from the multibinomial expansion of $P_{g}$. Namely
-\[
-\begin{array}{c}
-R_{f,g}(\mathbf{x})=V(\mathbf{x})\underset{0\le i<j<n-1}{\prod}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\times\\[10pt]
-\underset{\substack{s_{ut}\in\{0,1\}\\
-0=\prod_{u,t}s_{ut}
-}
-}{\sum}\underset{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}{\prod}\big({\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)^{s_{ut}}\,(x_{f^{(2)}(n-1)}{\color{blue}-x_{f(n-1)}}{\color{blue})}^{1-s_{ut}}.\\[10pt]
-\end{array}
-\]
-By construction the expression of $R_{f,g}$ immediately above lies in $\mathcal{A}$ and is not fixed by the $\Theta$-involution. Indeed the $\Theta$-involution maps $R_{f,g}$ to the polynomial which results from the removal of the monochromatic blue summand from the multibinomial expansion of $P_{g}$. More precisely, the $\Theta$-involution maps $R_{f,g}$ to the polynomial expression
-\[
-V(\mathbf{x})\underset{0\le i<j<n-1}{\prod}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\left[\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)\right.+
-\]
-\[
-\left.\sum_{\substack{s_{ut}\in\{0,1\}\\
-(\underset{u,t}{\prod}s_{ut})=0\ne(\underset{u,t}{\sum}s_{ut})
-}
-}\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)^{s_{ut}}\,(x_{f^{(2)}(n-1)}{\color{blue}-x_{f(n-1)}}{\color{blue})}^{1-s_{ut}}\right].
-\]
-Consequently chromatic variables no longer cancel each other out in the expression of $R_{f,g}$ but possibly cancel out in $\overline{R}_{f,g}$. We show that this is not the case.
-By contrast, on the multibinomial expansion of $P_{g}$, the $\Theta$-involution transposes the unique monochromatic red summand
-\[
-{\color{red}P_{f}(\mathbf{x})}=V(\mathbf{x})\underset{0\le i<j<n-1}{\prod}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}\big({\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big),
-\]
-with the unique monochromatic blue summand
-\[
-V(\mathbf{x})\underset{0\le i<j<n-1}{\prod}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}(x_{f^{(2)}(n-1)}{\color{blue}-x_{f(n-1)}}{\color{blue})}.
-\]
-Furthermore the $\Theta$-involution transposes each multibinomial bichromatic summand of the form
-\[
-V(\mathbf{x})\underset{0\le i<j<n-1}{\prod}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)^{s_{ut}}(x_{f^{(2)}(n-1)}{\color{blue}-x_{f(n-1)}}{\color{blue})}^{1-s_{ut}},
-\]
-with the corresponding complementary multibinomial bichromatic summand
-\[
-V(\mathbf{x})\underset{0\le i<j<n-1}{\prod}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})\big)^{1-s_{u,t}}\,(x_{f^{(2)}(n-1)}{\color{blue}-x_{f(n-1)}}{\color{blue})}^{s_{ut}},
-\]
-where
-\[
-s_{ut}\in\{0,1\}\text{ where }(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}\text{ and }\bigg(\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}s_{ut}\bigg)=0\ne\bigg(\sum_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}s_{ut}\bigg).
-\]
-We now describe the $\Theta$-induced action multibinomial expansions of $\overline{P}_{g}$ and $\overline{R}_{f,g}$ expressed with respect to the Lagrange basis. We start from congruence identities
-\[
-\overline{P}_{g}(\mathbf{x})\equiv
-\]
-\[
-\sum_{\sigma\in\text{S}_{n}}\bigg(V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)L_{\sigma}\bigg)\left[\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\bigg(\big({\color{red}\sigma f(n-1)}-\sigma(n-1)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\big){\color{red}L_{\sigma}}\bigg)\right.+
-\]
-\[
-\left.\sum_{\substack{s_{ut}\in\{0,1\}\\
-0=\prod_{u,t}s_{ut}
-}
-}\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\bigg(\big({\color{red}\sigma f(n-1)}-\sigma(n-1)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\big)\,{\color{red}L_{\sigma}}\bigg)^{s_{ut}}\bigg(\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big){\color{blue}L_{\sigma}}\bigg)^{1-s_{ut}}\right].
-\]
-and
-\[
-\overline{R}_{f,g}(\mathbf{x})\equiv\sum_{\sigma\in\text{S}_{n}}\bigg(V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\,L_{\sigma}\bigg)\times
-\]
-\[
-\left[\sum_{\substack{s_{ut}\in\{0,1\}\\
-0=\prod_{u,t}s_{ut}
-}
-}\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\bigg({\color{red}\sigma f(n-1)}-\sigma(n-1)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\big)\,{\color{red}L_{\sigma}}\bigg)^{s_{ut}}\bigg(\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big)\,{\color{blue}L_{\sigma}}\bigg)^{1-s_{ut}}\right].
-\]
-Observe that transpositions
-\[
-\begin{array}{ccccc}
-(x_{f^{(2)}(n-1)}{\color{blue}-x_{u,t,f(n-1)}}{\color{blue})} & \begin{array}{c}
-{\color{red}\rightarrow}\\
-{\color{blue}\leftarrow}
-\end{array} & {\color{red}(x_{u,t,f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u}) &  & \forall\;(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\},\end{array}
-\]
-induce an action on scaled Lagrange basis summand prescibed for each permuation $\sigma\in\text{S}_{n}$ and $(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}$
-\[
-\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}{\color{blue}\big)}\,{\color{blue}L_{\sigma}}(x_{0},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1})\begin{array}{c}
-{\color{red}\rightarrow}\\
-{\color{blue}\leftarrow}
-\end{array}{\color{red}\big(}{\color{red}\sigma f(n-1)}-\sigma(n-1)\big)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\big)\,{\color{red}L_{\sigma}}(x_{0},\ldots,{\color{red}x_{f(n-1)}},x_{n-1}).
-\]
-since
-\[
-(x_{f^{(2)}(n-1)}{\color{blue}-x_{f(n-1)}}{\color{blue})}=\sum_{h\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}}\big(hf^{(2)}(n-1){\color{blue}-hf(n-1)}\big)\,{\color{blue}L_{h}}(x_{0},x_{1},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1}),
-\]
-as well as the fact that for all $(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}$ we have
-\[
-{\color{red}(x_{f(n-1)}}-x_{n-1})+(-1)^{t}(x_{f(u)}-x_{u})=\sum_{h\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}}\big({\color{red}hf(n-1)}-h(n-1)\big)+(-1)^{t}\big(hf(u)-h(u)\big)\big)\,{\color{red}L_{h}}(x_{0},x_{1},\ldots,{\color{red}x_{f(n-1)}},x_{n-1}).
-\]
-Invoking the orthonormality property of the Lagrange basis as well rules
-\[
-\begin{cases}
-\begin{array}{ccc}
-L_{\sigma}(x_{0},x_{1},\cdots,x_{f(n-1)},x_{n-1})\cdot{\color{red}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{red}x_{f(n-1)}},x_{n-1}) & \text{is replaced by} & {\color{red}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{red}x_{f(n-1)}},x_{n-1}),\\
-\\
-L_{\sigma}(x_{0},x_{1},\cdots,x_{f(n-1)},x_{n-1})\cdot{\color{blue}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1}) & \text{is replaced by} & {\color{blue}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1}),\\
-\\
-L_{\sigma}(x_{0},x_{1},\cdots,x_{f(n-1)},x_{n-1})\cdot{\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}) & \text{is replaced by} & {\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}),\\
-\\
-{\color{red}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{red}x_{f(n-1)}},x_{n-1})\cdot{\color{blue}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1}) & \text{is replaced by} & {\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}),\\
-\\
-{\color{blue}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1})\cdot{\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}) & \text{is replaced by} & {\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}),\\
-\\
-{\color{red}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{red}x_{f(n-1)}},x_{n-1})\cdot{\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}) & \text{is replaced by} & {\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}).\\
-\\
-{\color{red}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{red}x_{f(n-1)}},x_{n-1})\cdot{\color{red}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{red}x_{f(n-1)}},x_{n-1}) & \text{is replaced by} & {\color{red}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{red}x_{f(n-1)}},x_{n-1}),\\
-\\
-{\color{blue}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1})\cdot{\color{blue}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1}) & \text{is replaced by} & {\color{blue}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1}),\\
-\\
-{\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1})\cdot{\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}) & \text{is replaced by} & {\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}),
-\end{array}\end{cases}
-\]
-devised to record occurrences and colors of chromatic variables. By repeated use of these rules, we devise the following multibinomial expansions for $\overline{P}_{g}$ and $\overline{R}_{f,g}$ respectively given by
-\[
-\overline{P}_{g}=\sum_{\sigma\in\text{S}_{n}}V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\left[\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big)\,{\color{blue}L_{\sigma}}+\right.
-\]
-\[
-\sum_{\substack{s_{ut}\in\{0,1\}\\
-(\underset{u,t}{\prod}s_{ut})=0\ne(\underset{u,t}{\sum}s_{ut})
-}
-}\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\bigg({\color{red}\sigma f(n-1)}-\sigma(n-1)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\bigg)^{s_{ut}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big)^{1-s_{ut}}\,{\color{violet}L_{\sigma}}+
-\]
-\[
-\left.\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\bigg({\color{red}\sigma f(n-1)}-\sigma(n-1)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\bigg)\,{\color{red}L_{\sigma}}\right]
-\]
-and
-\[
-\overline{R}_{f,g}=\sum_{\sigma\in\text{S}_{n}}V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\left[\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big)\,{\color{blue}L_{\sigma}}+\right.
-\]
-\[
-\left.\sum_{\substack{s_{ut}\in\{0,1\}\\
-(\underset{u,t}{\prod}s_{ut})=0\ne(\underset{u,t}{\sum}s_{ut})
-}
-}\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\bigg({\color{red}\sigma f(n-1)}-\sigma(n-1)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\bigg)^{s_{ut}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big)^{1-s_{ut}}\,{\color{violet}L_{\sigma}}\right].
-\]
-In both expansion immediately above, for each permutation $\sigma\in\text{S}_{n}$, we partition scaled Lagrange basis according to their colors. For each permutation $\sigma\in\text{S}_{n}$, the expressions features three distinct types of chromatic scaled Lagrange basis summands. The first type is a scaling of a red Lagrange basis element defined as
-\[
-{\color{red}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{red}x_{f(n-1)}},x_{n-1}):=\prod_{\begin{array}{c}
-j_{f(n-1)}\in\mathbb{Z}_{n}\backslash\{\sigma f(n-1)\}\end{array}}\big(\frac{{\color{red}x_{f(n-1)}}-j_{f(n-1)}}{\sigma f(n-1)-j_{f(n-1)}}\big)\,\prod_{i\in\mathbb{Z}_{n}\backslash\{f(n-1)\}}\bigg(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big)\bigg),
-\]
-which is scaled by a corresponding “red” coefficient (so named because it features the evaluation of red variable) of the precise form
-\[
-{\color{red}P_{f}}(\sigma)=V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\bigg({\color{red}\sigma f(n-1)}-\sigma(n-1)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\bigg).
-\]
-The second type of scaled chromatic Lagrange basis summand is a scaling of a blue Lagrange basis element defined as
-\[
-{\color{blue}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1}):=\prod_{\begin{array}{c}
-j_{f(n-1)}\in\mathbb{Z}_{n}\backslash\{\sigma f(n-1)\}\end{array}}\big(\frac{{\color{blue}x_{f(n-1)}}-j_{f(n-1)}}{\sigma f(n-1)-j_{f(n-1)}}\big)\,\prod_{i\in\mathbb{Z}_{n}\backslash\{f(n-1)\}}\bigg(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big)\bigg),
-\]
-which is scaled by the corresponding "blue" coefficient of the precise form
-\[
-V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big).
-\]
-The third and last type of scaled chromatic Lagrange basis summand is a scaling of a purple Lagrange basis element defined as
-\[
-{\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}):=\prod_{\begin{array}{c}
-j_{f(n-1)}\in\mathbb{Z}_{n}\backslash\{\sigma f(n-1)\}\end{array}}\big(\frac{{\color{violet}x_{f(n-1)}}-j_{f(n-1)}}{\sigma f(n-1)-j_{f(n-1)}}\big)\,\prod_{i\in\mathbb{Z}_{n}\backslash\{f(n-1)\}}\bigg(\prod_{j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big)\bigg),
-\]
-which is scaled by the corresponding (red and blue) bichromatic coefficient of the precise form
-\[
-\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}\bigg({\color{red}\sigma f(n-1)}-\sigma(n-1)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\bigg)^{s_{ut}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big)^{1-s_{ut}},
-\]
-such that
-\[
-s_{ut}\in\{0,1\}\text{ where }(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}\text{ and }\bigg(\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}s_{ut}\bigg)=0\ne\bigg(\sum_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}s_{ut}\bigg).
-\]
-For every $\sigma\in\text{S}_{n}$ the involutive action induced by the $\Theta$-involution maps the scaled red Lagrange basis summand
-\[
-{\color{red}P_{f}}(\sigma)\,{\color{red}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{red}x_{f(n-1)}},x_{n-1})
-\]
-to the blue scaled Lagrange basis summand
-\[
-V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}{\color{blue}\big)}\,{\color{blue}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{blue}x_{f(n-1)}},x_{n-1})
-\]
-and vice versa. Furthermore, the involutive action induced by the $\Theta$-involution maps each scaled purple scaled Lagrange basis summand
-\[
-V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\times
-\]
-\[
-\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}\bigg({\color{red}\sigma f(n-1)}-\sigma(n-1)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\bigg)^{s_{ut}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big)^{1-s_{ut}}{\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}),
-\]
-to the corresponding purple scaled Lagrange basis summand
-\[
-V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\times
-\]
-\[
-\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}\bigg({\color{red}\sigma f(n-1)}-\sigma(n-1)+(-1)^{t}\big(\sigma f(u)-\sigma(u)\big)\bigg)^{1-s_{ut}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big)^{s_{ut}}\,{\color{violet}L_{\sigma}}(x_{0},x_{1},\ldots,{\color{violet}x_{f(n-1)}},x_{n-1}),
-\]
-and vice versa. the action of $\Theta$-involution pairs up (by the involution map) purple scaled Lagrange basis summands among themselves while simultaneously pairs up each red scaled Lagrange basis summand with a corresponding blue scaled Lagrange basis summand and vice versa. By our premise, the $\Theta$-involution symmetry holds for $\overline{P}_{g}=\overline{R}_{f,g}$. Given that coefficients of red Lagrange basis summands all vanish i.e. ${\color{red}P_{f}}(\sigma)=0$ for all $\sigma\in\text{S}_{n}$, a necessary condition for the $\Theta$-involution symmetry is that
-\[
-V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big)=0,
-\]
-for all $\sigma\in\text{S}_{n}$. However the premise $P_{g}\not\equiv0$ implies
-\[
-V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\prod_{(u,t)\in\mathbb{Z}_{n-1}\times\{0,1\}}\big(\sigma f^{(2)}(n-1){\color{blue}-\sigma f(n-1)}\big)\ne0,
-\]
-for all $\sigma\in\text{S}_{n}$ subject to $G_{\sigma g\sigma^{-1}}\in\text{GrL}\big(G_{g}\big)$. This fact constitutes an obstruction to the $\Theta$-involution symmetry. Indeed owing to the fact that chromatic variables should play no role in evaluations of $\overline{P}_{g}$ we know that for each permutation $\sigma\in\text{S}_{n}$ the linear combination of chromatic evaluations featured in the coefficients of the corresponding Lagrange basis must vanish.
-However in the multibinomial expansion expressing $\overline{R}_{f,g}$, for each permutation $\sigma\in\text{S}_{n}$ the linear combination of chromatic evaluations featured in coefficients of Lagrange basis elements indexed by $\sigma$ is equal to
-\[
--V(\sigma)\prod_{0\le i<j<n-1}\big((\sigma f(j)-\sigma(j))^{2}-(\sigma f(i)-\sigma(i))^{2}\big)\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}\sigma f(n-1)}\big).
-\]
-We call the quantity immediately above the chromatic defect. The chromatic defect is the left over after cancellation of evaluation of telescoping variables featured in the coefficient of the Lagrange basis indexed by $\sigma$. For we see that for each permutation $\sigma$ the corresponding linear combinations of evaluations of chromatic variables which features as coefficient of the Lagrange basis indexed by $\sigma\in\text{S}_{n}$ is given by
-\[
-0=V(\sigma)\prod_{0\le i<j<n-1}\bigg(\big(\sigma f(j)-\sigma(j)\big)^{2}-\big(\sigma f(i)-\sigma(i)\big)^{2}\bigg)\times
-\]
-\[
-\bigg[\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}\sigma f(n-1)}\big)+\sum_{\substack{s_{ut}\in\{0,1\}\\
-0=\prod_{u,t}s_{ut}
-}
-}\prod_{\begin{array}{c}
-u\in\mathbb{Z}_{n-1}\\
-t\in\{0,1\}
-\end{array}}\big({\color{red}\sigma f(n-1)}\big)^{s_{ut}}\big({\color{blue}-\sigma f(n-1)}\big)^{1-s_{ut}}\bigg].
-\]
-Roughly speaking the chromatic defect quantifies for a given permutation $\sigma\in\text{S}_{n}$ the extent to which the $\Theta$-involution symmetry is broken. For the $\Theta$-involution symmetry to hold the chromatic defect must vanish. However by the complementary involution symmetry there must be at least one permutation $\sigma\in\{\gamma,\,n-1-\gamma\}$ for which $\sigma f(n-1)\ne0$ whenever $G_{\gamma g\gamma^{-1}}\in\text{GrL}\big(G_{g}\big)$. Thus we established that the chromatic defect is non-vanishing which in turn breaks the $\Theta$-involution symmetry and affords a non-trivial role to evaluations of chromatic variables when evaluating $R_{f,g}$ over $\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$. Thus contradicting the premise that $P_{f}\equiv0$. By which we conclude that $P_{g}\not\equiv R_{f,g}\implies P_{f}\not\equiv0$ as claimed. Given that $\mathcal{G}$ acts transitively on chromatic multibinomial summands, a similar argument establishes that none of the chromatic summands is congruent to zero
-
+as claimed.
 \end{proof}
 
-\begin{example} We present a verification of Lemma \ref{lem:composition-lemma} with an example of a path on 5 vertices.
+\begin{example} The figure below illustrates the local iteration described in the proof of Lemma \ref{lem:composition-lemma} with an example of a path on 5 vertices.
 \ \\
 \begin{center}   $G_f: \;$
 \resizebox{!}{3em}{
 \begin{tikzpicture}[>={Stealth[round]}, node distance=2cm and 1cm, every node/.style={circle, draw, minimum size=1cm}]
     % Define vertices
-    \node (v0) at (0, 0) {0};
-    \node (v1) at (3, 0) {1};
+    \node (v0) at (0, 0) {4};
+    \node (v1) at (3, 0) {3};
     \node (v2) at (6, 0) {2};
-    \node (v3) at (9, 0) {3};
-    \node (v4) at (12, 0) {4};
+    \node (v3) at (9, 0) {1};
+    \node (v4) at (12, 0) {0};
     
     % Draw edges
     \draw [->] (v1) to (v0); % Edge 1 -> 0
@@ -1160,11 +924,11 @@ $G_g: \;$
 \resizebox{!}{3em}{
 \begin{tikzpicture}[>={Stealth[round]}, node distance=2cm and 1cm, every node/.style={circle, draw, minimum size=1cm}]
     % Define vertices
-    \node (v0) at (0, 0) {0};
-    \node (v1) at (3, 0) {1};
+    \node (v0) at (0, 0) {4};
+    \node (v1) at (3, 0) {3};
     \node (v2) at (6, 0) {2};
-    \node (v3) at (9, 0) {3};
-    \node (v4) at (12, 0) {4};
+    \node (v3) at (9, 0) {1};
+    \node (v4) at (12, 0) {0};
     
     % Draw edges
     \draw [->] (v1) to (v0); % Edge 1 -> 0
@@ -1175,5 +939,4 @@ $G_g: \;$
 \end{tikzpicture}
 }
 \end{center}
-Run the SageMath script \texttt{ex1434.sage} to verify.
 \end{example}
