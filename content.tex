@@ -418,206 +418,8 @@ thus establishing the desired claim.
 \end{center}
 Run the SageMath script \texttt{ex1325.sage} to verify.
 \end{example}
-\begin{proposition}[Complementary Labeling Symmetry]\label{prop:complementary-labeling-Symmetry}
-%\lean{}
-  %\leanok
-  %\uses{defn:graceful-functional-graphs, defn:graceful-functional-graphs-set, prop:multivariate-quotient-remainder, defn:polynomial-grace-definition, defn:polynomial-congruence, prop:polynomial-grace-certificate, prop:complementary-labeling-Symmetry}
-Let $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ and the remainder of $P_f$ be
-\begin{equation}
-\overline{P}_{f}(\mathbf{x}):=\prod_{v\in\mathbb{Z}_{n}}(v!)^{2}\frac{(n-1+v)!}{(2v)!}\sum_{\begin{array}{c}
-\substack{\sigma\in\text{S}_{n}\\
-\text{s.t.}\\
-\left|\sigma f-\sigma\right|\in\text{S}_{n}
-}
-\end{array}}\text{sgn}(\sigma\left|\sigma f-\sigma\right|)\prod_{\begin{array}{c}
-\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}
-}
-\end{array}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big).
-\end{equation}
-The complementary labeling map $x_{i}\mapsto x_{n-1-i},$ for all $i\in \mathbb{Z}_n$,
-fixes $\overline{P}_f$ up to sign.
-\end{proposition}
-\begin{proof}
-For notational convenience, let $\mathbf{x}_{\varphi}:=(x_{\varphi(0)},\ldots,x_{\varphi(i)},\ldots,x_{\varphi(n-1)})$. Observe that for any permutation $\varphi\in \text{S}_n$, the action of $\varphi$ on $P_f$ yields equalities
- \[
- \begin{array}{ccc}
-P_{f}({\bf x}_{\varphi}) & = & \underset{0\le u<v<n}{\prod}(x_{\varphi(v)}-x_{\varphi(u)})\big((x_{\varphi f(v)}-x_{\varphi(v)})^{2}-(x_{\varphi f(u)}-x_{\varphi(u)})^{2}\big),\\
-\\
- & = & \underset{0\le\varphi^{-1}(i)<\varphi^{-1}(j)<n}{\prod}(x_{j}-x_{i})\big((x_{\varphi f\varphi^{-1}(j)}-x_{j})^{2}-(x_{\varphi f\varphi^{-1}(i)}-x_{i})^{2}\big).
-\end{array}
- \]
- The last equality above features the indexing change of variable $u=\varphi^{-1}(i)$ and $v=\varphi^{-1}(j)$. If $\varphi \in \text{Aut}\left(G_f\right)$ then $P_{f}(x_{\varphi(0)},\ldots,x_{\varphi(n-1)})$ is up to sign equal to $P_{\varphi f\varphi^{-1}}$, in accordance with Definition \ref{defn:polynomial-grace-definition}. Furthermore, by the proof of Proposition \ref{prop:polynomial-grace-certificate}, the action of $\varphi$
-on $P_{f}$ yields the congruence identity
-\[
-P_{f}(\mathbf{x}_{\varphi})\equiv \overline{P}_f(\mathbf{x}_{\varphi}).
-\]
-Hence,
-\begin{align*}\overline{P}_{f}({\bf x}_{\varphi}) & =\prod_{v\in\mathbb{Z}_{n}}\big((v!)^{2}\frac{(n-1+v)!}{(2v)!}\big)\sum_{\begin{array}{c}
-\substack{\sigma\in\text{S}_{n}\\
-\text{s.t.}\\
-\left|\sigma f-\sigma\right|\in\text{S}_{n}
-}
-\end{array}}\text{sgn}(\sigma\left|\sigma f-\sigma\right|)\prod_{\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}
-}
-}\bigg(\frac{x_{\varphi(i)}-j_{i}}{\sigma(i)-j_{i}}\bigg),\\
- & =\text{sgn}(\varphi)\prod_{v\in\mathbb{Z}_{n}}\bigg(\left(v!\right)^{2}\frac{\left(n-1+v\right)!}{\left(2v\right)!}\bigg)\sum_{\begin{array}{c}
-\substack{\sigma\in\text{S}_{n}\\
-\text{s.t.}\\
-\left|\sigma f-\sigma\right|\in\text{S}_{n}
-}
-\end{array}}\text{sgn}(\sigma\left|\sigma f-\sigma\right|\varphi^{-1})\prod_{\substack{u\in\mathbb{Z}_{n}\\
-v_{u}\in\mathbb{Z}_{n}\backslash\{\sigma\varphi^{-1}(u)\}
-}
-}\bigg(\frac{x_{u}-v_{u}}{\sigma\varphi^{-1}(u)-v_{u}}\bigg).
-\end{align*}
-If $\varphi=n-1-\text{id}$, then,
-by the complementary labeling symmetry, we have 
-\[
-G_{\sigma f\sigma^{-1}}\in\text{GrL}\left(G_{f}\right)\Longleftrightarrow G_{\sigma\varphi^{-1}f(\sigma\varphi^{-1})^{-1}}\in\text{GrL}\left(G_{f}\right)
-\]
-Let $\mathfrak{G}$ denote the subrgoup of $\text{S}_n$ whose members are $\big\{\text{id},\ \varphi\big\}$. We write
-\[
-\overline{P}_f(\mathbf{x}_\varphi)=
-\]
-\[
-\prod_{v\in\mathbb{Z}_{n}}\big((v!)^{2}\frac{(n-1+v)!}{(2v)!}\big)\sum_{\begin{array}{c}
-\substack{\sigma\in\nicefrac{\text{S}_{n}}{\mathfrak{G}}\\
-\gamma=\left|\sigma f-\sigma\right|\in\text{S}_{n}
-}
-\end{array}}\text{sgn}(\sigma\gamma)\,\bigg(\text{sgn}(\varphi^{-1})\prod_{\substack{u\in\mathbb{Z}_{n}\\
-v_{u}\in\mathbb{Z}_{n}\backslash\{\sigma(u)\}
-}
-}\big(\frac{x_{u}-v_{u}}{\sigma(u)-v_{u}}\big)+\prod_{\substack{u\in\mathbb{Z}_{n}\\
-v_{u}\in\mathbb{Z}_{n}\backslash\{\sigma\varphi^{-1}(u)\}
-}
-}\big(\frac{x_{u}-v_{u}}{\sigma\varphi^{-1}(u)-v_{u}}\big)\bigg).
-\]
-Similarly, 
-\[
-\overline{P}_f(\mathbf{x})=
-\]
-\[
-\prod_{v\in\mathbb{Z}_{n}}\big((v!)^{2}\frac{(n-1+v)!}{(2v)!}\big)\sum_{\begin{array}{c}
-\substack{\sigma\in\nicefrac{\text{S}_{n}}{\mathfrak{G}}\\
-\gamma=\left|\sigma f-\sigma\right|\in\text{S}_{n}
-}
-\end{array}}\text{sgn}(\sigma\gamma)\,\bigg(\prod_{\begin{array}{c}
-\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma(i)\}
-}
-\end{array}}\big(\frac{x_{i}-j_{i}}{\sigma(i)-j_{i}}\big)+\text{sgn}(\varphi^{-1})\prod_{\begin{array}{c}
-\substack{i\in\mathbb{Z}_{n}\\
-j_{i}\in\mathbb{Z}_{n}\backslash\{\sigma\varphi^{-1}(i)\}
-}
-\end{array}}\big(\frac{x_{i}-j_{i}}{\sigma\varphi^{-1}(i)-j_{i}}\big)\bigg).
-\]
-We conclude that the complementary labeling symmetry yields the equality
-\[
-\overline{P}_f(\mathbf{x})=\text{sgn}(\varphi)\,\overline{P}_f(\mathbf{x}_{\varphi})=\overline{P}_{\varphi f\varphi^{-1}}(\mathbf{x}),
-\]
-thus establishing the desired claim.
-\end{proof}
-\begin{example} We present an example of a path on 5 vertices.
-\ \\
-\begin{center}   
-\resizebox{!}{3em}{
-\begin{tikzpicture}[>={Stealth[round]}, node distance=2cm and 1cm, every node/.style={circle, draw, minimum size=1cm}]
-    % Define vertices
-    \node (v0) at (0, 0) {0};
-    \node (v1) at (3, 0) {1};
-    \node (v2) at (6, 0) {2};
-    \node (v3) at (9, 0) {3};
-    \node (v4) at (12, 0) {4};
-    
-    % Draw edges
-    \draw [->] (v1) to (v0); % Edge 1 -> 0
-    \draw [->] (v2) to (v1); % Edge 2 -> 1
-    \draw [->] (v3) to (v2); % Edge 3 -> 2
-    \draw [->] (v4) to (v3); % Edge 4 -> 3
-    \draw[->] (v0) edge[loop above] (v0); % Self-loop at 0
-\end{tikzpicture}
-}
-\end{center}
-Run the SageMath script \texttt{ex1328.sage} to verify.
-\end{example}
 
 \section{The Composition Lemma}
-
-\begin{lemma}[Transposition Invariance]\label{lem:transposition-invariance}
-  %\lean{}
-  %\leanok
-  %\uses{defn:graceful-functional-graphs, defn:graceful-functional-graphs-set, prop:multivariate-quotient-remainder, defn:polynomial-grace-definition, defn:polynomial-congruence, prop:polynomial-grace-certificate, lem:transposition-invariance, lem:variable-dependency}
-Let $f\in\mathbb{Z}_{n}^{\mathbb{Z}_{n}}$ be such that its functional directed graph $G_{f}$ has at least two sibling leaf nodes, i.e., $G_f$ has vertices $u,v\in\mathbb{Z}_{n}$ such that
-$f^{-1}\big(\{u,v\}\big)=\varnothing$ and $f(u)=f(v)$. If
-the transposition $\tau\in\textrm{S}_{n}$ exchanges $u$ and
-$v$, i.e.,
-\[
-\tau(i)=\begin{cases}
-\begin{array}{cc}
-v & \text{ if }i=u\\
-u & \text{ if }i=v\\
-i & \text{otherwise}
-\end{array} & \forall\,i\in\mathbb{Z}_{n}.\end{cases}
-\]
-Then
-\begin{equation}
-\tau\in\text{Aut}\;(P_{f}({\bf x})),
-\end{equation}
-where $P_f$ is the polynomial certificate of grace as defined in \ref{defn:polynomial-grace-definition}.
-\end{lemma}
-\begin{proof}
-  %\leanok
-  Stated otherwise, the claim asserts that the polynomial
-$P_{f}$ is fixed by a transposition of any pair of variables associated
-with sibling leaf vertices. By construction of $P_{f}\left({\bf x}\right)$,
-the changes in its Vandermonde factors induced by the action of $\tau$
-are as follows:
-\begin{equation}
-    P_{f}(x_{\tau(0)},\ldots,x_{\tau(i)},\ldots,x_{\tau(n-1)})=\prod_{0\le i<j<n}(x_{\tau(j)}-x_{\tau(i)})\prod_{0\le i<j<n}\big((x_{\tau f(j)}-x_{\tau(j)})^{2}-(x_{\tau f(i)}-x_{\tau(i)})^{2}\big).
-\end{equation}
-Note that there is a bijection relating vertex variables to the square of induced edges label binomials prescribed by the map
-\begin{equation}
-x_{i}\mapsto(x_{f(i)}-x_{i})^{2},\quad\forall\:i\in\mathbb{Z}_{n}.
-\end{equation} Hence, the transposition $\tau \in \text{Aut}\left(G_f\right)$ of the leaf nodes induces a transposition
-$\tau$ of the corresponding leaf edges outgoing from the said leaf
-nodes. 
-More precisely, the maps
-\[
-\left(\begin{array}{ccccc}
-x_{0} & ,\ldots, & x_{i} & ,\ldots, & x_{n-1}\\
-\downarrow &  & \downarrow &  & \downarrow\\
-x_{\tau(0)} & ,\ldots, & x_{\tau(i)} & ,\ldots, & x_{\tau(n-1)}
-\end{array}\right)
-\]
-and
-\[
-\left(\begin{array}{ccccc}
-(x_{f(0)}-x_{0})^{2} & ,\ldots, & (x_{f(i)}-x_{i})^{2} & ,\ldots, & (x_{f(n-1)}-x_{n-1})^{2}\\
-\downarrow &  & \downarrow &  & \downarrow\\
-(x_{\tau f(0)}-x_{\tau(0)})^{2} & ,\ldots, & (x_{\tau f(i)}-x_{\tau(i)})^{2} & ,\ldots, & (x_{\tau f(n-1)}-x_{\tau(n-1)})^{2}
-\end{array}\right)
-\]
-prescribe the same permutation $\tau$ of the vertex variables and induced edges label binomials respectively. Observe that
-\[
-P_{f}(x_{\tau(0)},\ldots,x_{\tau(i)},\ldots,x_{\tau(n-1)})=
-\]
-\[
-\left(\prod_{0\le i<j<n}\frac{x_{\tau(j)}-x_{\tau(i)}}{x_{j}-x_{i}}\prod_{0\le i<j<n}(x_{j}-x_{i})\right)\left(\prod_{0\le i<j<n}\frac{(x_{\tau f(j)}-x_{\tau(j)})^{2}-(x_{\tau f(i)}-x_{\tau(i)})^{2}}{(x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}}\prod_{0\le i<j<n}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\right)
-\]
-\[
-=\bigg(\text{sgn}(\tau)\prod_{0\le i<j<n}(x_{j}-x_{i})\bigg)\bigg(\text{sgn}(\tau)\prod_{0\le i<j<n}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\bigg)
-\]
-\[
-=\bigg((-1)\prod_{0\le i<j<n}(x_{j}-x_{i})\bigg)\bigg((-1)\prod_{0\le i<j<n}\big((x_{f(j)}-x_{j})^{2}-(x_{f(i)}-x_{i})^{2}\big)\bigg)
-\]
-\begin{equation}
-\implies P_{f}(x_{\tau(0)},\ldots,x_{\tau(n-1)})=P_{f}(x_{0},\ldots,x_{n-1}),
-\end{equation}
-thus establishing the desired claim.
-
-\end{proof}
 
 \begin{prop}[Composition Inequality]\label{prop:composition-lemma-ineq}
   %\lean{}
@@ -768,7 +570,7 @@ A_{h}[u,v]=\begin{cases}
 0 & \text{otherwise}
 \end{array}, & \forall\,(u,v)\in\mathbb{Z}_{n}\times\mathbb{Z}_{n}\end{cases}.
 \]
-Observe that signed incidence matrices $(A_{\text{id}}-A_{f})$ and $(A_{\text{id}}-A_{f})$ of $G_f$ and $G_g$ respectively are both in Row-Echelon form. Induced edge binomials $x_i-x_{f(i)}$ and $x_i-x_{g(i)}$ correspond to the $i$-th entry of $(A_{\text{id}}-A_{f})\mathbf{x}$ and $(A_{\text{id}}-A_{g})\mathbf{x}$ respectively. Given that $G_f$ is a functional tree, for each one of the ${n \choose 2}$ vertex pair $(i,\,j)$ where $0\le i < j <n$, there exist a unique $\mathbf{v}_{i,j}\in\{-1,0,1\}^{n\times1}$ such that
+Observe that signed incidence matrices $(A_{\text{id}}-A_{f})$ and $(A_{\text{id}}-A_{f})$ of $G_f$ and $G_g$ respectively are both in Row-Echelon form. Induced edge label binomials $x_i-x_{f(i)}$ and $x_i-x_{g(i)}$ correspond to the $i$-th entry of $(A_{\text{id}}-A_{f})\cdot \mathbf{x}$ and $(A_{\text{id}}-A_{g})\cdot \mathbf{x}$ respectively. Given that $G_f$ is a functional tree, for each one of the ${n \choose 2}$ vertex pair $(i,\,j)$ where $0\le i < j <n$, there exist a unique $\mathbf{v}_{i,j}\in\{-1,0,1\}^{n\times1}$ such that
 \[
 (x_{j}-x_{i})=\mathbf{v}_{i,j}^{\top}\cdot (A_{\text{id}}-A_{f})\cdot\mathbf{x}.
 \]
@@ -843,7 +645,7 @@ x_{n-1}
 \end{array}\right)\big)\,\mathcal{S}_{r}(x_{0},\ldots,x_{r-1},0,x_{r+1},\ldots,x_{n-1},Y)\,\times
 \]
 \[
-\prod_{0\le i<j<n}\bigg(\prod_{t\in\mathbb{Z}_{2}}\big(A_{\text{id}}[:,j]\cdot(A_{\text{id}}-A_{f})+(-1)^{t}A_{\text{id}}[:,i]\cdot(A_{\text{id}}-A_{f})\big)\cdot\left(\begin{array}{c}
+\prod_{0\le i<j<n}\,\prod_{t\in\mathbb{Z}_{2}}\bigg(\big(A_{\text{id}}[:,j]\cdot(A_{\text{id}}-A_{f})+(-1)^{t}A_{\text{id}}[:,i]\cdot(A_{\text{id}}-A_{f})\big)\cdot\left(\begin{array}{c}
 x_{0}\\
 \vdots\\
 x_{r-1}\\
@@ -855,7 +657,7 @@ x_{n-1}
 \]
 Thus we have expressed $\mathcal{P}_{f}(\mathbf{x},Y)$ as a polynomial in the entries of $Y$ as well as the ${n \choose 2}$ binomials $x_j-x_i$ where $0\le i<j<n$. Albeit the factor $\mathcal{S}_r$ features binomials $x_r-x_i$ when $i<r$ as well as binomials $x_i-x_r$ when $r<i$ where the variable $x_r$ is evaluated to zero. 
 
-Observe that the set of of Row linear combinations
+Observe that the set of row linear combinations
 \[
 \text{Row}_{f(0)}+\text{Row}_{i}\longrightarrow\text{Row}_{i},\ \forall\:i\in f^{-1}\big(\{f(0)\}\big).
 \]
@@ -866,7 +668,7 @@ These row operations are in turn expressed in terms of left elementary matrix ac
 \]
 Consider the invertible linear transformation which effects simultaneous maps
 \[
-\mathbf{x}\mapsto\bigg(\prod_{i\in f^{-1}\big(\{f(0)\}\big)}(A_{\text{id}}+A_{\text{id}}[:,i]\cdot A_{\text{id}}[f(0),:])\bigg)\cdot\mathbf{x}\text{ and }y_{i,j}\mathbf{v}_{i,j}^{\top}\mapsto y_{i,j}\mathbf{v}_{i,j}^{\top}\cdot\bigg(\prod_{i\in f^{-1}\big(\{f(0)\}\big)}(A_{\text{id}}-A_{\text{id}}[:,i]\cdot A_{\text{id}}[f(0),:])\bigg)^{\top}.
+\mathbf{x}\mapsto\bigg(\prod_{i\in f^{-1}\big(\{f(0)\}\big)}(A_{\text{id}}+A_{\text{id}}[:,i]\cdot A_{\text{id}}[f(0),:])\bigg)\cdot\mathbf{x}\text{ and }y_{i,j}\mathbf{v}_{i,j}^{\top}\mapsto y_{i,j}\mathbf{v}_{i,j}^{\top}\cdot\bigg(\prod_{i\in f^{-1}\big(\{f(0)\}\big)}(A_{\text{id}}-A_{\text{id}}[:,i]\cdot A_{\text{id}}[f(0),:])\bigg).
 \]
 In other words the vector
 \[
